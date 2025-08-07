@@ -17,7 +17,6 @@
 -- Ejemplo para soporte:
 --   UseRecovery = 1, UseDevotion = 1, SuperPassive = 1
 --
--- ADVERTENCIA: Configuraciones incorrectas pueden causar comportamientos erráticos. Lee los comentarios y consulta la guía si tienes dudas.
 --------------------------------------------------------------------------------------------------------------------------------
 
 --[[
@@ -109,4 +108,5 @@ FriendPriority   = 5   -- Prioridad para aliados
 -- 3. Consulta GUIA.txt para más ejemplos y preguntas frecuentes.
 -- 4. Para configuraciones avanzadas, revisa Actor_Presets.lua y Const.lua.
 --
+
 --------------------------------------------------------------------------------------------------------------------------------
