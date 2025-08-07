@@ -72,6 +72,16 @@ end
 
 
 
+function OnOwnerHit(attackerId)
+	ChaseTarget = attackerId
+	if Dt[attackerId] ~= nil then
+		Dt[attackerId][TARGET_ALLIANCE] = ENEMY
+	end
+	if ScreenEnemies then
+		ScreenEnemies[attackerId] = 1000
+	end
+end
+
 ------------- command process  ---------------------
 
 function	OnMOVE_CMD (x,y)
@@ -629,16 +639,12 @@ function	OnFOLLOW_ST ()
 				if (DmgCheckTarget ~= 0) then
 					Attack(MyID,DmgCheckTarget)
 					DmgCheckList[DmgCheckTarget] = nil
-					if (ChaseCheckList == nil and ChaseTarget <= 0) then
-						ChaseTarget = DmgCheckTarget
-					end
+					OnOwnerHit(DmgCheckTarget)
 				end
 				if (DmgCheckTarget2 ~= 0 and MySP >= AtkSkillSp) then
 					SkillObject(MyID,DmgCheckLvl,DmgCheckSkill,DmgCheckTarget2)
 					DmgCheckList[DmgCheckTarget2] = nil
-					if (ChaseCheckList == nil and ChaseTarget <= 0) then
-						ChaseTarget = DmgCheckTarget2
-					end
+					OnOwnerHit(DmgCheckTarget2)
 				end
 ---		
 			else
@@ -1238,16 +1244,12 @@ function	OnMOVE_CMD_ST ()
 				if (DmgCheckTarget ~= 0) then
 					Attack(MyID,DmgCheckTarget)
 					DmgCheckList[DmgCheckTarget] = nil
-					if (ChaseCheckList == nil and ChaseTarget == 0) then
-						ChaseTarget = DmgCheckTarget
-					end
+					OnOwnerHit(DmgCheckTarget)
 				end
 				if (DmgCheckTarget2 ~= 0 and MySP >= AtkSkillSp) then
 					SkillObject(MyID,DmgCheckLvl,DmgCheckSkill,DmgCheckTarget2)
 					DmgCheckList[DmgCheckTarget2] = nil
-					if (ChaseCheckList == nil and ChaseTarget == 0) then
-						ChaseTarget = DmgCheckTarget2
-					end
+					OnOwnerHit(DmgCheckTarget2)
 				end
 			else
 				DmgCheckList = nil
