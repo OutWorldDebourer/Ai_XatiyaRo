@@ -1,5 +1,5 @@
 dofile("./AI_xatiya/Const.lua")
-dofile("./AI_xatiya/Default.lua")
+local Config = dofile("./AI_xatiya/Default.lua")
 dofile("./AI_xatiya/USER_AI/HomConfigCustom.txt")
 dofile("./AI_xatiya/Timeout.txt")
 dofile("./AI_xatiya/SkillList.lua")
