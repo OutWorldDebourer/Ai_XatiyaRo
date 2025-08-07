@@ -95,8 +95,8 @@ MiscWait         = 6   -- Espera general (segundos)
 -- =====================
 -- SECCIÓN: PRIORIDADES
 -- =====================
-OwnerPriority    = 15  -- Prioridad para proteger al dueño
-MercPriority     = 10  -- Prioridad para el mercenario
+OwnerPriority    = 10  -- Prioridad para proteger al dueño
+MercPriority     = 15  -- Prioridad para el mercenario
 HomunPriority    = 7   -- Prioridad para el homúnculo
 FriendPriority   = 5   -- Prioridad para aliados
 

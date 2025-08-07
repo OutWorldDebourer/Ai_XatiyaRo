@@ -228,8 +228,8 @@ ManSkillType     = IGNORETARGET -- [AVANZADO - OBJETIVO HABILIDAD] Tipo de objet
 -- CONFIGURACIÓN POR DEFECTO: Prioriza proteger al mercenario sobre el dueño, ya que el homúnculo puede ser resucitado fácilmente.
 -- VALOR 0: La distancia y el estado de ataque/ser atacado NO afectan la prioridad.
 
-OwnerPriority      = 7    -- [AVANZADO - PRIORIDAD] Prioridad para atacar objetivos que atacan al dueño o que el dueño está atacando.
-MercPriority       = 15    -- [AVANZADO - PRIORIDAD] Prioridad para atacar objetivos que atacan al mercenario o que el mercenario está atacando.
+OwnerPriority      = 10    -- [AVANZADO - PRIORIDAD] Prioridad para atacar objetivos que atacan al dueño o que el dueño está atacando.
+MercPriority       = 20    -- [AVANZADO - PRIORIDAD] Prioridad para atacar objetivos que atacan al mercenario o que el mercenario está atacando.
 HomunPriority      = 0     -- [AVANZADO - PRIORIDAD] Prioridad para atacar objetivos que atacan al homúnculo o que el homúnculo está atacando.
 FriendPriority     = 0     -- [AVANZADO - PRIORIDAD] Prioridad para atacar objetivos que atacan a aliados (limitado a aliados, homúnculos, etc. que están siendo atacados).
 

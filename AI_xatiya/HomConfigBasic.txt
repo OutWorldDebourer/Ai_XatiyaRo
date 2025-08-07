@@ -78,8 +78,8 @@ ManAtkType      = PRIORITYTARGET
 ManSkillAlliance= ENEMY
 ManSkillType    = PRIORITYTARGET
 
-OwnerPriority   = 15 -- Dueño
-MercPriority    = 10 -- Mercenario
+OwnerPriority   = 10 -- Dueño
+MercPriority    = 15 -- Mercenario
 HomunPriority   = 7  -- Homúnculo
 FriendPriority  = 5  -- Aliados atacados
 
