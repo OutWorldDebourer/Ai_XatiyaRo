@@ -3083,10 +3083,13 @@ TraceAI(v.. " position is " ..vX.. "," ..vY.. " Target: " ..vTarget.. " Motion: 
 	--end
 	--qq=GetV(V_SKILLATTACKRANGE,MyID,HFLI_SBR44)
 	--TraceAI("Skillrange is " ..qq)
-	if ( HomunculusTarget ~= HomunculusTargetLast) then
-		TraceAI("HomunculusTarget changed!")
-		HomunculusTargetLast = HomunculusTarget
-	end
+       if ( HomunculusTarget ~= HomunculusTargetLast) then
+               TraceAI("HomunculusTarget changed!")
+               HomunculusTargetLast = HomunculusTarget
+               if (ChaseTarget <= 0 and HomunculusTarget > 0) then
+                       ChaseTarget = HomunculusTarget
+               end
+       end
 	if ( MercenaryTarget ~= MercenaryTargetLast) then
 		TraceAI("MercenaryTarget changed!")
 		MercenaryTargetLast = MercenaryTarget
