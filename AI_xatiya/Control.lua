@@ -83,17 +83,23 @@ function OnOwnerHit(attackerId)
 end
 
 function OnMercenaryHit(attackerId)
-	ChaseTarget = attackerId
-	if Dt[attackerId] ~= nil then
-	Dt[attackerId][TARGET_ALLIANCE] = ENEMY
-	end
-	if ScreenEnemies then
-	ScreenEnemies[attackerId] = 1000
-	end
+        ChaseTarget = attackerId
+        if Dt[attackerId] ~= nil then
+                Dt[attackerId][TARGET_ALLIANCE] = ENEMY
+                if Dt[attackerId][TARGET_TYPE] == IGNORETARGET or Dt[attackerId][TARGET_TYPE] == PASSIVETARGET then
+                        Dt[attackerId][TARGET_TYPE] = PRIORITYTARGET
+                end
+        end
+        if ScreenEnemies then
+                ScreenEnemies[attackerId] = 1000
+        end
 end
 
 if RegisterMercenaryDamageCallback then
-	RegisterMercenaryDamageCallback(OnMercenaryHit)
+        RegisterMercenaryDamageCallback(OnMercenaryHit)
+end
+if RegisterOwnerDamageCallback then
+        RegisterOwnerDamageCallback(OnOwnerHit)
 end
 
 ------------- command process  ---------------------

@@ -77,9 +77,9 @@ Preset[ASSASSIN_CROSS]=EMPBREAKTARGET
 -- MONSTRUOS
 ----------------------------------------------------------------
 
-Preset[1884]=PRIORITYTARGET   --Mavka
-Preset[1883]=IGNORETARGET   --Uzhas
-Preset[1882]=IGNORETARGET   --Baba Yaga
+Preset[1884]=LOWPRIORITYTARGET   --Mavka
+Preset[1883]=PRIORITYTARGET   --Uzhas
+Preset[1882]=PRIORITYTARGET   --Baba Yaga
 Preset[1035]=IGNORETARGET   --hunter fly
 Preset[1139]=IGNORETARGET   --mantis
 Preset[1078]=IGNORETARGET   --red plant
