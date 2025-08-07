@@ -2197,25 +2197,19 @@ function AI(myid)
 				error(" actor " ..v.. " did unknown motion: " ..vMotion.. " contact Pathoth")
 			end
 		end
-		vX, vY = GetV (V_POSITION,v)
-		vDistance = GetDistance(MyX, MyY, vX, vY)
-		vOwnerDistance = GetDistance(OwnerX, OwnerY, vX, vY)
-
-		if (HomunClass ==0) then
-			vMercDistance = vDistance
-			if (HomunX > 0) then
-				vHomunDistance = GetDistance(HomunX,HomunY,vX,vY)
-			else
-				vHomunDistance = 30
-			end
-		else
-			vHomunDistance = vDistance
-			if (MercX > 0) then
-				vMercDistance = GetDistance(MercX,MercY,vX,vY)
-			else
-				vMercDistance = 30
-			end
-		end
+vX, vY = GetV (V_POSITION,v)
+vDistance = GetDistance(MyX, MyY, vX, vY)
+vOwnerDistance = GetDistance(OwnerX, OwnerY, vX, vY)
+if (MercX > 0) then
+vMercDistance = GetDistance(MercX,MercY,vX,vY)
+else
+vMercDistance = 30
+end
+if (HomunX > 0) then
+vHomunDistance = GetDistance(HomunX,HomunY,vX,vY)
+else
+vHomunDistance = 30
+end
 	
 		if (Dt[v]~= nil) then
 			vAlliance = Dt[v][TARGET_ALLIANCE]
@@ -2539,28 +2533,27 @@ TraceAI(v.. " position is " ..vX.. "," ..vY.. " Target: " ..vTarget.. " Motion: 
 				end
 			end
 ------------------------------------------------------------------------------------------------Enemy/Ally alliance analysis
-			if (v > NpcActorNumber) then
-				if (vAlliance == HOMUNCULUS) then
-					if (HomunClass ==0 and vType == 0) then
-						--error("homun detected")
-						MyHomunculus = v
-						HomunculusTargetLast = vTarget
-					end
-					if ( Dt[vTarget] ~= nil ) then
-						Dt[vTarget][TARGET_ALLIANCE] = ENEMY
-					end
-				elseif (vAlliance == MERCENARY) then
-					if (HomunClass ~=0 and vType == 0) then
-						MyMercenary = v
-						MercenaryTargetLast = vTarget
-					end
-					if ( Dt[vTarget] ~= nil ) then
-						Dt[vTarget][TARGET_ALLIANCE] = ENEMY
-					end
-				else
-					Monsters[v] = 1
-				end
-			end
+if (v > NpcActorNumber) then
+if (vAlliance == HOMUNCULUS) then
+if (vType == 0) then
+MyHomunculus = v
+HomunculusTargetLast = vTarget
+end
+if ( Dt[vTarget] ~= nil ) then
+Dt[vTarget][TARGET_ALLIANCE] = ENEMY
+end
+elseif (vAlliance == MERCENARY) then
+if (vType == 0) then
+MyMercenary = v
+MercenaryTargetLast = vTarget
+end
+if ( Dt[vTarget] ~= nil ) then
+Dt[vTarget][TARGET_ALLIANCE] = ENEMY
+end
+else
+Monsters[v] = 1
+end
+end
 			
 			if (vMotion ~= MOTION_SIT and v > 0) then
 				if (vTarget > NpcActorNumber and vEnemyAlliance == NEUTRAL) then

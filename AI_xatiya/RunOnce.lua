@@ -31,13 +31,13 @@ function	GetQuickenSkill()
 		skill=HFLI_FLEET
 		duration = 60000 - (level*5000)
 		sp =20+10*level
-	elseif (HomunClass == AMISTR) then
-		skill=HAMI_BLOODLUST
-		level=AmistrBloodLvl
-		sp=120
-		duration = 60000 +((level -1)* 120000)
-	elseif (MyType==MARCHER03) then
-		level=1
+        elseif (HomunClass == AMISTR) then
+                skill=HAMI_BLOODLUST
+                level=AmistrBloodLvl
+                sp=120
+                duration = 60000 +((level -1)* 120000)
+        elseif (MyType==MARCHER03) then
+                level=1
 	elseif (MyType==MARCHER08) then
 		level=2
 	elseif (MyType==MARCHER10) then
@@ -116,18 +116,16 @@ end
 
 --note that because archer 2 and 7 have two different decloak skills, sight and freezetrap are hardcoded to use when in range.
 function GetDecloakSkill()
-	local skill = 0
-	local level = 0
-	local sp = 0
-	local targetmethod = 0
-	if (HomunClass ~= 0) then
-		skill=0
-	elseif (MyType==MARCHER02) then
-		skill=MA_SHOWER
-		level=2
-		sp=15
-		targetmethod = 2
-	elseif (MyType==MARCHER07) then
+        local skill = 0
+        local level = 0
+        local sp = 0
+        local targetmethod = 0
+        if (MyType==MARCHER02) then
+                skill=MA_SHOWER
+                level=2
+                sp=15
+                targetmethod = 2
+        elseif (MyType==MARCHER07) then
 		skill=MA_SHOWER
 		level=10
 		sp=15
@@ -213,14 +211,14 @@ function GetTrapSkill()
 	local skill = 0
 	local level = 0
 	local sp = 0
-	if (MyType==MARCHER06) then
-		skill=MA_SKIDTRAP
-		level=1
-		sp =27
-	elseif (MyType==MARCHER07) then
-		skill=MA_FREEZINGTRAP
-		level=3
-		sp =10
+        if (MyType==MARCHER06) then
+                skill=MA_SKIDTRAP
+                level=1
+                sp =27
+        elseif (MyType==MARCHER07) then
+                skill=MA_FREEZINGTRAP
+                level=3
+                sp =10
 	elseif (MyType==MARCHER08) then
 		skill=MA_SANDMAN
 		level=3			
@@ -241,8 +239,6 @@ function GetAOESkill()
 	local method = 0
 	local radius = 0
 	local range = 0
-	if (HomunClass ~= 0) then
-		skill=0
 --	elseif (MyType==MARCHER02) then
 --		skill=MA_SHOWER
 --		level=2
@@ -250,7 +246,7 @@ function GetAOESkill()
 --		method=2
 --		radius = 2	
 --		range = 11	
-	elseif (MyType==MARCHER07) then
+	if (MyType==MARCHER07) then
 		skill=MA_SHOWER
 		level=10
 		sp=15
@@ -327,9 +323,7 @@ function GetPushbackSkill()
 	local level = 0
 	local sp = 0
 	range = 3
-	if (HomunClass ~= 0) then
-		skill=0
-	elseif (MyType==MARCHER03) then
+	if (MyType==MARCHER03) then
 		skill=MA_CHARGEARROW
 		level=1
 		sp=15
@@ -462,23 +456,12 @@ function GetAtkSkill()
 	local sp = 0
 	local range = 3
 	local delay = 0
-	if (HomunClass == VANILMIRTH) then
-		skill=HVAN_CAPRICE
-		level=VanCapriceLvl
-		sp=(level*2) +20
-		range = 10
-		delay = 800 + (level * 200)
-	elseif (HomunClass == FILIR) then
-		skill=HFLI_MOON
-		level=FilirMoonLvl
-		sp = level * 4
-		range = 2   --is it supposed to be higher?
-	elseif (MyType==MARCHER01) then
-		skill=MA_DOUBLE
-		level=2
-		sp=12
-		range = 11
-	elseif (MyType==MARCHER05) then
+        if (MyType==MARCHER01) then
+                skill=MA_DOUBLE
+                level=2
+                sp=12
+                range = 11
+        elseif (MyType==MARCHER05) then
 		skill=MA_DOUBLE
 		level=5
 		sp=12
@@ -535,14 +518,33 @@ function GetAtkSkill()
 		skill=MS_BASH
 		level=5
 		sp=8
-	elseif (MyType==MDOPPLEMERC) then
-		skill=MS_BASH
-		level=5
-		sp=8
-	end
-	if (level == 0 ) then
-		skill = 0
-	end
+        elseif (MyType==MDOPPLEMERC) then
+                skill=MS_BASH
+                level=5
+                sp=8
+        end
+        if (HomunClass == VANILMIRTH) then
+                HomAtkSkill=HVAN_CAPRICE
+                HomAtkLevel=VanCapriceLvl
+                HomAtkSp=(HomAtkLevel*2) +20
+                HomAtkRange = 10
+                HomAtkDelay = 800 + (HomAtkLevel * 200)
+        elseif (HomunClass == FILIR) then
+                HomAtkSkill=HFLI_MOON
+                HomAtkLevel=FilirMoonLvl
+                HomAtkSp = HomAtkLevel * 4
+                HomAtkRange = 2   --is it supposed to be higher?
+                HomAtkDelay = 0
+        else
+                HomAtkSkill=0
+                HomAtkLevel=0
+                HomAtkSp=0
+                HomAtkRange=0
+                HomAtkDelay=0
+        end
+        if (level == 0 ) then
+                skill = 0
+        end
 	TraceAI("Atk skill is "..skill.. " Level: " ..level.. " Range: " ..range.. " Sp: " ..sp)
 	return skill,level,range,sp,delay
 end
