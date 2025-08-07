@@ -77,7 +77,7 @@ Preset[ASSASSIN_CROSS]=EMPBREAKTARGET
 -- MONSTRUOS
 ----------------------------------------------------------------
 
-Preset[1884]=LOWPRIORITYTARGET   --Mavka
+Preset[1884]=PRIORITYTARGET      --Mavka (prioridad ajustada para ataques constantes)
 Preset[1883]=PRIORITYTARGET   --Uzhas
 Preset[1882]=PRIORITYTARGET   --Baba Yaga
 Preset[1035]=IGNORETARGET   --hunter fly

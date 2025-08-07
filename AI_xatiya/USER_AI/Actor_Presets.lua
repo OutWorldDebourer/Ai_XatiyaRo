@@ -3,8 +3,8 @@ MyPresets = {
         Name = "Mavka",
         Type = "MONSTER",
         Alliance = "AGGRESSIVE",
-        Priority = 50,
-        ForceTarget = 0,       -- No fuerza que sea objetivo
+        Priority = 100,        -- Prioridad máxima para asegurar enfoque inmediato
+        ForceTarget = 1,       -- Fuerza que sea objetivo preferente
         ForcedTargetOnly = 0,  -- Permite cambiar a otros objetivos
         IgnoreDamage = 0,      -- No ignora daño de Mavka
 
