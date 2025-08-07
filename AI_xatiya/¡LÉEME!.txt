@@ -1,0 +1,40 @@
+================================
+ANTES DE COMENZAR
+PROBLEMAS AL UTILIZAR LA AI
+================================
+
+Si recibes un pop-up indicando problemas con Timeouts.txt y ActorList.txt, simplemente borra el contenido dentro de estos archivos.
+
+Si no se tiene conocimiento de que hace WriteActorInfo, alguna variable o funciones extras, se recomienda dejarlas desactivadas o por defecto.
+
+================================
+THOTH AI
+================================
+
+ThothAI no posee una interfaz, por ende toda configuración se hace mediante los siguientes archivos:
+
+Actor_Presets.txt
+HomConfigBasic.txt
+HomConfigCustom.txt
+MerConfigBasic.txt
+MerConfigCustom.txt
+
+Simplemente se debe abrir cualquiera de estos con un editor de texto y cambiar las variables de acuerdo al usuario. Por defecto, la configuración básica es pasiva, mientras que la configuración custom es agresiva. Puedes verificar tus cambios mediante /hoai o /merai, y utilizando @refresh o Rest y Call Homunculus.
+
+
+"El Homúnculo ha sido activado con la AI Básica"
+Utilizará HomConfigBasic.txt ubicado en la carpeta AI
+
+"El comportamiento del homúnculo ha sido personalizado"
+Utilizará HomConfigCustom.txt ubicado en la carpeta USER_AI
+
+"El mercenario usará la AI básica"
+Utilizará MerConfigBasic.txt ubicado en la carpeta AI
+
+"El mercenario usará la AI personalizada"
+Utilizará MerConfigCustom.txt ubicado en la carpeta USER_AI
+
+
+El archivo Actor_Presets.txt contiene los parámetros que utilizará el homúnculo contra los monstruos o players. Los mercenarios no pueden hacer uso de este a menos que se utilice el homúnculo al mismo tiempo.
+
+Se recomienda leer detenidamente cada archivo de configuración para evitar errores o problemas. Para prevenir cambios irreversibles también se sugiere hacer un respaldo antes de cualquier modificación.

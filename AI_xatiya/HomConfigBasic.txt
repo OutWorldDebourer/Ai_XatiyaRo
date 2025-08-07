@@ -1,0 +1,129 @@
+--------------------------------------------------------------------------------------------------------------------------------
+
+--[[ This file is part of ThothAI.
+
+ThothAI is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or(at your option) any later version.
+
+ThothAI is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with ThothAI.  If not, see <http://www.gnu.org/licenses/>.
+
+]]--
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- ESTE ARCHIVO SOLO HACE EFECTO EN EL HOMÚNCULO CUANDO UTILIZAS /HOAI Y APARECE EL SIGUIENTE MENSAJE EN EL JUEGO --
+
+-- "El Homúnculo ha sido activado con la AI Básica" --
+
+----Variables de configuración----
+
+--Para la mayoría de variables en este archivo, SÍ = 1 y NO = 0. Números diferentes estarán especificados en la descripción.
+--Modifica el nivel de habilidad que utilizará el homúnculo. Si pones 0, o no la tiene, será deshabilitada.
+
+LifAvoidLvl	= 5	--Urgent Escape // Emergency Avoid
+LifHealLvl		= 5	--Touch of Heal // Healing Hands.
+LifChangeLvl	= 3	--Mental Change
+FilirMoveLvl	= 5	--Fleet Move // Flitting
+FilirMoonLvl	= 5	--Moonlight
+FilirFlightLvl	= 5	--Accelerated Flight // Overspeed
+AmistrDefLvl	= 5	--Defense // Amistr Bulwark
+AmistrCstLvl	= 5	--Castling
+AmistrBloodLvl	= 3	--Blood Lust
+VanCapriceLvl	= 5	--Caprice
+
+--Debido al delay entre Urgent Escape y Mental Change, Lif solo las utilizará en conjunto si se presenta Poem of Bragi cerca. Asimismo, Mental Change solo será utilizado cuando se encuentre un monstruo en su rango. Esto también sucede con Blood Lust.
+
+UseDefenseSkill = 1	--Castling, Defense
+UseQuicken		= 1	--Urgent Escape, Fleet Move, Blood Lust	
+VanUseChaotic	= 1	--El nivel de Chaotic Benediction es elegido de forma aleatoria, dependiendo del HP restante del dueño/homúnculo
+LifAlwaysSpeed 	= 1	--Si se habilita, Lif siempre intentará utilizar Urgent Escape. Debido a delays entre habilidades, esto hará imposible que utilice Mental Change a menos que esté con el efecto de Poem of Bragi
+LifAlwaysMental	= 1	--Si se habilita, Lif siempre intentará utilizar Mental Change. Urgent Escape tiene prioridad, así que hará conflicto con su delay si se utiliza en conjunto con la opción anterior
+UseLimitBreak 	= 0	--Uso calculado de SBR44 y Bio Explosion vs Players. SBR44 solo será utilizado en "EMPBREAKTARGET" que ataque el Emperium (Assassin Cross por defecto)
+
+--El contador de Bio Explosion es +1 por cada enemigo confirmado, -2 por cada aliado confirmado. Neutrales y no players son omitidos en el cálculo.
+
+VanExThreshold 	= 5	--Mínimo de players hostiles confirmados en rango antes de usar Bio Explosion
+UseAtkSkills	= 1	--Habilidades de ataque: Caprice y Moonlight
+
+--Habilidades de rescate basados en el HP restante del dueño. Habilidades de rescate son: Castling y Touch of Heal.
+
+UseRescueSkill	= 1	
+RescueHpPercent	= 30	--Porcentaje de HP del dueño antes de utilizar la habilidad de rescate
+
+--La AI inicia en modo Follow y cambia a ella cuando la tecla Standby (definida por el usuario como 'mover homúnculo' en configuración de teclas) es presionada una vez. Modo Move es iniciado cuando le indicas al homúnculo donde moverse.
+
+FollowChaseDown	= 1	--Durante modo Follow, perseguir (Chase) enemigos?
+MoveChaseDown	= 1	--Durante modo Move, perseguir (Chase) enemigos?
+
+--¿Cuántos segundos debe esperar la AI antes de que realice cualquier acción durante un cambio de mapa o respawneo (relog, fly wing, teleport)? Nunca dejar esta variable sobre 3000 (3 segundos).
+
+SpawnWait		= 0 	--3000
+MaxDistance	= 14	--Sobre esta distancia, dejar todo, cambiar a modo Follow y volver al dueño. Si se establece sobre 14, el homúnculo quedará offscreen (fuera del rango del dueño)
+
+--Tener en cuenta que las siguientes configuraciones serán ignoradas cuando el homúnculo haga Kiting (utilizar habilidades de rango y alejarse del enemigo.
+
+FollowDistance 	= 2	--Distancia en Follow cuando se este quieto (Idle) o sin perseguir (Chase)
+FollowMax		= 12	--Distancia máxima durante Follow. Afecta también al perseguir enemigos durante modo Follow.
+MoveRadius		= 7	--Una vez le indiques al homúnculo donde moverse, se moverá esta cantidad de celdas.
+IdleDistance	= 1	--Si utilizas la tecla Standby 3 veces, estando sentado, el homúnculo entrará en estado quieto (Idle) y no hará nada excepto maniobras de emergencia. Esta es la distancia que utilizará durante este estado.
+
+--Cualquier valor excepto "NONE" y "NEUTRAL" cambiará la alianza o tipo. Para una lista de valores, revisar Const.lua
+--Tener en cuenta que fijar un valor incorrecto en un target generará comportamiento errático por parte del homúnculo.
+
+ManAtkAlliance	= ENEMY
+ManAtkType	= PRIORITYTARGET
+
+--Usar una habilidad manualmente en el target lo fijará en la siguiente alianza y tipo, excepto para "NONE" y "NEUTRAL"
+--Habilidades de recuperación son una excepción, fijarán la alianza como "ALLYSTATUS"
+
+ManSkillAlliance= ENEMY
+ManSkillType	= PRIORITYTARGET
+
+--Prioridad para atacar ciertos targets, basado en la distancia, a quien atacan, o por quien sea atacado. Mayor valor = prioridad relativa más alta.
+--Valores y tipo de target definidos por alianza también tendrán efecto en la prioridad.
+--Los valores por defecto harán que el homúnculo intente proteger al mercenario más que a si mismo, ya que el homúnculo puede ser resucitado fácilmente.
+--El valor 0 significa distancia en el mercenario, atacando o siendo atacado no tiene efecto en la prioridad para ellos.
+
+OwnerPriority	= 15	--Dueño
+MercPriority	= 10	--Mercenario
+HomunPriority	= 7	--Homúnculo
+FriendPriority	= 5	--Limitado solo para quienes estén siendo atacados, como aliados, homúnculos, etc
+
+--Si no está especificado, intenta atacar todo lo que pueda. Útil en PvM, puede ser malo o bueno en una sala de PvP llena...
+
+SuperAggro		= 0
+AggroHP		= 0	--Porcentaje de HP del homúnculo antes de volverse agresivo. Reaccionará si es atacado. Fijado en 0 el homúnculo siempre será agresivo.
+AggroSP		= 0	--Porcentaje de SP antes de volverse agresivo
+SuperPassive	= 0	--Anula 'SuperAggro'. Ignora a todos los enemigos.
+AtkDLP		= 0	--Anula 'SuperPassive'. Atacará al "DLPTARGET" intentando saltarse la animación de ataque (comúnmente conocido como 'Dance Attack')
+
+--¿Escribir datos en el ActorList.lua? Esto es útil para guardar la lista de enemigos entre muertes, invocaciones, y compartir datos entre el homúnculo y mercenario.
+--Tener en cuenta que solo 1 cliente puede utilizar esto a la vez o generará errores y el contenido del ActorList.lua deberá ser eliminado.
+--Para fijar un valor en un enemigo o aliado permanentemente, configurar esta información en Actor_Presets.lua
+--Para fijar a TODOS los jugadores en la pantalla como aliados (útil para tu guild o compañeros de grupo), utiliza /sit y presiona la tecla Standby 3 veces dentro de 5 segundos.
+--Para eliminar el contenido de ActorList.lua, utiliza /sit y presiona la tecla Standby 5 veces dentro de 5 segundos, aparecerá un pop-up.
+
+WriteActorInfo	= 0
+
+--Tiempo transcurrido hasta que un pop-up de aviso al estar AFK aparezca. Si no reaccionas a tiempo, el cliente te desconectará. Para reiniciar el temporizador, el dueño debe moverse 1 celda. Esto es útil para evitar que tu homúnculo muera de hambre (¡y pueda dejarte!) si estás AFK y te olvidas de él.
+
+AFKMaxTime		= 75 	--En minutos. 1 de Hambre = 1 Minuto. Nunca fijar sobre 75
+
+MoveToSingers	= 1	--Si el homúnculo detecta una canción, se acercará hacia ella cada 20 segundos para aprovechar su efecto. No detecta que tipo de canción es.
+KiteHostiles 	= 0	--Habilita Kiting. Configuración para monstruos especificos, players o tipos se puede encontrar en el archivo Actor_Presets.lua
+KiteAllEnemies 	= 0	--El homúnculo se alejará de todo
+KiteDistance 	= 4	--Kite a esta distancia antes de realizar cualquier acción.
+MiscWait		= 6	--Segundos
+
+PatrolDistance 	= 0	--Distancia a patrullar alrededor del dueño estando quieto (Idle). Si se deja en 0, el patrullaje quedará deshabilitado
+PatrolType 	= 1	--Especifica que tipo de patrullaje hará el homúnculo
+
+--1 = Cuadrado
+--2 = Diamante
+--Cuadrado es más práctico
+--Diamante es más molesto

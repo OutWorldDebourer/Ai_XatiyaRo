@@ -1,0 +1,177 @@
+--------------------------------------------------------------------------------------------------------------------------------
+
+--[[ This file is part of ThothAI.
+
+ThothAI is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or(at your option) any later version.
+
+ThothAI is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with ThothAI.  If not, see <http://www.gnu.org/licenses/>.
+
+]]--
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+----------------------------------------------------------------
+-- FORMATO PARA AGREGAR MONSTRUOS
+-- Preset[ID]=PAR�METRO
+----------------------------------------------------------------
+
+--[[ PAR�METROS
+
+PASSIVETARGET        --Ignora al target a menos que sea atacado por �l.
+SUMMONTARGET         --Targets invocados a trav�s de "Bio Cannibalize". Para mayor�a de targets tipo planta.
+EMPBREAKTARGET  	     --Para targets que intenten romper el Emperium. Par�metro para que Filir utilice SBR44.
+PRIORITYTARGET	     --Ataca con prioridad al target.
+LOWESTPRIORITYTARGET --Target con la prioridad m�s baja.
+LOWPRIORITYTARGET    --Targets con prioridad baja.
+TANKKITETARGET	     --Ataca 1 vez al target y luego se aleja de �l.
+TANKTARGET		     --Ataca 1 vez al target y luego lo ignora.
+CASTERTARGET	     --Targets que SOLO castean habilidades ofensivas. Hom�nculos y mercenarios intentar�n cortar el cast, ya sea con ataques f�sicos o habilidades.
+QUICKENTARGET	     --Targets que utilicen habilidades que aumentan el ASPD o velocidad de movimiento. Weapon Quicken, Cart Boost, etc.
+NOSKILLTARGET	     --Ataca al target sin habilidades.
+SQUISHTARGET	     --Targets d�biles.
+KITETARGET		     --Ataca al target y mantiene su distancia
+SUPPORTTARGET	     --Targets que utilizan habilidades de soporte. High Priest, Soul Linker, etc. Prioridad baja-media.
+SUPPORT2TARGET	     --Targets que utilizan habilidades de soporte. High Wizard, Professor, etc. Prioridad media.
+SUPPORT3TARGET	     --Targets que utilizan habilidades de soporte. Champion. Prioridad alta.
+IGNORETARGET	     --Ignora completamente el target.
+MVPTARGET		     --MVP.
+BOSSTARGET		     --Targets dif�ciles de atacar o tanquear.
+
+]]--
+
+Dt={}
+Preset={}
+
+----------------------------------------------------------------
+-- �No modificar estas variables, podr�an generar errores!
+----------------------------------------------------------------
+
+Preset[NOVICE]=IGNORETARGET
+Preset[NINJA]=CASTERTARGET
+Preset[WIZARD]=CASTERTARGET
+Preset[HIGH_WIZARD]=CASTERTARGET
+Preset[CREATOR]=CASTERTARGET
+Preset[WHITESMITH]=QUICKEN2TARGET 
+Preset[LORD_KNIGHT]=QUICKENTARGET
+Preset[HIGH_PRIEST]=SUPPORTTARGET
+Preset[PRIEST]=SUPPORT2TARGET
+Preset[SOUL_LINKER]=SUPPORT2TARGET
+Preset[PALADIN]=SUPPORTTARGET
+Preset[PROFESSOR]=SUPPORT2TARGET
+Preset[CHAMPION]=SUPPORT3TARGET
+Preset[ASSASSIN_CROSS]=PRIORITYTARGET
+Preset[SNIPER]=PRIORITYTARGET
+Preset[CLOWN]=PRIORITYTARGET
+Preset[GUNSLINGER]=SQUISHTARGET
+Preset[STALKER]=LOWPRIORITYTARGET
+Preset[GYPSY]=PRIORITYTARGET
+Preset[ASSASSIN_CROSS]=EMPBREAKTARGET
+
+----------------------------------------------------------------
+-- MONSTRUOS
+----------------------------------------------------------------
+
+Preset[1884]=PRIORITYTARGET   --Mavka
+Preset[1883]=IGNORETARGET   --Uzhas
+Preset[1882]=IGNORETARGET   --Baba Yaga
+Preset[1035]=IGNORETARGET   --hunter fly
+Preset[1139]=IGNORETARGET   --mantis
+Preset[1078]=IGNORETARGET   --red plant
+Preset[1079]=IGNORETARGET   --blue plant
+Preset[1080]=IGNORETARGET   --green plant
+Preset[1081]=IGNORETARGET   --yellow plant
+Preset[1082]=IGNORETARGET   --white plant
+Preset[1083]=PRIORITYTARGET --shiny plant
+Preset[1084]=PRIORITYTARGET --black mushroom
+Preset[1085]=PRIORITYTARGET --red mushroom
+Preset[1031]=NOSKILLTARGET  --poporing
+Preset[1002]=NOSKILLTARGET  --poring
+Preset[1242]=NOSKILLTARGET  --marin
+Preset[1113]=NOSKILLTARGET  --drops
+Preset[1880]=PASSIVETARGET  --wood goblin
+Preset[1620]=PRIORITYTARGET --noxious
+Preset[1045]=PRIORITYTARGET --marc
+Preset[1158]=PRIORITYTARGET --phen
+Preset[1129]=PRIORITYTARGET --horong
+Preset[1771]=PRIORITYTARGET --vanberk
+Preset[1772]=PRIORITYTARGET --isilla
+
+----------------------------------------------------------------
+-- PLANTAS + WOE/BG
+----------------------------------------------------------------
+
+Preset[1590]=SUMMONTARGET   --geographer
+Preset[1555]=SUMMONTARGET   --parasite
+Preset[1575]=SUMMONTARGET   --flora
+Preset[1579]=SUMMONTARGET   --hydra
+Preset[1589]=SUMMONTARGET   --mandragora
+Preset[1142]=PRIORITYTARGET --marine sphere
+Preset[1914]=NOSKILLTARGET  --blue bg crystal
+Preset[1915]=NOSKILLTARGET  --red bg crystal
+Preset[1909]=NOSKILLTARGET  --food storage
+Preset[1288]=NOSKILLTARGET  --emperium
+Preset[1911]=IGNORETARGET   --flag
+Preset[1912]=IGNORETARGET   --flag
+Preset[1913]=IGNORETARGET   --flag
+Preset[1905]=LOWESTPRIORITYTARGET --barricades
+Preset[1949]=LOWESTPRIORITYTARGET --bgswordguardian
+Preset[1950]=LOWESTPRIORITYTARGET --bgbowguardian
+
+----------------------------------------------------------------
+-- MVP
+----------------------------------------------------------------
+
+Preset[1785]=MVPTARGET	-- Atroce
+Preset[1630]=MVPTARGET	-- Bacsojin
+Preset[1039]=MVPTARGET	-- Baphomet
+Preset[2068]=MVPTARGET	-- Boitata
+Preset[1046]=MVPTARGET	-- Doppelganger
+Preset[1389]=MVPTARGET	-- Dracula
+Preset[1115]=MVPTARGET	-- Eddga
+Preset[1418]=MVPTARGET	-- Evil Snake Lord
+Preset[1871]=MVPTARGET	-- Fallen Bishop
+Preset[1252]=MVPTARGET	-- Garm
+Preset[1768]=MVPTARGET	-- Gloom Under Night
+Preset[1086]=MVPTARGET	-- Golden Thief Bug
+Preset[1885]=IGNORETARGET	-- Gopinich
+Preset[1832]=MVPTARGET	-- Ifrit
+Preset[1492]=MVPTARGET	-- Incantation Samurai
+Preset[1734]=MVPTARGET	-- Kiel D-01
+Preset[1251]=MVPTARGET	-- Stormy Knight
+Preset[1779]=MVPTARGET	-- Ktullanux
+Preset[1373]=MVPTARGET	-- Lord of the Dead
+Preset[1150]=MVPTARGET	-- Moonlight Flower
+Preset[2022]=MVPTARGET	-- Nidhoggyrs shadow.
+Preset[1087]=MVPTARGET	-- Orc Hero
+Preset[1190]=MVPTARGET	-- Eddga
+Preset[1038]=MVPTARGET	-- Osiris
+Preset[1157]=MVPTARGET	-- Pharaoh
+Preset[1159]=MVPTARGET	-- Phreeoni
+Preset[2089]=MVPTARGET	-- Queen Scaraba
+Preset[1623]=MVPTARGET	-- RSX
+Preset[1583]=MVPTARGET	-- Tao Gunka
+Preset[1312]=MVPTARGET	-- Turtle General
+Preset[1751]=MVPTARGET	-- Valk Randgris
+Preset[1685]=MVPTARGET	-- Vesper
+Preset[1917]=MVPTARGET	-- Wounded Morroc
+Preset[1658]=MVPTARGET	-- General Enigem Cenia
+Preset[1646]=MVPTARGET	-- Lord Knight Seyren
+Preset[1647]=MVPTARGET	-- Assassin Cross Eremes
+Preset[1648]=MVPTARGET	-- Whitesmith Harword
+Preset[1649]=MVPTARGET	-- High Priest Magaleta
+Preset[1650]=MVPTARGET	-- Sniper Shecil
+Preset[1651]=MVPTARGET	-- High Wizard Katrinn
+Preset[1059]=MVPTARGET	-- Mistress
+Preset[1147]=MVPTARGET	-- Maya
+Preset[1289]=MVPTARGET	-- Maya Purple
+Preset[1388]=MVPTARGET	-- Arc Angeling
+Preset[1096]=MVPTARGET	-- Angeling
+Preset[1582]=MVPTARGET	-- Deviling
+Preset[1120]=MVPTARGET	-- Ghostring
+Preset[1204]=MVPTARGET	-- Ogretooth

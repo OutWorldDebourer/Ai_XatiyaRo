@@ -1,0 +1,112 @@
+--------------------------------------------------------------------------------------------------------------------------------
+-- MerConfigBasic.txt - Configuración básica para Mercenarios en ThothAI
+-- Última revisión: 30/04/2025
+--
+-- Este archivo controla el comportamiento del mercenario cuando usas /merai y aparece el mensaje:
+-- "El mercenario usará la AI básica"
+--
+-- NOTA: Para la mayoría de variables, SÍ = 1 y NO = 0. Otros valores estarán especificados en la descripción.
+--
+-- Referencias útiles:
+--   - Const.lua: Lista de alianzas y tipos válidos
+--   - Actor_Presets.lua: Configuración avanzada de targets
+--   - GUIA.txt: Guía de uso y preguntas frecuentes
+--
+-- Ejemplo de configuración recomendada para PvM:
+--   UseQuicken = 1, UseAOESkills = 1, SuperAggro = 1
+-- Ejemplo para soporte:
+--   UseRecovery = 1, UseDevotion = 1, SuperPassive = 1
+--
+-- ADVERTENCIA: Configuraciones incorrectas pueden causar comportamientos erráticos. Lee los comentarios y consulta la guía si tienes dudas.
+--------------------------------------------------------------------------------------------------------------------------------
+
+--[[
+TABLA DE REFERENCIA RÁPIDA
+-------------------------
+Variable           | Valores posibles | Descripción breve
+-------------------|-----------------|------------------
+UseQuicken         | 0 / 1           | Usa Quicken si está disponible
+UseAOESkills       | 0 / 1           | Usa habilidades de área
+SuperAggro         | 0 / 1           | Ataca todo automáticamente
+SuperPassive       | 0 / 1           | Ignora enemigos
+WriteActorInfo     | 0 / 1           | Guarda lista de enemigos/aliados
+... (ver más abajo para detalles)
+]]--
+
+-- =====================
+-- SECCIÓN: ATAQUE
+-- =====================
+UseQuicken       = 1   -- Usa Quicken si está disponible
+UseBerserk       = 1   -- Auto Berserk para mercenarios, y Berserk (Frenzy) para Fencer LVL 10
+UseMagni         = 0   -- Magnificat para mercenarios, Bowman LVL 4
+UseProvoke       = 1   -- Usa Provoke para interrumpir casteos y dopar plantas
+UsePushback      = 1   -- Usa habilidades de empuje si el enemigo está cerca
+PushbackDistance = 2   -- Distancia para intentar empujar
+UseAtkSkills     = 1   -- Usa habilidades de ataque (Double Strafe, Bash, etc.)
+UseAOESkills     = 1   -- Usa habilidades de área (Arrow Shower, etc.)
+AOEMinMobCount   = 2   -- Mínimo de enemigos para usar AoE
+
+-- =====================
+-- SECCIÓN: DEFENSA
+-- =====================
+UseDefender      = 1   -- Usa Defender
+UseDefenseSkill  = 1   -- Usa habilidades defensivas (Parrying, Auto Guard, etc.)
+UseCrash         = 1
+UseDevotion      = 1   -- Usa Devotion en el dueño
+
+-- =====================
+-- SECCIÓN: SOPORTE
+-- =====================
+UseRecovery      = 1   -- Usa habilidades de recuperación
+UseTimerRecovery = 1   -- Usa recuperación con temporizador
+RecoveryTimer    = 1000-- Tiempo en ms para detectar estados alterados
+SRecoveryOwner   = 1   -- Prioriza recuperación en el dueño
+ProvokeOwner     = 0   -- No funciona en servidores privados
+
+-- =====================
+-- SECCIÓN: CONTROL Y COMPORTAMIENTO
+-- =====================
+SuperAggro       = 1   -- Ataca todo automáticamente
+AggroHP          = 0   -- % de HP antes de volverse agresivo
+AggroSP          = 0   -- % de SP antes de volverse agresivo
+SuperPassive     = 0   -- Ignora enemigos
+AtkDLP           = 0   -- Ataca DLPTARGET saltando animación
+WriteActorInfo   = 0   -- Guarda lista de enemigos/aliados
+
+-- =====================
+-- SECCIÓN: MOVIMIENTO
+-- =====================
+FollowDistance   = 2   -- Distancia en modo Follow
+FollowMax        = 10  -- Distancia máxima en Follow
+MoveRadius       = 7   -- Radio de movimiento manual
+IdleDistance     = 1   -- Distancia en estado Idle
+PatrolDistance   = 14  -- Distancia de patrulla en Idle
+PatrolType       = 2   -- 1=Cuadrado, 2=Diamante
+
+-- =====================
+-- SECCIÓN: KITE Y OTROS
+-- =====================
+KiteHostiles     = 0   -- Kite a hostiles específicos
+KiteAllEnemies   = 1   -- Kite a todos los enemigos
+KiteDistance     = 2   -- Distancia para kitear
+MoveToSingers    = 1   -- Se acerca a canciones cada 20s
+MiscWait         = 6   -- Espera general (segundos)
+
+-- =====================
+-- SECCIÓN: PRIORIDADES
+-- =====================
+OwnerPriority    = 15  -- Prioridad para proteger al dueño
+MercPriority     = 10  -- Prioridad para el mercenario
+HomunPriority    = 7   -- Prioridad para el homúnculo
+FriendPriority   = 5   -- Prioridad para aliados
+
+-- =====================
+-- SECCIÓN: TIPS Y FAQ
+-- =====================
+--
+-- 1. Si el mercenario no responde, revisa que el mensaje "El mercenario usará la AI básica" aparezca al invocarlo.
+-- 2. Si tienes problemas con WriteActorInfo, elimina el contenido de ActorList.lua como se indica arriba.
+-- 3. Consulta GUIA.txt para más ejemplos y preguntas frecuentes.
+-- 4. Para configuraciones avanzadas, revisa Actor_Presets.lua y Const.lua.
+--
+--------------------------------------------------------------------------------------------------------------------------------

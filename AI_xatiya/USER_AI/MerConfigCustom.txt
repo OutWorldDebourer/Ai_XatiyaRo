@@ -1,0 +1,292 @@
+--------------------------------------------------------------------------------------------------------------------------------
+-- ARCHIVO DE CONFIGURACIÓN DE IA PERSONALIZADA PARA MERCENARIOS - ESTRUCTURA POR APARTADOS --
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- INTRODUCCIÓN PARA NUEVOS USUARIOS --
+
+-- Este archivo permite personalizar el comportamiento de tu mercenario en el juego al usar la IA Personalizada (/merai).
+-- Está organizado en secciones para facilitar la comprensión y configuración.
+-- Lee las descripciones de cada sección y variable cuidadosamente para entender cómo afectan el comportamiento de tu mercenario.
+-- Recuerda que para la mayoría de las opciones: 1 = ACTIVADO (SÍ), 0 = DESACTIVADO (NO).
+
+--------------------------------------------------------------------------------------------------------------------------------
+---- 1. CONFIGURACIÓN BÁSICA Y HABILIDADES DE MEJORA (BUFFS) ----
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- Esta sección controla las habilidades de mejora (buffs) que tu mercenario usará automáticamente.
+-- Activar o desactivar estas opciones permite personalizar el soporte que tu mercenario ofrece.
+
+UseQuicken         = 1     -- [HABILIDAD DE MEJORA] Activa (1) o desactiva (0) el uso de la habilidad 'Quicken' (Acelerar) en el mercenario.
+UseBerserk         = 1     -- [HABILIDAD DE MEJORA] Activa (1) o desactiva (0) el uso automático de 'Berserk' para mercenarios.
+                                -- NOTA: Para mercenarios Fencer de LVL 10, esta opción utiliza 'Frenzy' en lugar de 'Berserk'.
+UseMagni           = 0     -- [HABILIDAD DE MEJORA] Activa (1) o desactiva (0) el uso de 'Magnificat' para mercenarios.
+                                -- NOTA: 'Magnificat' solo está disponible para mercenarios Bowman de LVL 4.
+
+--------------------------------------------------------------------------------------------------------------------------------
+---- 2. IA DE COMBATE - HABILIDADES DE INTERRUPCIÓN Y CONTROL DE ENEMIGOS ----
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- Esta sección configura las habilidades que tu mercenario usará para interrumpir acciones enemigas,
+-- controlar el campo de batalla y revelar enemigos ocultos.
+
+-- 2.1. HABILIDADES ANTI-OCULTAMIENTO (DECLOAKING) --
+-- Permite al mercenario usar habilidades para revelar enemigos que se ocultan (Cloaking, Chase Walk, Hide).
+
+AttemptDecloak     = 1     -- [COMBATE - ANTI-OCULTAMIENTO] Activa (1) o desactiva (0) la funcionalidad para que el mercenario intente revelar enemigos ocultos en su rango.
+                                -- NOTA: No funciona si el enemigo se oculta fuera del rango y luego se acerca.
+                                -- Habilidades que activan esta función: Sight, Arrow Shower, Magnum Break, Freezing Trap, Sandman, Landmine.
+
+-- 2.2. PROVOKE (PROVOCAR) - INTERRUPCIÓN Y DOPADO DE PLANTAS --
+-- Configura el uso de 'Provoke' para interrumpir el casteo de hechizos enemigos y mejorar plantas invocadas.
+
+UseProvoke         = 1     -- [COMBATE - INTERRUPCIÓN] Activa (1) o desactiva (0) el uso de 'Provoke' para:
+                                -- - Interrumpir el casteo de enemigos en la lista "CASTERTARGETS".
+                                -- - Dopar plantas invocadas con la habilidad "Bio Cannibalize".
+                                -- REQUISITOS: Tener un Homúnculo invocado y 'WriteActorInfo' activado.
+
+-- 2.3. PUSHBACK (EMPUJAR) - CONTROL DE DISTANCIA ENEMIGA --
+-- Permite al mercenario usar habilidades de empuje para mantener a los enemigos a distancia.
+
+UsePushback        = 0     -- [COMBATE - CONTROL DE DISTANCIA] Activa (1) o desactiva (0) el uso de habilidades de empuje (Pushback).
+                                -- Habilidades de empuje: Charge Arrow, Skid Trap, Arrow Shower, Brandish Spear, Magnum Break, Bowling Bash.
+PushbackDistance   = 4     -- [COMBATE - CONTROL DE DISTANCIA] Distancia en celdas a la que el enemigo debe estar para que el mercenario intente empujarlo.
+                                -- CONSEJO: Reduce 'FollowDistance' en la sección 5 para que el mercenario esté más cerca y pueda empujar desde la posición del dueño.
+
+-- 2.4. TRAMPAS - CONTROL DE MOVIMIENTO Y ÁREA --
+-- Configura el uso de trampas para controlar el movimiento de enemigos o cubrir áreas.
+
+UseTraps           = 0     -- [COMBATE - TRAMPAS] Activa (1) o desactiva (0) el uso general de trampas por parte del mercenario.
+                                -- NOTA: Si se desactiva, el mercenario SOLO usará trampas para revelar enemigos ocultos si 'AttemptDecloak' está activado.
+
+TrapFollowForm     = 1     -- [COMBATE - TRAMPAS] ID del formulario de trampa a usar en modo 'Follow'. (Depende de la configuración del juego/script). Forma de trampa a usar cuando sigue al dueño. 0=desactivado, 1-4=formas de trampa.
+TrapFollowSP       = 70    -- [COMBATE - TRAMPAS] SP mínimo requerido para usar la trampa en modo 'Follow'.
+TrapMoveForm       = 0     -- [COMBATE - TRAMPAS] ID del formulario de trampa a usar en modo 'Move'. (Depende de la configuración del juego/script). Forma de trampa a usar después de un comando de movimiento. 0=desactivado, 1-5=formas de trampa (forma 5 basada en dirección).
+TrapMoveSP         = 30    -- [COMBATE - TRAMPAS] SP mínimo requerido para usar la trampa en modo 'Move'.
+
+-- 2.5. LEX DIVINA (SILENCIO) - INTERRUPCIÓN DE HECHIZOS --
+-- Activa el uso de 'Lex Divina' para intentar silenciar a los enemigos y prevenir el casteo de hechizos.
+
+UseDivina          = 1     -- [COMBATE - SILENCIO] Activa (1) o desactiva (0) el uso de 'Lex Divina' para silenciar enemigos.
+                                -- IMPORTANTE: No detecta activamente el estado 'Silence', por lo que podría intentar aplicar 'Lex Divina' repetidamente.
+                                -- PRIORIDAD: Enemigos en "CASTERTARGETS" tienen prioridad para ser silenciados.
+                                -- PRECAUCIÓN: Usar 'Lex Divina' en un enemigo ya silenciado por otro jugador/mercenario podría remover el estado.
+
+-- 2.6. DECREASE AGILITY (DISMINUIR AGILIDAD) - DEBUFF DE VELOCIDAD --
+-- Permite al mercenario usar 'Decrease Agility' para reducir la velocidad de movimiento de los enemigos.
+
+UseDecAgi          = 1     -- [COMBATE - DEBUFF] Activa (1) o desactiva (0) el uso de 'Decrease Agility' para reducir la agilidad de los enemigos.
+                                -- PRIORIDAD: Enemigos en "QUICKENTARGET" o "QUICKEN2TARGET" tendrán prioridad y el mercenario intentará usar 'Decrease Agility' repetidamente en ellos.
+
+--------------------------------------------------------------------------------------------------------------------------------
+---- 3. IA DE COMBATE - HABILIDADES DE RECUPERACIÓN Y SOPORTE ----
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- Esta sección configura las habilidades de curación y soporte que tu mercenario usará para mantenerte a ti y a tus aliados con vida.
+
+-- 3.1. HABILIDADES DE RECUPERACIÓN GENERAL --
+-- Activa el uso de habilidades de curación y recuperación en aliados y en ti mismo (el dueño).
+
+UseRecovery        = 1     -- [SOPORTE - RECUPERACIÓN] Activa (1) o desactiva (0) el uso general de habilidades de recuperación.
+                                -- Habilidades de recuperación: Benediction, Compress, Recuperate, MentalCure, Lex Divina, Tender, Regain.
+                                -- CONDICIÓN DE USO: Se activan cuando un target "ALLYSTATUS" u "OWNERSTATUS" usa el comando '/sit'.
+
+-- 3.2. RECUPERACIÓN BASADA EN TEMPORIZADOR (Tender, Regain) --
+-- Controla el uso de habilidades de recuperación que utilizan un temporizador para detectar estados alterados basados en inactividad.
+
+UseTimerRecovery   = 1     -- [SOPORTE - RECUPERACIÓN] Activa (1) o desactiva (0) el uso de habilidades de recuperación basadas en temporizador (Tender, Regain).
+RecoveryTimer      = 0  -- [SOPORTE - RECUPERACIÓN] Tiempo en milisegundos (ms) para calcular si un target tiene un estado alterado basado en inactividad. (1000 ms = 1 segundo).
+
+-- 3.3. RECUPERACIÓN Y PROVOKE EN EL DUEÑO --
+-- Configura si el mercenario usará habilidades de recuperación y 'Provoke' específicamente en el dueño.
+
+SRecoveryOwner       = 1     -- [SOPORTE - RECUPERACIÓN] Activa (1) o desactiva (0) la recuperación del dueño por parte del mercenario.
+ProvokeOwner       = 0     -- [SOPORTE - PROVOKE] Activa (1) o desactiva (0) el uso de 'Provoke' en el dueño.
+                                -- NOTA: 'Provoke' en el dueño NO funciona en servidores privados.
+
+--------------------------------------------------------------------------------------------------------------------------------
+---- 4. IA DE COMBATE - HABILIDADES OFENSIVAS Y DEFENSIVAS ----
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- Esta sección configura las habilidades ofensivas y defensivas directas que tu mercenario usará en combate.
+
+AttemptDecloak	= 1	-- ¿Intentar revelar enemigos ocultos? 1=sí, 0=no.
+
+-- 4.1. HABILIDADES AoE (ÁREA DE EFECTO) - ATAQUE MÚLTIPLE --
+-- Activa el uso de habilidades que dañan a varios enemigos en un área.
+
+UseAOESkills       = 1     -- [OFENSIVA - AoE] Activa (1) o desactiva (0) el uso de habilidades de Área de Efecto (AoE).
+                                -- Habilidades AoE: Arrow Shower, Brandish Spear, Bowling Bash, Magnum Break.
+AOEMinMobCount     = 2     -- [OFENSIVA - AoE] Número mínimo de enemigos dentro del rango para que el mercenario use una habilidad AoE.
+
+-- 4.2. HABILIDADES DE ATAQUE DIRECTO - ATAQUE A UN OBJETIVO --
+-- Activa el uso de habilidades de ataque a un solo objetivo enemigo.
+
+UseAtkSkills       = 1     -- [OFENSIVA - DIRECTA] Activa (1) o desactiva (0) el uso de habilidades de ataque directo a un objetivo.
+                                -- Habilidades de ataque directo: Double Strafe, Pierce, Bash, Spiral Pierce.
+
+-- 4.3. DEFENDER (DEFENSA) - HABILIDAD DEFENSIVA --
+-- Activa el uso de la habilidad 'Defender' para protegerse.
+
+UseDefender        = 1     -- [DEFENSIVA] Activa (1) o desactiva (0) el uso de la habilidad 'Defender'.
+
+-- 4.4. HABILIDADES DEFENSIVAS GENERALES - PROTECCIÓN --
+-- Activa el uso de habilidades defensivas generales para proteger al mercenario.
+
+UseDefenseSkill    = 1     -- [DEFENSIVA] Activa (1) o desactiva (0) el uso de habilidades defensivas generales.
+                                -- Habilidades defensivas: Parrying, Auto Guard, Reflect Shield.
+UseCrash           = 1     -- [DEFENSIVA] Activa (1) o desactiva (0) el uso de la habilidad 'Crash'. (La función específica depende de la configuración del juego/script).
+UseDevotion        = 1     -- [DEFENSIVA - SOPORTE] Activa (1) o desactiva (0) el uso de 'Devotion' en el dueño para protegerlo.
+
+--------------------------------------------------------------------------------------------------------------------------------
+---- 5. IA DE COMBATE - HABILIDADES DE RESCATE ----
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- Esta sección configura las habilidades que tu mercenario usará para rescatarte en situaciones de peligro crítico.
+
+-- 5.1. HABILIDADES DE RESCATE - SALVACIÓN EN PELIGRO --
+-- Activa el uso de habilidades diseñadas para rescatar al dueño cuando está en peligro.
+
+UseRescueSkill     = 1     -- [RESCATE] Activa (1) o desactiva (0) el uso de habilidades de rescate.
+                                -- Habilidad de rescate: Scapegoat.
+RescueHpPercent    = 0     -- [RESCATE] Porcentaje de HP del dueño por debajo del cual el mercenario utilizará la habilidad de rescate.
+                                -- Ejemplo: 99 significa que se usará Scapegoat si el HP del dueño baja al 99% o menos.
+
+--------------------------------------------------------------------------------------------------------------------------------
+---- 6. MODOS DE LA IA, DISTANCIA Y MOVIMIENTO ----
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- Esta sección configura los modos de operación de la IA (Follow, Move, Idle),
+-- las distancias de seguimiento y movimiento, y el comportamiento de persecución de enemigos.
+
+-- 6.1. MODOS DE LA IA (FOLLOW, MOVE, IDLE) - COMPORTAMIENTO GENERAL --
+-- Define cómo se comporta el mercenario en los diferentes modos de IA.
+-- - Follow (Seguir): Modo inicial, el mercenario sigue al dueño.
+-- - Move (Moverse): Se activa al indicar un punto de destino al mercenario.
+-- - Idle (Quieto): Modo pasivo, activado con 'Standby' x3 sentado, el mercenario solo reacciona en emergencias.
+
+-- 6.2. CHASE (PERSEGUIR) EN MODOS FOLLOW Y MOVE - PERSECUCIÓN DE ENEMIGOS --
+-- Controla si el mercenario perseguirá enemigos en los modos 'Follow' y 'Move'.
+
+FollowChaseDown    = 1    -- [MODO FOLLOW - PERSECUCIÓN] Activa (1) o desactiva (0) la persecución de enemigos durante el modo 'Follow'.
+                                -- (Valores específicos dependen de la configuración del juego/script. Mayor valor podría significar persecución menos agresiva).
+MoveChaseDown      = 1    -- [MODO MOVE - PERSECUCIÓN] Activa (1) o desactiva (0) la persecución de enemigos durante el modo 'Move'.
+                                -- (Valores específicos dependen de la configuración del juego/script. Mayor valor podría significar persecución menos agresiva).
+AIDecideChase      = 1    -- [IA - PERSECUCIÓN SELECTIVA] Valor para prevenir que mercenarios más débiles persigan enemigos agresivamente.
+                                -- (Ej: Bowman LVL 1-6, Spear, Fencer. Mayor valor = menos persecución para mercenarios débiles).
+
+-- 6.3. TIEMPOS DE ESPERA Y DISTANCIA MÁXIMA - LIMITES DE OPERACIÓN --
+-- Configura los tiempos de espera después de eventos como cambios de mapa y la distancia máxima permitida al dueño.
+
+SpawnWait          = 0  -- [IA - TIEMPO DE ESPERA] Tiempo de espera en milisegundos (ms) después de un cambio de mapa o respawneo antes de que la IA actúe.
+                                -- RECOMENDACIÓN: No exceder 3000 (3 segundos). Valor actual: 1.7 segundos.
+MaxDistance        = 12     -- [IA - DISTANCIA MÁXIMA] Distancia máxima en celdas que el mercenario puede alejarse del dueño.
+                                -- Si se excede: Detiene acciones, cambia a modo Follow, regresa al dueño.
+                                -- RECOMENDACIÓN: No exceder 14 celdas para evitar que el mercenario se salga de la pantalla.
+
+-- 6.4. DISTANCIAS EN MODOS FOLLOW, MOVE E IDLE - ESPACIAMIENTO --
+-- Define las distancias que el mercenario mantendrá con respecto al dueño en los diferentes modos.
+-- NOTA: Estas distancias se ignoran cuando el homúnculo realiza 'Kiting' (sección 8.3).
+
+FollowDistance     = 1     -- [MODO FOLLOW - DISTANCIA] Distancia en celdas que el mercenario mantiene del dueño en modo 'Follow' cuando está quieto o sin perseguir.
+FollowMax          = 13    -- [MODO FOLLOW - DISTANCIA MÁXIMA] Distancia máxima permitida en modo 'Follow', también afecta la persecución en este modo.
+MoveRadius         = 1     -- [MODO MOVE - RADIO DE MOVIMIENTO] Radio en celdas alrededor del punto de destino al que el mercenario se moverá en modo 'Move'.
+IdleDistance       = 1     -- [MODO IDLE - DISTANCIA] Distancia en celdas que el mercenario mantiene del dueño en modo 'Idle' (activado con Standby x3 sentado).
+
+--------------------------------------------------------------------------------------------------------------------------------
+---- 7. CONFIGURACIÓN AVANZADA - OBJETIVOS, PRIORIDADES Y AGRESIVIDAD ----
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- Esta sección contiene opciones avanzadas para afinar el comportamiento de la IA,
+-- incluyendo la configuración de objetivos, prioridades de ataque y niveles de agresividad/pasividad.
+
+-- 7.1. iSupportCast - NO MODIFICAR --
+ISupportCast       = 1     -- [AVANZADO - NO MODIFICAR] Variable interna de la IA. NO CAMBIAR.
+
+-- 7.2. ALIANZAS Y TIPOS DE OBJETIVO (TARGETS) - DEFINICIÓN DE OBJETIVOS --
+-- Permite definir alianzas (ej: monstruos, jugadores, aliados) y tipos de objetivo (ej: específicos, generales) para el mercenario.
+-- VALORES POSIBLES: Consulta el archivo 'Const.lua' para una lista completa de valores de alianza y tipo.
+-- IMPORTANTE: Valores incorrectos pueden causar comportamiento inesperado.
+-- IGNORE: Ignora esta configuración y usa la configuración por defecto.
+-- NEUTRAL: Considera objetivos neutrales.
+
+-- 7.2.1. OBJETIVO DE ATAQUE MANUAL - OBJETIVO POR CLIC --
+-- Define la alianza y tipo de objetivo que el mercenario atacará cuando se le selecciona manualmente (ej: clic en un enemigo).
+
+ManAtkAlliance     = IGNORE -- [AVANZADO - OBJETIVO MANUAL] Alianza para objetivos de ataque manual (por defecto: IGNORE).
+ManAtkType       = IGNORETARGET -- [AVANZADO - OBJETIVO MANUAL] Tipo de objetivo para ataques manuales (por defecto: IGNORETARGET).
+
+-- 7.2.2. OBJETIVO DE HABILIDAD MANUAL - OBJETIVO POR HABILIDAD --
+-- Define la alianza y tipo de objetivo que el mercenario considerará al usar una habilidad manualmente sobre él (ej: curar a un aliado).
+-- EXCEPCIÓN: Habilidades de recuperación SIEMPRE fijarán la alianza como "ALLYSTATUS" (aliado en necesidad de curación).
+
+ManSkillAlliance   = IGNORE -- [AVANZADO - OBJETIVO HABILIDAD] Alianza para objetivos de habilidad manual (por defecto: IGNORE).
+ManSkillType     = IGNORETARGET -- [AVANZADO - OBJETIVO HABILIDAD] Tipo de objetivo para habilidades manuales (por defecto: IGNORETARGET).
+
+-- 7.3. PRIORIDAD DE OBJETIVOS - JERARQUÍA DE ATAQUE --
+-- Define la prioridad para atacar diferentes tipos de objetivos en función de su proximidad,
+-- si están atacando al dueño/mercenario/homúnculo, o si el dueño/mercenario/homúnculo están siendo atacados.
+-- MAYOR VALOR = MAYOR PRIORIDAD RELATIVA.
+-- NOTA: Las alianzas y tipos de objetivo definidos en la sección 7.2 también influyen en la prioridad.
+-- CONFIGURACIÓN POR DEFECTO: Prioriza proteger al mercenario sobre el dueño, ya que el homúnculo puede ser resucitado fácilmente.
+-- VALOR 0: La distancia y el estado de ataque/ser atacado NO afectan la prioridad.
+
+OwnerPriority      = 7    -- [AVANZADO - PRIORIDAD] Prioridad para atacar objetivos que atacan al dueño o que el dueño está atacando.
+MercPriority       = 15    -- [AVANZADO - PRIORIDAD] Prioridad para atacar objetivos que atacan al mercenario o que el mercenario está atacando.
+HomunPriority      = 0     -- [AVANZADO - PRIORIDAD] Prioridad para atacar objetivos que atacan al homúnculo o que el homúnculo está atacando.
+FriendPriority     = 0     -- [AVANZADO - PRIORIDAD] Prioridad para atacar objetivos que atacan a aliados (limitado a aliados, homúnculos, etc. que están siendo atacados).
+
+-- 7.4. AGRESIVIDAD Y PASIVIDAD - COMPORTAMIENTO EN COMBATE --
+-- Controla el nivel de agresividad o pasividad del mercenario al enfrentarse a enemigos.
+
+SuperAggro         = 1     -- [AVANZADO - AGRESIVIDAD] Activa (1) o desactiva (0) el modo 'Super Aggro'. El mercenario intentará atacar a todos los enemigos posibles.
+                                -- ÚTIL en PvM (Jugador vs Monstruo). Puede ser problemático en salas PvP concurridas.
+AggroHP            = 0     -- [AVANZADO - AGRESIVIDAD] Porcentaje de HP del homúnculo por debajo del cual el mercenario se volverá agresivo (si 'SuperAggro' está activado).
+                                -- Si el homúnculo es atacado y su HP está por debajo de este porcentaje, el mercenario reaccionará.
+                                -- Valor 0: El mercenario siempre será agresivo si 'SuperAggro' está activado.
+AggroSP            = 0     -- [AVANZADO - AGRESIVIDAD] Porcentaje de SP del homúnculo (similar a 'AggroHP').
+SuperPassive       = 0     -- [AVANZADO - PASIVIDAD] Activa (1) o desactiva (0) el modo 'Super Passive'. Anula 'SuperAggro' e ignora a todos los enemigos.
+AtkDLP             = 1     -- [AVANZADO - ATAQUE DLP] Activa (1) o desactiva (0) 'AtkDLP' (Dance Attack). Anula 'SuperPassive' y ataca a "DLPTARGET" intentando usar 'Dance Attack' (saltar animación de ataque).
+
+-- 7.5. WRITE ACTOR INFO - REGISTRO DE INFORMACIÓN DE ACTORES --
+-- Permite guardar información sobre enemigos y aliados en el archivo 'ActorList.lua'.
+-- ÚTIL PARA: Compartir información entre el homúnculo y el mercenario, guardar listas de enemigos.
+-- PRECAUCIONES: Solo un cliente a la vez puede usar 'WriteActorInfo' para evitar errores. Eliminar 'ActorList.lua' al activar.
+-- CONFIGURACIÓN AVANZADA: 'Actor_Presets.lua' para configuraciones permanentes.
+
+WriteActorInfo     = 0     -- [AVANZADO - REGISTRO] Activa (1) o desactiva (0) la escritura de información de actores en 'ActorList.lua'.
+                                -- ACCIONES RÁPIDAS CON STANDBY Y /SIT:
+                                -- - Fijar TODOS los jugadores en pantalla como aliados: /sit + Standby x3 (en 5 segundos).
+                                -- - Eliminar 'ActorList.lua': /sit + Standby x5 (en 5 segundos) - Ventana de confirmación.
+
+--------------------------------------------------------------------------------------------------------------------------------
+---- 8. CONFIGURACIONES MISCELÁNEAS Y MOVIMIENTO ESPECIAL ----
+--------------------------------------------------------------------------------------------------------------------------------
+
+FollowChaseDown	= 1	-- Perseguir enemigos en modo Follow (importante si quieres que se mueva mientras ataca).
+-- Esta sección incluye configuraciones diversas que no encajan en las categorías anteriores,
+-- y opciones de movimiento especiales como moverse hacia canciones o realizar 'Kiting'.
+
+-- 8.1. MOVE TO SINGERS - MOVIMIENTO HACIA CANCIONES --
+-- Permite al mercenario moverse automáticamente hacia personajes que estén usando habilidades de canción (ej: Bard, Dancer).
+
+MoveToSingers      = 1     -- [MOVIMIENTO ESPECIAL] Activa (1) o desactiva (0) el movimiento automático del mercenario hacia habilidades de canción detectadas.
+                                -- El mercenario se acercará cada 20 segundos para aprovechar el efecto de la canción.
+
+-- 8.2. KITING (ALEJARSE DEL ENEMIGO) - ATAQUE A DISTANCIA --
+-- Configura el comportamiento de 'Kiting', donde el mercenario ataca desde lejos y se mantiene alejado del enemigo.
+-- CONFIGURACIÓN AVANZADA: La configuración detallada para monstruos/jugadores/tipos específicos se encuentra en 'Actor_Presets.lua'.
+
+KiteHostiles       = 0     -- [MOVIMIENTO ESPECIAL - KITING] Activa (1) o desactiva (0) el 'Kiting' para enemigos hostiles definidos en 'Actor_Presets.lua'.
+KiteAllEnemies     = 0     -- [MOVIMIENTO ESPECIAL - KITING] Activa (1) o desactiva (0) el 'Kiting' para TODOS los enemigos.
+KiteDistance       = 0     -- [MOVIMIENTO ESPECIAL - KITING] Distancia en celdas a la que el mercenario intentará mantenerse del enemigo antes de actuar en modo 'Kiting'.
+
+MiscWait           = 0     -- [MISCELÁNEA] Tiempo de espera en segundos para acciones misceláneas internas de la IA. (Función específica depende de la configuración del juego/script).
+
+-- 8.3. PATRULLAJE EN MODO IDLE - MOVIMIENTO PASIVO --
+-- Permite que el mercenario realice un patrullaje alrededor del dueño cuando está en modo 'Idle' (activado con Standby x3 sentado).
+
+PatrolDistance     = 4     -- [MOVIMIENTO PASIVO - PATRULLAJE] Distancia en celdas que el mercenario patrullará alrededor del dueño en modo 'Idle'.
+                                -- Valor 0: Deshabilita el patrullaje en modo 'Idle'.
+PatrolType         = 2     -- [MOVIMIENTO PASIVO - PATRULLAJE] Tipo de patrón de patrullaje en modo 'Idle':
+                                -- 1 = Cuadrado (Patrón de patrullaje más práctico y ordenado).
+                                -- 2 = Diamante (Patrón de patrullaje más irregular y menos predecible).

@@ -1,0 +1,301 @@
+--------------------------------------------------------------------------------------------------------------------------------
+-- CONFIGURACIÓN BÁSICA DEL HOMÚNCULO --
+-- Este archivo controla el comportamiento de tu homúnculo cuando utilizas el comando /hoai.
+-- Está organizado en secciones para facilitar la configuración.
+-- Lee cuidadosamente cada sección para comprender cómo personalizar el comportamiento de tu homúnculo.
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- **ÍNDICE DE SECCIONES** --
+--------------------------------------------------------------------------------------------------------------------------------
+-- 1. [CONFIGURACIÓN DE NIVELES DE HABILIDADES](#seccion-1-configuracion-de-niveles-de-habilidades)
+-- 2. [CONFIGURACIÓN DE COMPORTAMIENTO EN COMBATE](#seccion-2-configuracion-de-comportamiento-en-combate)
+-- 3. [CONFIGURACIÓN DE DISTANCIAS Y SEGUIMIENTO](#seccion-3-configuracion-de-distancias-y-seguimiento)
+-- 4. [CONFIGURACIÓN DE PRIORIDADES DE OBJETIVO](#seccion-4-configuracion-de-prioridades-de-objetivo)
+-- 5. [CONFIGURACIÓN ADICIONAL Y MISCELÁNEA](#seccion-5-configuracion-adicional-y-miscelanea)
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- **GUÍA RÁPIDA PARA NUEVOS USUARIOS** --
+--------------------------------------------------------------------------------------------------------------------------------
+-- 1. **Lee la descripción de cada sección** para entender qué tipo de configuraciones encontrarás allí.
+-- 2. **Presta atención a las descripciones de cada variable.** Explican qué hace cada configuración y los valores posibles (0, 1, 5, etc.).
+-- 3. **Comienza modificando las configuraciones de la SECCIÓN 1 (NIVELES DE HABILIDADES)** para activar y ajustar las habilidades de tu homúnculo.
+-- 4. **Luego, revisa la SECCIÓN 2 (COMPORTAMIENTO EN COMBATE)** para definir cómo quieres que tu homúnculo actúe durante el combate.
+-- 5. **Las SECCIONES 3, 4 y 5 contienen configuraciones más avanzadas**, que puedes explorar una vez que te sientas cómodo con las configuraciones básicas.
+-- 6. **Recuerda guardar el archivo después de realizar cambios** para que se apliquen en el juego.
+-- 7. **Si no estás seguro de qué valor usar, deja el valor por defecto.** Puedes experimentar con diferentes valores más adelante.
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- **SECCIÓN 1: CONFIGURACIÓN DE NIVELES DE HABILIDADES**  <a name="seccion-1-configuracion-de-niveles-de-habilidades"></a>
+--------------------------------------------------------------------------------------------------------------------------------
+-- En esta sección, puedes definir el nivel de cada habilidad de tu homúnculo.
+-- El nivel de habilidad determina la efectividad y frecuencia de uso de cada habilidad.
+-- **Valores Posibles:**
+--   - **0:** Deshabilitada. La habilidad no será utilizada por el homúnculo.
+--   - **1 - 5:** Nivel de habilidad. A mayor nivel, mayor efectividad y, en algunos casos, mayor frecuencia de uso.
+--   - **5:** Nivel Máximo. La habilidad estará en su nivel más alto.
+
+LifAvoidLvl	 = 5	-- **Lif:** Urgent Escape (Escape Urgente / Evasión de Emergencia).
+                    -- Define el nivel de la habilidad 'Urgent Escape' de Lif, que le permite escapar rápidamente de situaciones peligrosas.
+                    -- **0 = Deshabilitada, 5 = Nivel Máximo.**
+LifHealLvl		 = 5	-- **Lif:** Touch of Heal / Healing Hands (Toque de Curación / Manos Curativas).
+                    -- Define el nivel de las habilidades de curación de Lif.
+                    -- **0 = Deshabilitada, 5 = Nivel Máximo.**
+LifChangeLvl	 = 3	-- **Lif:** Mental Change (Cambio Mental).
+                    -- Define el nivel de 'Mental Change', habilidad que mejora las capacidades de Lif.
+                    -- **0 = Deshabilitada, 5 = Nivel Máximo.**
+FilirMoveLvl	 = 5	-- **Filir:** Fleet Move / Flitting (Movimiento Veloz / Aleteo).
+                    -- Define el nivel de 'Fleet Move', habilidad que aumenta la velocidad de movimiento de Filir.
+                    -- **0 = Deshabilitada, 5 = Nivel Máximo.**
+FilirMoonLvl	 = 5	-- **Filir:** Moonlight (Luz de Luna).
+                    -- Define el nivel de 'Moonlight', habilidad de ataque mágico de Filir.
+                    -- **0 = Deshabilitada, 5 = Nivel Máximo.**
+FilirFlightLvl	 = 5	-- **Filir:** Accelerated Flight / Overspeed (Vuelo Acelerado / Supervelocidad).
+                    -- Define el nivel de 'Accelerated Flight', habilidad que permite a Filir moverse aún más rápido.
+                    -- **0 = Deshabilitada, 5 = Nivel Máximo.**
+AmistrDefLvl	 = 5	-- **Amistr:** Defense / Amistr Bulwark (Defensa / Baluarte Amistr).
+                    -- Define el nivel de 'Defense', habilidad defensiva de Amistr que aumenta su defensa.
+                    -- **0 = Deshabilitada, 5 = Nivel Máximo.**
+AmistrCstLvl	 = 5	-- **Amistr:** Castling (Enroque).
+                    -- Define el nivel de 'Castling', habilidad de rescate de Amistr para proteger al dueño.
+                    -- **0 = Deshabilitada, 5 = Nivel Máximo.**
+AmistrBloodLvl	 = 3	-- **Amistr:** Blood Lust (Sed de Sangre).
+                    -- Define el nivel de 'Blood Lust', habilidad que aumenta el ataque de Amistr.
+                    -- **0 = Deshabilitada, 5 = Nivel Máximo.**
+VanCapriceLvl	 = 5	-- **Vanilmirth:** Caprice (Capricho).
+                    -- Define el nivel de 'Caprice', habilidad de ataque mágico de Vanilmirth.
+                    -- **0 = Deshabilitada, 5 = Nivel Máximo.**
+RecoveryTimer	 = 0
+
+-- **NOTA IMPORTANTE SOBRE LAS HABILIDADES DE LIF:**
+-- Debido al tiempo de espera (delay) entre 'Urgent Escape' y 'Mental Change', Lif solo utilizará ambas habilidades en conjunto si detecta el efecto de 'Poem of Bragi' cerca.
+-- 'Mental Change' solo se activará cuando haya un monstruo dentro del rango de detección de Lif.
+-- Lo mismo aplica para 'Blood Lust' de Amistr, solo se activará si hay un monstruo cerca.
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- **SECCIÓN 2: CONFIGURACIÓN DE COMPORTAMIENTO EN COMBATE**  <a name="seccion-2-configuracion-de-comportamiento-en-combate"></a>
+--------------------------------------------------------------------------------------------------------------------------------
+-- En esta sección, defines cómo quieres que tu homúnculo se comporte durante el combate.
+-- Puedes activar o desactivar el uso de diferentes tipos de habilidades y configurar estrategias de combate.
+
+AttemptDecloak	= 1	-- ¿Intentar revelar enemigos ocultos? 1=sí, 0=no.
+
+UseDefenseSkill = 1    -- **¿Usar habilidades defensivas?**
+                    -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo utilizará habilidades como 'Defense' de Amistr para protegerse y proteger a sus aliados.
+UseQuicken = 1         -- **¿Usar habilidades de velocidad?**
+                    -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo utilizará habilidades como 'Fleet Move' o 'Accelerated Flight' para moverse más rápido en combate.
+VanUseChaotic	 = 1	-- **Vanilmirth: Uso de Chaotic Benediction.**
+                    -- **0 = No, 1 = Sí.** Si se habilita, Vanilmirth utilizará 'Chaotic Benediction'. El nivel de la habilidad se determinará aleatoriamente según el HP restante del dueño y del homúnculo.
+
+LifAlwaysSpeed   = 0	-- **Lif: Priorizar Urgent Escape.**
+                    -- **0 = No, 1 = Sí.**
+                    -- Si se habilita, Lif siempre intentará usar 'Urgent Escape' tan pronto como sea posible para priorizar la evasión.
+                    -- **ADVERTENCIA:** Debido al delay entre habilidades, habilitar esta opción podría impedir que Lif use 'Mental Change' a menos que esté bajo el efecto de 'Poem of Bragi'.
+
+LifAlwaysMental	 = 1	-- **Lif: Priorizar Mental Change.**
+                    -- **0 = No, 1 = Sí.**
+                    -- Si se habilita, Lif siempre intentará usar 'Mental Change' para mejorar sus capacidades de combate.
+                    -- **NOTA:** 'Urgent Escape' tiene prioridad sobre 'Mental Change'. Si ambas opciones están habilitadas y son posibles, 'Urgent Escape' se utilizará primero, lo que podría causar conflictos con el delay de 'Mental Change'.
+
+UseLimitBreak 	 = 0	-- **Uso calculado de SBR44 y Bio Explosion (Vanilmirth).**
+                    -- **0 = No, 1 = Sí.**
+                    -- Si se habilita, Vanilmirth utilizará 'SBR44' y 'Bio Explosion' de forma inteligente contra jugadores enemigos.
+                    -- 'SBR44' solo se usará contra el objetivo definido como "EMPBREAKTARGET" (por defecto, Assassin Cross atacando el Emperium).
+                    -- 'Bio Explosion' se utilizará en función del número de jugadores hostiles cercanos para maximizar su efectividad.
+
+-- **CÁLCULO DE BIO EXPLOSION:**
+-- El contador para usar 'Bio Explosion' se incrementa en +1 por cada enemigo jugador confirmado en rango y disminuye en -2 por cada aliado jugador confirmado.
+-- Los personajes neutrales y monstruos no jugadores se omiten en este cálculo.
+
+VanExThreshold 	 = 10	-- **Vanilmirth: Umbral de jugadores hostiles para Bio Explosion.**
+                    -- Define el número mínimo de jugadores hostiles confirmados en rango antes de que Vanilmirth use 'Bio Explosion'.
+                    -- Ajusta este valor para controlar la agresividad de Vanilmirth al usar 'Bio Explosion'.
+
+UseAtkSkills	 = 1	-- **¿Usar habilidades de ataque?**
+                    -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo utilizará habilidades de ataque como 'Caprice' (Vanilmirth) y 'Moonlight' (Filir) para atacar a los enemigos.
+
+-- **HABILIDADES DE RESCATE BASADAS EN HP DEL DUEÑO:**
+-- Las siguientes configuraciones controlan el uso de habilidades de rescate como 'Castling' (Amistr) y 'Touch of Heal' (Lif) basadas en el porcentaje de HP restante del dueño.
+-- Estas habilidades se activarán automáticamente cuando el HP del dueño caiga por debajo del porcentaje definido.
+
+UseRescueSkill	 = 1	-- **¿Usar habilidades de rescate?**
+                    -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo utilizará habilidades de rescate para proteger al dueño cuando su HP sea bajo.
+RescueHpPercent	 = 0	-- **Porcentaje de HP del dueño para activar habilidades de rescate.**
+                    -- Define el porcentaje de HP del dueño por debajo del cual el homúnculo utilizará una habilidad de rescate.
+                    -- **0 = Siempre intentará usar habilidades de rescate si 'UseRescueSkill' está habilitado.** (Usar con precaución, puede consumir SP innecesariamente)
+
+-- **MODOS DE IA:**
+-- La IA del homúnculo opera en diferentes modos que controlan su comportamiento general.
+-- - **Follow (Seguir):** Modo inicial. El homúnculo sigue al dueño de cerca.
+-- - **Standby (Espera):** Se activa presionando la tecla de Standby (mover homúnculo) una vez. El homúnculo espera instrucciones y puede patrullar si está configurado.
+-- - **Move (Mover):** Se activa al indicarle al homúnculo un destino para moverse. El homúnculo se mueve a la ubicación indicada.
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- **SECCIÓN 3: CONFIGURACIÓN DE DISTANCIAS Y SEGUIMIENTO**  <a name="seccion-3-configuracion-de-distancias-y-seguimiento"></a>
+--------------------------------------------------------------------------------------------------------------------------------
+-- En esta sección, puedes ajustar las distancias a las que tu homúnculo se mantendrá de ti y cómo te seguirá en diferentes modos.
+-- También puedes configurar si el homúnculo debe perseguir enemigos y a qué distancia.
+
+FollowChaseDown	 = 1	-- **¿Perseguir enemigos en modo Follow?**
+                    -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo perseguirá enemigos mientras esté en modo 'Follow', atacándolos si están dentro de su rango de ataque.
+MoveChaseDown	 = 1	-- **¿Perseguir enemigos en modo Move?**
+                    -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo perseguirá enemigos mientras esté en modo 'Move', incluso si se le ha dado una ubicación específica a la que moverse.
+AIDecideChase = 1      -- **¿Permitir que la IA decida cuándo perseguir?**
+                    -- **0 = No, 1 = Sí.**
+                    -- Si se habilita, la IA decidirá automáticamente cuándo perseguir enemigos basándose en su propio análisis de la situación (tipo de enemigo, distancia, etc.).
+                    -- Puede ser útil para un comportamiento más autónomo, pero menos controlable.
+
+-- **TIEMPO DE ESPERA DESPUÉS DE CAMBIO DE MAPA O RESPAWN:**
+-- Define el tiempo en milisegundos que la IA esperará antes de realizar cualquier acción después de un cambio de mapa, respawn (relog, fly wing, teleport).
+-- Este tiempo de espera ayuda a asegurar que el juego se cargue completamente antes de que el homúnculo comience a actuar.
+-- **IMPORTANTE:** No establecer este valor por encima de 3000 (3 segundos) para evitar problemas de respuesta del homúnculo y posibles errores.
+
+SpawnWait		 = 0 	-- **Tiempo de espera al aparecer (en milisegundos).**
+                    -- **Recomendado: 0-3000.**  Un valor de 0 significa que no habrá espera.
+
+MaxDistance	 = 13	-- **Distancia máxima al dueño.**
+                    -- Define la distancia máxima permitida entre el homúnculo y su dueño.
+                    -- Si el homúnculo se aleja más allá de esta distancia, detendrá cualquier acción, cambiará a modo 'Follow' y regresará al dueño.
+                    -- **RECOMENDACIÓN: 13.**  Valores superiores a 14 pueden hacer que el homúnculo quede fuera de la pantalla del dueño, especialmente en mapas grandes.
+
+-- **NOTA SOBRE KITING:**
+-- Las siguientes configuraciones de distancia serán ignoradas cuando el homúnculo esté realizando Kiting (atacar a distancia y alejarse del enemigo).
+-- El Kiting se configura en la SECCIÓN 5 y en el archivo `Actor_Presets.lua` para un control más detallado por tipo de enemigo.
+
+FollowDistance 	 = 1	-- **Distancia normal al dueño en modo Follow.**
+                    -- Define la distancia a la que el homúnculo se mantendrá del dueño cuando esté en modo 'Follow' y no esté combatiendo.
+FollowMax		 = 13	-- **Distancia máxima al dueño en modo Follow.**
+                    -- Define la distancia máxima permitida entre el homúnculo y el dueño *durante* el modo 'Follow', especialmente al perseguir enemigos.
+MoveRadius		 = 1	-- **Radio de movimiento en modo Move.**
+                    -- Define la distancia que el homúnculo se moverá *desde* el punto indicado cuando se le da una orden de movimiento en modo 'Move'.
+IdleDistance	 = 1	-- **Distancia en modo Idle (Quieto).**
+                    -- Define la distancia que el homúnculo mantendrá con el dueño cuando esté en modo 'Idle' (activado presionando la tecla Standby 3 veces mientras se está sentado).
+                    -- En modo 'Idle', el homúnculo principalmente patrullará (si está habilitado) o esperará instrucciones.
+
+-- **CONFIGURACIÓN DE ALIANZA Y TIPO DE OBJETIVO (MANUAL):**
+-- Permite configurar manualmente la alianza (amigo/enemigo) y el tipo de objetivo (jugador/monstruo) del homúnculo para ataques y habilidades.
+-- Esto te permite forzar al homúnculo a atacar o ignorar ciertos tipos de objetivos de forma manual.
+-- **Valores Posibles:** Consulta el archivo `Const.lua` para una lista completa de valores válidos. Algunos comunes son: `IGNORE`, `NONE`, `NEUTRAL`, `ALLY`, `HOSTILE`, `PC`, `MONSTER`, etc.
+-- **ADVERTENCIA:** Configurar un valor incorrecto o inconsistente puede generar un comportamiento errático e impredecible en el homúnculo.
+
+ManAtkAlliance	 = IGNORE -- **Alianza de objetivo de ataque manual.**
+                    -- Define la alianza de los objetivos que el homúnculo atacará cuando se le ordene manualmente.
+ManAtkType		 = IGNORETARGET -- **Tipo de objetivo de ataque manual.**
+                    -- Define el tipo de objetivo que el homúnculo atacará cuando se le ordene manualmente.
+
+-- **FIJAR ALIANZA Y TIPO DE OBJETIVO CON HABILIDADES MANUALES:**
+-- Utilizar una habilidad manualmente sobre un objetivo (por ejemplo, curar a un jugador) puede fijar la alianza y tipo de ese objetivo para futuras acciones del homúnculo.
+-- Esto permite que el homúnculo recuerde la alianza de un objetivo incluso después de que haya dejado de ser un objetivo directo.
+-- **EXCEPCIÓN:** Las habilidades de recuperación (como curaciones) siempre fijarán la alianza del objetivo como "ALLYSTATUS" (aliado en estado alterado), independientemente de esta configuración.
+
+ManSkillAlliance = IGNORE -- **Alianza de objetivo de habilidad manual.**
+                    -- Define la alianza de los objetivos que el homúnculo considerará al usar habilidades manualmente.
+ManSkillType	 = IGNORETARGET -- **Tipo de objetivo de habilidad manual.**
+                    -- Define el tipo de objetivo que el homúnculo considerará al usar habilidades manualmente.
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- **SECCIÓN 4: CONFIGURACIÓN DE PRIORIDADES DE OBJETIVO**  <a name="seccion-4-configuracion-de-prioridades-de-objetivo"></a>
+--------------------------------------------------------------------------------------------------------------------------------
+-- En esta sección, defines las prioridades de ataque del homúnculo hacia diferentes tipos de objetivos.
+-- Puedes hacer que el homúnculo priorice protegerte a ti, a tu mercenario, o incluso a sí mismo.
+-- La prioridad se basa en un valor numérico: **mayor valor = mayor prioridad.**
+-- Las configuraciones de alianza y tipo de objetivo de la SECCIÓN 3 también influyen en la prioridad.
+-- **VALORES POR DEFECTO:** Están configurados para que el homúnculo priorice proteger al mercenario sobre sí mismo, ya que el homúnculo puede ser resucitado más fácilmente.
+-- Un valor de **0** significa que la distancia al objetivo, si está atacando o siendo atacado, **no influye en la prioridad** para ese tipo de objetivo.
+
+OwnerPriority	 = 0 -- **Prioridad de proteger al dueño.**
+                    -- Define la prioridad que el homúnculo dará a proteger al dueño de ataques enemigos.
+MercPriority	 = 15 -- **Prioridad de proteger al mercenario.**
+                    -- Define la prioridad que el homúnculo dará a proteger al mercenario del dueño de ataques enemigos.
+HomunPriority	 = 0  -- **Prioridad de autoprotección (proteger al homúnculo).**
+                    -- Define la prioridad que el homúnculo dará a su propia supervivencia y protección contra ataques enemigos.
+FriendPriority	 = 0	 -- **Prioridad de proteger a aliados.**
+                    -- Define la prioridad que el homúnculo dará a proteger a otros aliados (jugadores, otros homúnculos, etc.) que estén siendo atacados.
+                    -- **Limitado solo a aliados que están siendo atacados.**
+
+-- **COMPORTAMIENTO AGRESIVO/PASIVO:**
+-- Controla el comportamiento general del homúnculo en cuanto a la agresión hacia enemigos.
+-- Puedes hacer que el homúnculo ataque a todo lo que vea, o que sea completamente pasivo y solo ataque bajo orden directa.
+
+SuperAggro		 = 1	-- **¿Atacar a todo enemigo visible?**
+                    -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo atacará automáticamente a cualquier enemigo que entre en su rango de visión, sin necesidad de orden manual.
+                    -- **Útil en PvM para un farmeo más eficiente.**
+                    -- **Puede ser problemático en PvP o mapas con muchos jugadores**, donde el homúnculo podría atraer enemigos no deseados.
+AggroHP		 = 0	 -- **HP mínimo del enemigo para atacar.**
+                    -- **0 = Siempre ataca, incluso a enemigos con HP completo.**
+                    -- Si se establece un valor mayor a 0, el homúnculo solo atacará enemigos cuyo HP esté por debajo de este valor. (Actualmente no funcional o implementado).
+AggroSP		 = 0	 -- **Porcentaje de SP del dueño antes de que el homúnculo se vuelva agresivo.**
+                    -- (Actualmente no implementado o funcional).  Originalmente pensado para hacer que el homúnculo se volviera más agresivo cuando el dueño tenía suficiente SP, pero no está activo.
+SuperPassive	 = 0	 -- **Modo totalmente pasivo.**
+                    -- **0 = Normal, 1 = Totalmente pasivo.** Si se habilita, el homúnculo **no atacará a ningún enemigo automáticamente**, a menos que se le ordene manualmente a través de comandos.
+                    -- **Ideal para situaciones donde quieres tener control total sobre los ataques del homúnculo.**
+AtkDLP		 = 1	 -- **Anular 'SuperPassive' para DLPTARGET.**
+                    -- **0 = No, 1 = Sí.**
+                    -- Si se habilita, el homúnculo **atacará al objetivo definido como "DLPTARGET"** (utilizado para Dance Attack) **incluso si 'SuperPassive' está habilitado.**
+                    -- Permite realizar "Dance Attack" (ataque cancelando la animación) en modo pasivo, útil para ciertos estilos de juego.
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- **SECCIÓN 5: CONFIGURACIÓN ADICIONAL Y MISCELÁNEA**  <a name="seccion-5-configuracion-adicional-y-miscelanea"></a>
+--------------------------------------------------------------------------------------------------------------------------------
+-- En esta sección, encontrarás configuraciones adicionales y misceláneas que afectan el comportamiento del homúnculo.
+-- Incluye opciones para guardar información de objetivos, gestión de tiempo AFK, Kiting, patrullaje y más.
+
+WriteActorInfo	  = 1  -- **¿Escribir información de objetivos en `ActorList.lua`?**
+                    -- **0 = No, 1 = Sí.**
+                    -- Si se habilita, el homúnculo guardará información detallada sobre la lista de enemigos que ha encontrado en el archivo `ActorList.lua`.
+                    -- **Útil para:**
+                    --    - Guardar la lista de enemigos entre muertes o reinvocaciones del homúnculo.
+                    --    - Compartir información de objetivos entre el homúnculo y el mercenario (si ambos utilizan esta opción).
+                    -- **ADVERTENCIA:** Solo **un cliente** de juego debe tener esta opción habilitada **simultáneamente** para evitar errores y corrupción de datos en el archivo.
+                    -- Si experimentas errores relacionados con el homúnculo, intenta desactivar esta opción y/o **eliminar el contenido del archivo `ActorList.lua`**.
+                    -- Para **fijar valores permanentemente** para un enemigo o aliado específico (por ejemplo, siempre tratar a un tipo de monstruo como agresivo), configura el archivo `Actor_Presets.lua`.
+
+-- **CONFIGURACIÓN RÁPIDA DE ALIANZA PARA JUGADORES EN PANTALLA:**
+-- Puedes cambiar rápidamente la alianza de **todos los jugadores visibles en pantalla a "ALIADOS"** (útil para guilds o parties) usando la siguiente secuencia:
+-- 1. Escribe `/sit` en el chat para sentarte a tu personaje.
+-- 2. Presiona la **tecla de Standby** (mover homúnculo) **3 veces** dentro de un período de 5 segundos.
+
+-- **LIMPIAR ARCHIVO `ActorList.lua`:**
+-- Puedes **eliminar el contenido del archivo `ActorList.lua`** (útil para solucionar errores o empezar de cero) usando la siguiente secuencia:
+-- 1. Escribe `/sit` en el chat para sentarte a tu personaje.
+-- 2. Presiona la **tecla de Standby** (mover homúnculo) **5 veces** dentro de un período de 5 segundos. Aparecerá una ventana emergente de confirmación antes de eliminar el archivo.
+
+AFKMaxTime		  = 75  -- **Tiempo máximo AFK (en minutos) antes de aviso.**
+                    -- Define el tiempo máximo en minutos que el dueño puede estar AFK (Away From Keyboard) antes de que aparezca un **aviso de AFK en pantalla.**
+                    -- **Si no reaccionas al aviso a tiempo, el cliente de juego se desconectará automáticamente.**
+                    -- El temporizador de AFK se **reinicia cada vez que el dueño se mueve al menos 1 celda.**
+                    -- **Propósito:**  Principalmente para evitar que tu homúnculo muera de hambre (y potencialmente te deje si la lealtad baja demasiado) si te quedas AFK y olvidas alimentarlo.
+                    -- **NOTA IMPORTANTE:** 1 punto de hambre del homúnculo se consume **por minuto.**  **No establecer este valor por encima de 75** (el máximo de hambre del homúnculo es 75).
+
+MoveToSingers	  = 1   -- **¿Buscar buffs de Bard/Dancer cercanos?**
+                    -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo **buscará automáticamente personajes Bard o Dancer cercanos** (dentro del rango de visión) para intentar recibir buffs de canciones y bailes. Si se está usando una canción de bardo, moverse hacia el bardo cada 20 segundos para refrescar la canción.
+KiteHostiles 	  = 0   -- **¿Habilitar Kiting contra enemigos hostiles?**
+                    -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo utilizará **tácticas de Kiting** contra enemigos hostiles (monstruos y jugadores enemigos).
+                    -- **Kiting:**  Atacar a distancia y moverse para mantener la distancia con el enemigo, evitando ser golpeado.
+                    -- **Habilitar kiteo (huir). Monstruos, jugadores y tipos específicos se pueden establecer en Actor_Presets.lua.
+                    -- La configuración específica de Kiting para **monstruos, jugadores o tipos de objetivo se define en el archivo `Actor_Presets.lua`**, permitiendo un control muy detallado.
+KiteAllEnemies 	  = 0   -- **¿Kitear a todos los enemigos?**
+                    -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo **kiteará a todos los enemigos**, independientemente de su tipo o alianza (incluso monstruos neutrales o aliados).
+                    -- **Usar con precaución**, ya que puede no ser deseable kitear a todos los enemigos en todas las situaciones.
+KiteDistance 	  = 0   -- **Distancia de Kiting.**
+                    -- Define la **distancia mínima a la que el homúnculo se alejará del enemigo antes de realizar cualquier acción** (atacar, usar habilidades, etc.) durante el Kiting.
+                    -- Ajusta este valor para controlar qué tan lejos quieres que el homúnculo se mantenga de los enemigos mientras kitea.
+
+MiscWait		  = 0	   -- **Tiempo de espera misceláneo (en segundos).**
+                    -- (Actualmente no implementado o funcional).  Originalmente pensado para añadir un tiempo de espera adicional entre acciones del homúnculo, pero no está activo en la versión actual.
+
+PatrolDistance 	  = 5	   -- **Distancia de patrullaje en modo Idle (Quieto).**
+                    -- Define la distancia **máxima que el homúnculo patrullará alrededor del dueño mientras está en modo 'Idle'** (activado con 3 presiones de Standby estando sentado).
+                    -- **Si se establece en 0, el patrullaje se deshabilitará.** El homúnculo permanecerá quieto en modo Idle.
+PatrolType 	  = 2	   -- **Tipo de patrullaje en modo Idle.**
+                    -- Especifica **la forma en que el homúnculo patrullará** alrededor del dueño en modo Idle.
+                    -- **1 = Cuadrado:** Patrullaje en forma cuadrada alrededor del dueño. Más práctico y eficiente en la mayoría de los casos.
+                    -- **2 = Diamante:** Patrullaje en forma de diamante alrededor del dueño. Puede ser menos práctico en espacios reducidos y a veces más molesto visualmente.
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- **CONSEJOS ADICIONALES PARA NUEVOS USUARIOS** --
+--------------------------------------------------------------------------------------------------------------------------------
+-- * **Experimenta con los valores poco a poco.** No cambies demasiadas configuraciones a la vez. Realiza pequeños ajustes y prueba cómo afectan el comportamiento de tu homúnculo en el juego.
+-- * **Lee las notas y advertencias.** Hay información importante en las notas sobre ciertas configuraciones y posibles conflictos entre ellas.
+-- * **Si algo no funciona como esperas, revisa de nuevo las descripciones de las variables.** Es posible que hayas interpretado mal alguna configuración.
+-- * **En caso de duda, consulta guías o foros online sobre la IA del homúnculo.** Hay comunidades de jugadores que comparten configuraciones y consejos útiles.
+-- * **¡Diviértete personalizando tu homúnculo!** Una buena configuración puede marcar una gran diferencia en su rendimiento y hacer que tu experiencia de juego sea más placentera.

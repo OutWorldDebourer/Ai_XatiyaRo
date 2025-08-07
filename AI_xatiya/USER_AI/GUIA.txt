@@ -1,0 +1,687 @@
+# Homunculus AI Script User’s Guide: Guía para Principiantes
+
+**Tabla de Contenidos**
+
+1. **Introducción:** ¿Qué es la IA de Homunculus y por qué personalizarla?
+2. **Entendiendo los Archivos Clave:** AI.lua, Const.lua y Util.lua
+3. **Funciones Integradas de Ragnarok Online:** Acciones Básicas para tu Homunculus
+4. **Valores Constantes Integrados:** Personalizando el Comportamiento con Const.lua
+5. **Tu Primer Script Básico:**  ¡Manos a la Obra! (Conceptos Fundamentales)
+6. **Consejos Adicionales y Solución de Problemas**
+7. **Historial de Actualizaciones del Script de IA**
+
+---
+
+**1. Introducción:  ¡Dale Personalidad a tu Homunculus!**
+
+¿Cansado de que tu Homunculus se comporte siempre igual?  ¡El sistema de IA de Homunculus te permite tomar el control!  Con esta guía, aprenderás a crear tus propios scripts de IA únicos para personalizar el comportamiento de tu Homunculus en Ragnarok Online.  Podrás compartir tus creaciones con la comunidad RO y experimentar con infinitas posibilidades.
+
+Los scripts de IA de Homunculus se escriben en lenguaje LUA, un lenguaje de programación sencillo y popular.  No te preocupes si no sabes programar, ¡esta guía te ayudará a empezar!  Ragnarok Online incluye un programa interno que lee y ejecuta estos scripts.
+
+Los archivos principales que controlan la IA de tu Homunculus son `AI.lua` y `Util.lua`, ubicados dentro de la carpeta `AI` en tu carpeta de Ragnarok Online.  Planeamos añadir más funciones para que puedas personalizar aún más a tu Homunculus.
+
+Para aquellos que no están familiarizados con la programación, ¡no se preocupen!  Proporcionaremos scripts de IA oficiales como referencia para que puedas aprender y adaptarlos.
+
+**Para saber más sobre LUA (opcional):**  Si tienes curiosidad por el lenguaje LUA, puedes visitar [http://www.lua.org](http://www.lua.org).  Pero para empezar con esta guía, ¡no es necesario que seas un experto en LUA!
+
+---
+
+**2. Entendiendo los Archivos Clave: AI.lua, Const.lua y Util.lua**
+
+Para que la IA de tu Homunculus funcione correctamente, Ragnarok Online utiliza tres archivos principales que se encuentran en la carpeta `AI` de tu juego (normalmente en `C:\Archivos de Programa\Gravity\Ragnarok Online\AI`).  Estos archivos son: `AI.lua`, `Const.lua` y `Util.lua`.  Cada uno tiene un rol específico:
+
+* **`AI.lua`:**  **El Cerebro de tu Homunculus.** Este archivo contiene la función principal `AI(id)` que decide qué acciones realizará tu Homunculus.  ¡Aquí es donde programarás el comportamiento que deseas!  Si modificas este archivo, cambiarás cómo se comporta tu Homunculus.  **Importante:** Ragnarok Online necesita un archivo `AI.lua` que funcione correctamente. Si hay errores en este archivo (errores de escritura o de lógica), el juego te mostrará un mensaje de error y se detendrá.
+
+* **`Const.lua`:** **La Lista de Constantes.**  Este archivo contiene "variables constantes" que se usan en los scripts de Homunculus.  Piensa en ellas como etiquetas o nombres cortos para valores importantes (como "HP", "Ataque", "Movimiento", etc.).  `AI.lua` y `Util.lua` utilizan estas constantes para entender el juego.  Aunque Ragnarok Online puede funcionar sin `Const.lua`, este archivo es necesario para crear comportamientos más complejos y personalizados.
+
+* **`Util.lua`:** **Herramientas y Listas.**  Este archivo define una "estructura de datos" llamada "Lista" (List) que es muy útil para la IA.  También contiene algunas funciones matemáticas básicas que los scripts pueden usar.  Similar a `Const.lua`,  Ragnarok Online no *necesita* este archivo para funcionar, pero `Util.lua` es esencial para que la IA de tu Homunculus pueda hacer cosas más avanzadas, como recordar comandos en cola o mantener listas de enemigos.
+
+**¿Cuándo se activan estos archivos?**
+
+Cada vez que tu Homunculus aparece en el juego, Ragnarok Online lee automáticamente los archivos `AI.lua` y `Util.lua`.  Si hay algún error en estos archivos, el juego se detendrá y mostrará un mensaje indicando dónde está el problema. Si todo está correcto, el juego ejecutará la función `AI(id)` de `AI.lua`, ¡y tu Homunculus cobrará vida con la IA que has programado!
+
+Tu Homunculus se "spawnea" (aparece) en las siguientes situaciones:
+
+1. Creando un Homunculus por primera vez.
+2. Reviviendo a un Homunculus muerto.
+3. Iniciando el juego con un personaje que ya tiene un Homunculus.
+4. Usando "Fly Wing" o "Butterfly Wing" con un personaje que tiene Homunculus.
+5. Usando un Portal de Warp con un personaje que tiene Homunculus.
+6. Usando el Servicio de Teletransporte de Kafra con un personaje que tiene Homunculus.
+
+---
+
+**3. Funciones Integradas de Ragnarok Online: ¡Las Acciones Básicas de tu Homunculus!**
+
+Ragnarok Online ya tiene "funciones" programadas dentro del juego que tu Homunculus puede usar.  Piensa en ellas como **órdenes predefinidas** que le puedes dar a tu Homunculus en tu script de IA.  Estas funciones le permiten hacer cosas básicas como moverse, atacar, usar habilidades, ¡y mucho más!
+
+Las funciones `AI(id)` utilizan **números de ID** para identificar diferentes cosas en el juego, como tu Homunculus, monstruos, u otros personajes.  Aquí tienes una lista de las funciones básicas que tu Homunculus puede realizar.  **¡No tienes que crearlas tú mismo, ya están listas para usar!**  Solo necesitas saber cómo usarlas en tu script `AI.lua`.
+
+**(Lista de Funciones con Explicaciones Mejoradas)**
+
+1)  **`MoveToOwner (id)`**
+    * **`id`:**  ID del Homunculus que se moverá.
+    * **Función:**  El Homunculus se mueve al punto más cercano a su dueño.  **Útil para:** Que el Homunculus te siga de cerca sin necesidad de especificar coordenadas exactas.
+
+2)  **`Move (id, x, y)`**
+    * **`id`:** ID del Homunculus.
+    * **`x`:** Coordenada X en el mapa actual.
+    * **`y`:** Coordenada Y en el mapa actual.
+    * **Función:** El Homunculus se mueve a una ubicación específica en el mapa actual. **Útil para:**  Enviar al Homunculus a un lugar concreto, como recoger un objeto o explorar una zona.
+
+3)  **`Attack (id1, id2)`**
+    * **`id1`:** ID del Homunculus (el atacante).
+    * **`id2`:** ID del objetivo a atacar.
+    * **Función:**  Ordena al Homunculus (`id1`) atacar al objetivo (`id2`). **Útil para:**  Que el Homunculus ataque a un monstruo o personaje específico.
+
+4)  **`GetV (V_, id)`**
+    * **`V_...`:**  Una **constante** (definida en `Const.lua`) que indica qué propiedad del objeto quieres obtener (por ejemplo, `V_POSITION` para la posición, `V_HP` para la vida).
+    * **`id`:** ID del objeto del que quieres obtener la propiedad.
+    * **Valor de Retorno:**  Depende de la constante `V_...` que uses. Por ejemplo, si usas `V_POSITION`, te dará las coordenadas X e Y. Si usas `V_HP`, te dará el valor de vida.
+    * **Función:**  Obtiene una propiedad específica (`V_...`) del objeto con ID `id`.  **Importante:** Los valores constantes de las propiedades están definidos en el archivo `Util.lua`.  **Consulta la sección "4- Valores Constantes Integrados" para más detalles.**  **Útil para:**  Obtener información del juego, como la posición de un monstruo, la vida de tu Homunculus, etc., para que tu script pueda tomar decisiones basadas en esta información.
+
+5)  **`GetActors ()`**
+    * **Valor de Retorno:**  Una lista de IDs de todos los "actores" (personajes, NPCs, monstruos, objetos, habilidades) que están visibles en la pantalla de tu personaje.  Devuelve la lista en formato LUA.
+    * **Función:**  Ve los IDs de todo lo que te rodea en el juego.  **Útil para:**  Detectar enemigos, objetos interactivos, o NPCs cercanos.
+
+6)  **`GetTick ()`**
+    * **Valor de Retorno:**  Un número que aumenta cada milésima de segundo (1/1000 segundos), empezando desde 0.
+    * **Función:**  Muestra un temporizador que se actualiza muy rápido. **Útil para:**  Medir el tiempo transcurrido en el juego, por ejemplo, para esperar un cierto tiempo entre acciones del Homunculus.
+
+7)  **`GetMsg (id)`**
+    * **`id`:** ID del Homunculus.
+    * **Valor de Retorno:**  Un mensaje de texto que el cliente de RO envía al script de IA.  Devuelve el mensaje en formato LUA.
+    * **Función:**  Recibe comandos que el usuario introduce a través de la interfaz del cliente de RO (la ventana del Homunculus).  **Útil para:**  Permitir que el jugador dé órdenes directas al Homunculus desde el juego, como "mover", "atacar", etc.
+
+8)  **`GetResMsg (id)`**
+    * **`id`:** ID del Homunculus.
+    * **Valor de Retorno:**  Un mensaje de texto "reservado" del cliente de RO, en formato LUA.
+    * **Función:**  Recibe mensajes "reservados" por el usuario.  En la práctica, se usa para recibir comandos que se han **encolado** (guardado para ejecutar después).  **Útil para:**  Crear secuencias de comandos más complejas para el Homunculus, como una serie de movimientos o ataques.
+
+9)  **(Función número 9 faltante en el original)** - Nota: La función número 9 parece estar omitida en la documentación original.
+
+10) **`SkillObject (id, level, skill, target)`**
+    * **`id`:** ID del Homunculus.
+    * **`level`:** Nivel de la habilidad a usar.
+    * **`skill`:**  ID de la habilidad a usar.
+    * **`target`:** ID del objetivo de la habilidad.
+    * **Función:** El Homunculus usa una habilidad específica (`skill`) de un nivel determinado (`level`) en un objetivo (`target`). **Útil para:**  Que el Homunculus use habilidades de ataque, curación, o soporte en enemigos o aliados.
+
+11) **`SkillGround (id, level, skill, x, y)`**
+    * **`id`:** ID del Homunculus.
+    * **`level`:** Nivel de la habilidad.
+    * **`skill`:** ID de la habilidad.
+    * **`x`:** Coordenada X del suelo donde se usará la habilidad.
+    * **`y`:** Coordenada Y del suelo.
+    * **Función:** El Homunculus usa una habilidad en el suelo en las coordenadas especificadas (`x`, `y`). **Útil para:**  Habilidades de área que se lanzan en el suelo, como trampas o hechizos de área.
+
+12) **(Función número 12 faltante en el original)** - Nota: La función número 12 parece estar omitida en la documentación original.
+
+13) **`IsMonster (id)`**
+    * **`id`:** ID de un objeto en el juego.
+    * **Valor de Retorno:**  `1` si el objeto es un monstruo, `0` si no lo es.
+    * **Función:**  Reconoce si un objeto es un monstruo o no. **Útil para:**  Que tu script pueda diferenciar entre monstruos y otros objetos, y reaccionar de forma diferente según el tipo de objeto.
+
+14) **`TraceAI (string)`**
+    * **`string`:**  Texto (string) que quieres guardar en el archivo `TraceAI.txt`.
+    * **Función:**  Escribe un mensaje en el archivo `TraceAI.txt`.  Este archivo se crea en la carpeta de Ragnarok Online y sirve para registrar información sobre cómo está funcionando tu script de IA. **Útil para:**  Depurar tu script, es decir, encontrar y corregir errores.  Puedes usar `TraceAI` para ver qué está haciendo tu Homunculus en cada momento y si tu script está funcionando como esperas.
+
+---
+
+**4. Valores Constantes Integrados:  ¡Personaliza el Comportamiento con Const.lua!**
+
+En el archivo `Const.lua` se definen **"valores constantes"**.  Piensa en ellos como **nombres cortos** para cosas importantes del juego.  Por ejemplo, en lugar de usar el número `0` para referirte al "dueño del Homunculus", puedes usar la constante `V_OWNER`.  Esto hace que tu script sea mucho más fácil de leer y entender.
+
+**4-1. Constantes para la Función `GetV`**
+
+Estas constantes se usan con la función `GetV` (que vimos en la sección anterior) para decirle a la función **qué tipo de información quieres obtener** sobre un objeto.
+
+```lua
+V_OWNER         =  0     -- Devuelve el ID del dueño del Homunculus
+V_POSITION      =  1     -- Devuelve las coordenadas X e Y de la ubicación actual
+V_TYPE          =  2     -- Define un tipo de objeto (Aún no implementado)
+V_MOTION        =  3     -- Devuelve la acción actual del objeto (ej: parado, moviéndose, atacando)
+V_ATTACKRANGE   =  4     -- Devuelve el rango de ataque (Aún no implementado; temporalmente fijado en 1 celda)
+V_TARGET        =  5     -- Devuelve el ID del objetivo de un ataque o habilidad
+V_SKILLATTACKRANGE = 6  -- Devuelve el rango de ataque de una habilidad (Aún no implementado)
+V_HOMUNTYPE     =  7     -- Devuelve el tipo de Homunculus
+V_HP            =  8     -- Devuelve la vida actual (HP) del Homunculus o su dueño
+V_SP            =  9     -- Devuelve el maná actual (SP) del Homunculus o su dueño
+V_MAXHP         =  10    -- Devuelve la vida máxima (HP) del Homunculus o su dueño
+V_MAXSP         =  11    -- Devuelve el maná máximo (SP) del Homunculus o su dueño
+Use el código con precaución.
+4-2. Valores de Retorno para GetV (V_MOTION, id)
+
+Cuando usas 'GetV con la constante , la función te devolverá uno de estos valores para decirte GetVV_MOTIONqué acción está realizando el objeto.
+
+MOTION_STAND    =  0     : Parado
+MOTION_MOVE     =  1     : Movimiento
+MOTION_ATTACK   =  2     : Ataque
+MOTION_DEAD     =  3     : Muerto
+MOTION_ATTACK2  =  9     : Ataque (Otro tipo de ataque)
+Use el código con precaución.
+Lua
+4-3. Valores de Retorno para GetV (V_HOMUNTYPE, id)
+
+Cuando usas con la constante GetVV_HOMUNTYPE, la función te devolverá uno de estos valores para decirte .qué tipo de Homunculus es
+
+LIF             =  1     : Lif
+AMISTR          =  2     : Amistr
+FILIR           =  3     : Filir
+VANILMIRTH      =  4     : Vanilmirth
+LIF_H           =  5     : Lif Avanzado
+AMISTR_H        =  6     : Amistr Avanzado
+FILIR_H         =  7     : Filir Avanzado
+VANILMIRTH_H    =  8     : Vanilmirth Avanzado
+Use el código con precaución.
+Lua
+4-4. Valores de Retorno de , : Comandos del Homúnculo desde la Interfaz de ROGetMsg (id)GetResMsg (id)
+
+Estos valores se usan para entender los . Cuando le das una orden (mover, atacar, etc.), el juego envía un mensaje a tu script de IA, y estos valores te ayudan a interpretar ese mensaje.comandos que le das a tu Homunculus a través de la interfaz del juego
+
+NONE_CMD        =  0     -- No hay comando
+
+MOVE_CMD        =  1     -- Comando: Mover
+    {Comando Número, coordenada X, coordenada Y}
+
+STOP_CMD        =  2     -- Comando: Detener
+    {Comando Número}
+
+ATTACT_OBJET_CMD=  3     -- Comando: Atacar Objeto
+    {Comando Número, ID del Objetivo}
+
+ATTACK_AREA_CMD =  4     -- Comando: Ataque de Área
+    {Comando Número, coordenada X, coordenada Y}
+
+PATROL_CMD      =  5     -- Comando: Patrullar
+    {Comando Número, coordenada X, coordenada Y}
+
+HOLD_CMD        =  6     -- Comando: Marcar/Mantener Posición
+    {Comando Número}
+
+SKILL_OBJECT_CMD=  7     -- Comando: Usar Habilidad en Objetivo
+    {Comando Número, Nivel de Habilidad Seleccionado, Tipo de Habilidad, ID del Objetivo}
+
+SKILL_AREA_CMD  =  8     -- Comando: Usar Habilidad de Área
+    {Comando Número, Nivel de Habilidad Seleccionado, Tipo de Habilidad, coordenada X, coordenada Y}
+
+FOLLOW_CMD      =  9     -- Comando: Seguir a su Dueño
+    {Comando Número}
+Use el código con precaución.
+Lua
+5. Tu Primer Script Básico: ¡Manos a la Obra!
+
+¡Ahora vamos a escribir nuestro primer script de IA! No te preocupes, empezaremos con algo sencillo y lo iremos construyendo paso a paso.
+
+5-1. Lo Esencial para Empezar a Scripting
+
+Los scripts de IA de Homunculus son simplemente que puedes crear con cualquier editor de texto básico como el "Bloc de Notas" (Bloc de Notas) de Windows. Lo importante es que archivos de textoguardes el archivo con la extensión .lua. Por ejemplo, puedes llamarlo . Ragnarok Online reconocerá estos archivos mi_ia.lua.lua como scripts de LUA.
+
+¡Copia de Seguridad! Antes de empezar a experimentar o crear un nuevo script de IA, es que hagas una copia de seguridad del script de IA oficial. Guarda la copia en otra carpeta, por si acaso necesitas volver al script original.Muy recomendable
+
+Entendiendo Estados y Acciones: Antes de programar funciones para tu Homunculus, necesitamos entender los en los que puede estar y las **"acción"estados""acciones" que puede realizar.
+
+5-2. Máquina de Estados Finitos (FSM): El Cerebro Simplificado de tu Homúnculo
+
+El sistema de IA de Homunculus se basa en la idea de (FSM, por sus siglas en inglés). No te asustes por el nombre técnico, ¡es más sencillo de lo que parece!"Máquina de Estados Finitos"
+
+Piensa en una FSM como un . Un semáforo tiene un número semáforoFinito (limitado) de (rojo, amarillo, verde). El semáforo ESTADOSTransiciona de un estado a otro (de verde a amarillo, de amarillo a rojo, etc.) según ciertas (tiempo, sensores, etc.). Y en cada estado, el semáforo realiza una condicionesACCIÓN (mostrar luz roja, luz verde, etc.).
+
+La IA de tu Homunculus funciona de forma similar. Vamos a usar cuatro para empezar:Estados Básicos
+
+OCIOSO (Inactivo): En este estado, el Homúnculo y no hace nada. descansaÚtil para: Cuando no hay monstruos cerca y tú estás descansando, para que el Homúnculo también recupere fuerzas. Cuando un Homúnculo aparece por primEstado inicial:OCIOSO.
+
+PERSECUCIÓN (Perseguir): En este estado, el Homúnculo . **Útsigue a un objetivoÚtil para: Cuando un enemigo ataca al Homúnculo o a su dueño, para que el Homúnculo se acerque lo suficiente para atacarlo. Si te encuentras con monstrConsejo:PERSECUCIÓN para que el Homúnculo evite perseguirlos.
+
+ATACAR (Atacar): En este estado, el Homunculus a un objetivo. ataca continuamenteÚtil para: Cuando hay enemigos cerca que están atacando al dueño o al Homúnculo.
+
+SEGUIR (Seguir): En este estado, el Homúnculo . **Útilse mueve hacia su dueñoÚtil para: Después de derrotar a un enemigo o si el enemigo se aleja demasiado del dueño. Si quieres que el HomúnculoIdea:OCIOSO cuando esté lo suficientemente cerca.
+
+Planificando el Comportamiento: Cuando crees tu script de IA, piensa en las situaciones de combate que podrías encontrar en Ragnarok Online y qué acciones quieres que tu Homunculus realice en cada situación. El siguiente diagrama muestra cómo un Homunculus puede según diferentes situaciones:transicionar entre diferentes estados
+
+(Diagrama de Estados - Aquí se insertaría el diagrama original de IDLE, CHASE, ATTACK, FOLLOW)
+
+Explicación del Diagrama: El diagrama muestra las transiciones entre los estados , , , y 'FOLOCIOSOPERSECUCIÓNATACARSEGUIR. Las flechas indican . Por ejemplo:qué eventos o situaciones hacen que el Homunculus cambie de un estado a otro
+
+Desde un : Si el dueño es atacado o el Homúnculo es atacado.OCIOSOPERSECUCIÓN
+
+Desde a : Si el enemigo está al alcance de ataque.PERSECUCIÓNATACAR
+
+Desde a 'IDLATACAROCIOSO: Si el enemigo es derrotado o ya no está a la vista.
+
+Desde un : Si el Homúnculo está cerca de su dueño.SEGUIROCIOSO
+
+Y así sucesivamente...
+
+5-3. Creando : Funciones AdicionalesUtil.lua
+
+Antes de escribir el script principal , vamos a crear el archivo AI.luaUtil.lua. Este archivo contendrá algunas que nos serán útiles en nuestro script de IA.Funciones adicionales
+
+Si quieres crear desde cero, simplemente crea un nuevo archivo de texto, renómbralo a Util.luaUtil.lua, y copia el siguiente texto dentro:
+
+require   “./AI/Const.lua”  -- Esta línea hace que este archivo pueda usar las constantes de Const.lua
+Use el código con precaución.
+Lua
+¿Qué es una "Lista"? En programación, una es una forma de "lista"organizar información en un orden específico. Es como una lista de compras o una lista de tareas. En la IA de Homunculus, usaremos una "Lista" para guardar cosas como:
+
+Comandos en cola: Órdenes que le has dado al Homunculus pero que aún no ha ejecutado.
+
+Lista de objetivos: Enemigos a los que queremos atacar.
+
+Otra información útil para el funcionamiento de la IA.
+
+Util.lua define cómo funciona esta "Lista" y nos da algunas :funciones para trabajar con listas
+
+List.new ()                     -- Crea una lista nueva y vacía.  Devuelve la lista creada.
+List.pushleft (list, value)      -- Añade un valor al **principio** (lado izquierdo) de la lista.
+List.pushright (list, value)     -- Añade un valor al **final** (lado derecho) de la lista.
+List.popleft (list)              -- **Saca** (elimina y devuelve) el primer valor del **principio** de la lista.
+List.popright (list)             -- **Saca** (elimina y devuelve) el último valor del **final** de la lista.
+List.clear (list)                -- **Vacía** completamente la lista, eliminando todos los valores.
+List.size (list)                 -- Devuelve el **número total** de valores que hay en la lista.
+Use el código con precaución.
+Lua
+Funciones de Cálculo Frecuentes: 'Util.luUtil.lua también incluye algunas funciones matemáticas que usaremos mucho en la IA:
+
+GetDistance (x1, y1, x2, y2)        -- Calcula la distancia en celdas entre dos coordenadas (siempre un número positivo).
+GetDistance2 (id1, id2)             -- Calcula la distancia en celdas entre dos objetos (usando sus IDs, número positivo).
+GetOwnerPosition (id)               -- Devuelve la ubicación (coordenadas) del dueño del Homunculus.
+GetDistanceFromOwner (id)           -- Calcula la distancia entre el Homunculus y su dueño.
+IsOutOfSight (id1, id2)             -- Comprueba si el objeto `id2` está **fuera del rango de visión** del objeto `id1`. Devuelve `true` (verdadero) si está fuera de la visión, `false` (falso) si está visible.
+IsInAttackSight (id1, id2)         -- Comprueba si el objeto `id2` está **dentro del rango de ataque** del objeto `id1`. Devuelve `true` si está dentro del rango de ataque, `false` si no lo está.
+Use el código con precaución.
+Lua
+5-4. Tutorial de : Escribiendo el Script PrincipalAI.lua
+
+¡Ahora sí, vamos a crear nuestro primer script ! Crea un nuevo archivo de texto y renómbralo a AI.luaAI.lua. Abre este archivo con el Bloc de Notas y escribe lo siguiente al principio:
+
+require   “./AI/Const.lua”
+require   “./AI/Util.lua”
+Use el código con precaución.
+Lua
+Estas líneas le dicen a que AI.luanecesita usar los archivos y Const.luaUtil.lua que están en la misma carpeta . Sin estas líneas, tu script no podrá usar las constantes y funciones que definimos en esos archivos.IA
+
+Después, añade la que necesita función más importanteAI.lua:
+
+function AI (myid)
+
+end
+Use el código con precaución.
+Lua
+Este script tan simple es lo para que la IA de tu Homunculus funcione sin errores. Sin embargo, mínimo necesariono hemos programado ningún comportamiento aún. Con este script, tu Homunculus simplemente se quedará quieto sin hacer nada.
+
+Para que el Homunculus haga algo, necesitamos definir los que planeamos usar: ESTADOSOCIOSO, , , y 'ATTASEGUIRPERSECUCIÓNATACAR. Vamos a darles nombres fáciles de recordar:
+
+IDLE_ST   = 0  -- Estado: Inactivo (IDLE)
+FOLLOW_ST = 1  -- Estado: Seguir (FOLLOW)
+CHASE_ST  = 2  -- Estado: Perseguir (CHASE)
+ATTACK_ST = 3  -- Estado: Atacar (ATTACK)
+Use el código con precaución.
+Lua
+También necesitaremos en nuestro script, como:guardar información
+
+El estado actual del Homúnculo: ¿Está en , , 'ATTOCIOSOPERSECUCIÓNATACAR, o ?SEGUIR
+
+El ID del Homúnculo: Para que el script sepa a qué Homunculus está controlando.
+
+El ID del enemigo: Si el Homúnculo está persiguiendo o atacando a alguien.
+
+Coordenadas de destino: Si le hemos ordenado al Homunculus moverse a un lugar específico.
+
+Vamos a crear para guardar esta información. Las variables globales son como "variables globales"Recipientes de información que podemos usar en todo nuestro script:
+
+------------------------------------------
+-- Variables Globales
+------------------------------------------
+MyState       = IDLE_ST   -- Estado actual del Homunculus (empieza en IDLE)
+MyEnemy       = 0         -- ID del enemigo actual (inicialmente no hay enemigo)
+MyDestX       = 0         -- Coordenada X del destino actual (inicialmente no hay destino)
+MyDestY       = 0         -- Coordenada Y del destino actual
+MyPatrolX     = 0         -- Coordenada X para patrullar (inicialmente no hay patrulla)
+MyPatrolY     = 0         -- Coordenada Y para patrullar
+ResCmdList    = List.new() -- Lista de comandos en cola (inicialmente vacía)
+MyID          = 0         -- ID del Homunculus (se asignará al inicio)
+MySkill       = 0         -- ID de la habilidad que usará el Homunculus (inicialmente ninguna)
+MySkillLevel  = 0         -- Nivel de la habilidad (inicialmente nivel 0)
+------------------------------------------
+
+function AI (myid)
+    MyID = myid  -- Guardamos el ID del Homunculus en la variable MyID
+end
+Use el código con precaución.
+Lua
+Función : ¿Qué hace el Homúnculo en Estado ?OnIDLE_ST()OCIOSO
+
+Ahora vamos a definir qué queremos que haga el Homúnculo cuando está en el. Vamos a crear una función llamada OCIOSOOnIDLE_ST(). En este ejemplo, el Homúnculo hará lo siguiente:
+
+Comprobar si el dueño está siendo atacado: Si el dueño está siendo atacado por un monstruo, el Homúnculo y **pcambiará al estado PERSECUCIÓNperseguirá al monstruo para defender a su dueño.
+
+Comprobar si el propio Homunculus está siendo atacado: Si el Homúnculo está siendo atacado por un monstruo, también y quecambiará al estado PERSECUCIÓNperseguirá al monstruo
+
+Comprobar la distancia al dueño: Si el Homúnculo está de su dueño (más de 3 celdas o fuedemasiado lejoscambiará al estado SEGUIR para volver a acercarse al dueño.
+
+Aquí está el código para la función :OnIDLE_ST()
+
+function  OnIDLE_ST ()
+    local object = GetOwnerEnemy (MyID)  -- Busca si el dueño tiene enemigos
+    if (object ~= 0) then              -- Si se encontró un enemigo del dueño
+        MyState = CHASE_ST             -- Cambia al estado CHASE
+        MyEnemy = object               -- Guarda el ID del enemigo
+        return                         -- Termina la función OnIDLE_ST
+    end
+
+    object = GetMyEnemy (MyID)         -- Busca si el Homunculus tiene enemigos
+    if (object ~= 0) then              -- Si se encontró un enemigo del Homunculus
+        MyState = CHASE_ST             -- Cambia al estado CHASE
+        MyEnemy = object               -- Guarda el ID del enemigo
+        return                         -- Termina la función OnIDLE_ST
+    end
+
+    local distance = GetDistanceFromOwner(MyID) -- Calcula la distancia al dueño
+    if ( distance > 3 or distance == -1) then  -- Si está a más de 3 celdas o fuera de vista
+        MyState = FOLLOW_ST            -- Cambia al estado FOLLOW
+        return;                        -- Termina la función OnIDLE_ST
+    end
+end
+
+function AI (myid)  -- Modificamos la función AI para que llame a OnIDLE_ST cuando esté en estado IDLE
+    MyID = myid
+    if (MyState == IDLE_ST) then    -- Si el estado actual es IDLE
+        OnIDLE_ST ()              -- Ejecuta la función OnIDLE_ST
+    end
+end
+Use el código con precaución.
+Lua
+Función : ¿Quién está Atacando al Dueño?GetOwnerEnemy()
+
+La función 'GetOwnerEnemy( Busca GetOwnerEnemy()personajes o monstruos que estén atacando al dueño del Homúnculo. En este ejemplo, si encuentra un enemigo del dueño, lo considera también un enemigo para el Homunculus.
+
+function  GetOwnerEnemy (myid)  -- Función para buscar enemigos del dueño
+    local result = 0
+    local owner  = GetV (V_OWNER,myid)  -- Obtiene el ID del dueño
+    local actors = GetActors ()        -- Obtiene una lista de todos los "actores" visibles
+    local enemys = {}                 -- Crea una lista vacía para guardar los enemigos del dueño
+    local index = 1
+    local target
+
+    for i,v in ipairs(actors) do       -- Recorre cada "actor" visible
+        if (v ~= owner and v ~= myid) then  -- Ignora al dueño y al propio Homunculus
+            target = GetV (V_TARGET,v)    -- Obtiene el objetivo del "actor" actual
+            if (target == owner) then      -- Si el objetivo del "actor" es el dueño
+                if (IsMonster(v) == 1) then  -- Y si el "actor" es un monstruo
+                    enemys[index] = v       -- Añade el monstruo a la lista de enemigos del dueño
+                    index = index+1
+                else                        -- Si el "actor" NO es un monstruo (podría ser otro jugador)
+                    local motion = GetV(V_MOTION,i) -- Comprueba la acción del "actor"
+                    if (motion == MOTION_ATTACK or motion == MOTION_ATTACK2) then -- Si está atacando
+                        enemys[index] = v       -- Añade el "actor" (jugador) a la lista de enemigos del dueño
+                        index = index+1
+                    end
+                end
+            end
+        end
+    end
+
+    local min_dis = 100              -- Inicializa la distancia mínima a un valor alto
+    local dis
+    for i,v in ipairs(enemys) do       -- Recorre la lista de enemigos del dueño
+        dis = GetDistance2 (myid,v)   -- Calcula la distancia entre el Homunculus y el enemigo
+        if (dis < min_dis) then        -- Si la distancia es menor que la distancia mínima actual
+            result = v                 -- Guarda este enemigo como el "enemigo final" (el más cercano)
+            min_dis = dis              -- Actualiza la distancia mínima
+        end
+    end
+
+    return result                     -- Devuelve el ID del "enemigo final" (si lo encontró, sino devuelve 0)
+end
+Use el código con precaución.
+Lua
+Función : ¿Quiénes Son los Enemigos del Homúnculo? (Pasivo vs. Agresivo)GetMyEnemy()
+
+La función decidir GetMyEnemy()quiénes son considerados enemigos para el Homúnculo. En este ejemplo, vamos a hacer que el comportamiento dependa del .tipo de Homúnculo
+
+Homúnculo "no agresivos" (Lif, Amistr): Solo considerarán como enemigos a los que .les estén atacando directamente
+
+Homúnculo "agresivos" (Filir, Vanilmirth): Considerarán como enemigos a , incluso si no les están atacando directamente.todos los monstruos que estén a la vista
+
+function  GetMyEnemy (myid)  -- Función para buscar enemigos del Homunculus
+    local result = 0
+    local type = GetV (V_HOMUNTYPE,myid) -- Obtiene el tipo de Homunculus
+
+    if (type == LIF or type == LIF_H or type == AMISTR or type == AMISTR_H) then
+        result = GetMyEnemyA (myid)  -- Llama a GetMyEnemyA para Homunculus no agresivos
+    elseif (type == FILIR or type == FILIR_H or type == VANILMIRTH or type == VANILMIRTH_H) then
+        result = GetMyEnemyB (myid)  -- Llama a GetMyEnemyB para Homunculus agresivos
+    end
+    return result
+end
+
+-------------------------------------------
+--  `GetMyEnemyA`: Enemigos para Homunculus No Agresivos
+-------------------------------------------
+function  GetMyEnemyA (myid)
+    local result = 0
+    local owner  = GetV (V_OWNER,myid)
+    local actors = GetActors ()
+    local enemys = {}
+    local index = 1
+    local target
+
+    for i,v in ipairs(actors) do
+        if (v ~= owner and v ~= myid) then
+            target = GetV (V_TARGET,v)
+            if (target == myid) then      -- Si el objetivo del "actor" es el Homunculus
+                enemys[index] = v       -- Añade el "actor" a la lista de enemigos del Homunculus
+                index = index+1
+            end
+        end
+    end
+
+    local min_dis = 100
+    local dis
+    for i,v in ipairs(enemys) do
+        dis = GetDistance2 (myid,v)
+        if (dis < min_dis) then
+            result = v
+            min_dis = dis
+        end
+    end
+    return result
+end
+
+-------------------------------------------
+--  `GetMyEnemyB`: Enemigos para Homunculus Agresivos
+-------------------------------------------
+function  GetMyEnemyB (myid)
+    local result = 0
+    local owner  = GetV (V_OWNER,myid)
+    local actors = GetActors ()
+    local enemys = {}
+    local index = 1
+    local type
+
+    for i,v in ipairs(actors) do
+        if (v ~= owner and v ~= myid) then
+            if (1 == IsMonster(v))      then  -- Si el "actor" es un monstruo
+                enemys[index] = v       -- Añade el monstruo a la lista de enemigos del Homunculus
+                index = index+1
+            end
+        end
+    end
+
+    local min_dis = 100
+    local dis
+    for i,v in ipairs(enemys) do
+        dis = GetDistance2 (myid,v)
+        if (dis < min_dis) then
+            result = v
+            min_dis = dis
+        end
+    end
+    return result
+end
+Use el código con precaución.
+Lua
+Recibiendo Comandos Directos del Dueño:
+
+Para que el Homúnculo pueda recibir (a través del ratón, atajos de teclado, o la interfaz del juego), necesitamos añadir las siguientes líneas comandos directos del dueñodentro de la función IA (myid) en 'AI.lu:AI.lua
+
+function AI (myid)
+    MyID = myid
+    local msg  = GetMsg (myid)    -- Recibe mensajes del juego
+    local rmsg = GetResMsg (myid)  -- Recibe mensajes "reservados" (comandos en cola)
+
+    ProcessCommand (msg)         -- Procesa los comandos directos del usuario
+
+    -- Guarda comandos "reservados" (en cola)
+    if msg[1] == NONE_CMD then     -- Si no hay comando directo nuevo
+        if rmsg[1] ~= NONE_CMD then -- Y si hay un comando "reservado" nuevo
+            if List.size(ResCmdList) < 10 then -- Si la lista de comandos en cola no está llena (máximo 10)
+                List.pushright (ResCmdList,rmsg) -- Añade el comando "reservado" al final de la lista
+            end
+        end
+    else                            -- Si hay un comando directo nuevo
+        List.clear (ResCmdList)      -- Borra los comandos "reservados" anteriores (porque se da prioridad al comando directo)
+    end
+
+    if (MyState == IDLE_ST) then
+        OnIDLE_ST ()
+    end
+end
+Use el código con precaución.
+Lua
+Nota: La función (que se menciona en el código anterior) es la que realmente ProcessCommand(msg)interpreta los mensajes de comando (como , 'MOVE_CMDATTACK_OBJET_CMD, etc.) y hace que el Homunculus realice las acciones correspondientes. Las funciones de estado como son necesarias para que la IA sepa si el Homunculus ha terminado de ejecutar un comando directo. Estas funciones no se muestran en este extracto, pero son parte de un script de IA completo.OnMOVE_CMD_ST()
+
+5-5. Comprobando Errores y Depurando tu Script
+
+Es común cometer errores al escribir scripts, ¡especialmente al principio! Ragnarok Online te mostrará mensajes de error si encuentra problemas en tu script o AI.luaUtil.lua al iniciar el juego. Sin embargo, puedes en tu script comprobar si hay errores gramaticalesantes de iniciar el juego, lo que te ahorrará tiempo y frustración.
+
+A. Verificando Errores Gramaticales con lua.exe
+
+Ragnarok Online incluye un programa llamado en la carpeta del juego. Puedes usar este programa para lua.execomprobar si tu script tiene errores de escrituraAI.lua (errores de sintaxis).
+
+Pasos para comprobar errores:
+
+Abre la carpeta de Ragnarok Online donde está instalado el juego (por ejemplo, 'C:\Archivos de Programa\Gravity\Ragnar).C:\Archivos de Programa\Gravity\Ragnarok Online
+
+Busca el archivo lua.exe y para ejecutarlo. Se abrirá una ventana de línea de comandos (una ventana negra con texto).haz doble clic
+
+En la ventana de línea de comandos, (asegúrate de escribirlo exactamente como se muestra, incluyendo las comillas):escribe lo siguiente
+
+dofile ‘./AI/AI.lua’
+Use el código con precaución.
+y luego .presiona la tecla Enter
+
+Espera unos segundos.
+
+Si hay errores en tu script: lua.exe mostrará un mensaje de error indicando (número de línea y una breve descripción). Revisa tu script dónde está el errorAI.lua en un editor de texto y corrige los errores que te indique.
+
+Si no hay errores: lua.exe no mostrará ningún mensaje. Esto significa que tu script no tiene errores gramaticales (pero aún podría tener errores lógicos, que veremos en la siguiente sección).
+
+Escribe exit() y presiona Enter para cerrar la ventana de .lua.exe
+
+Importante: lua.exe solo comprueba . No puede detectar Errores de escrituraerrores de lógica (es decir, si tu script hace lo que tú quieres que haga). Para eso, necesitamos usar .TraceAI.txt
+
+B. Depurando Errores Lógicos con TraceAI.txt
+
+Incluso si tu script no tiene errores gramaticales, puede que . Esto se debe a no se comporte como esperaserrores de lógica en tu script (por ejemplo, el Homunculus no ataca cuando debería, o no se mueve correctamente).
+
+Para , puedes usar la función 'encontrar y corregir errores lógicos (depurar)TraceAI(cadena). Esta función te permite sobre lo que está haciendo tu script Información del Registradoren un archivo llamado TraceAI.txt. Este archivo se crea en la carpeta de Ragnarok Online.
+
+Pasos para usar :TraceAI.txt
+
+En tu script AI.lua, añade líneas de código que usen la función 'TraceAI(strin en los lugares donde quieras TraceAI(cadena)Información del Registrador. Por ejemplo, puedes añadir al principio de la función TraceAI("Estado IDLE")OnIDLE_ST(), o 'TraceA antes de cambiar el estado a TraceAI("Cambiando a estado CHASE")CHASE_ST. ** Estados Unidos Si quieres registrar el valor de una variable, usa Estados Unidos Para registrar variables:string.formatstring.format. Por ejemplo: 'TraceAI(string.format("Enemigo ID: %d", MyEn.TraceAI(string.format("ID de Enemigo: %d", MyEnemy))
+
+Guarda los cambios en tu archivo .AI.lua
+
+Inicia Ragnarok Online y entra en el juego con tu personaje y Homunculus.
+
+Activa el registro de :TraceAI En la ventana de chat del juego, escribe el comando y presiona Enter. Verás un mensaje que indica que /traceaiTraceAI está activado.
+
+Juega y observa el comportamiento de tu Homunculus. Realiza acciones que deberían activar diferentes partes de tu script de IA.
+
+Desactiva el registro de :TraceAI Cuando hayas terminado de probar, escribe de nuevo en la ventana de chat y presiona Enter. '/traceaiTraceAI se desactivará.
+
+Cierra Ragnarok Online.
+
+Abre el archivo TraceAI.txt que se ha creado en la carpeta de Ragnarok Online. Este archivo contendrá **todos los mensajes que has registrado con 'TraceAI durante tu sesión de juego.todos los mensajes que has registrado con TraceAI(cadena)
+
+Analiza el archivo :TraceAI.txt Lee los mensajes registrados para entender . Busca qué estaba haciendo tu script de IA en cada momentopatrones inesperados o mensajes de error que te indiquen dónde puede estar el problema en tu script. Compara el comportamiento real del Homúnculo con lo que esperabas que hiciera según tu script.
+
+Ejemplo de uso de en (del ejemplo original):TraceAIOnCHASE_ST()
+
+function  OnCHASE_ST ()
+    TraceAI ("OnCHASE_ST")  -- Registra que se ha entrado en el estado CHASE
+
+    if (true == IsOutOfSight(MyID,MyEnemy)) then
+        MyState = IDLE_ST
+        MyEnemy = 0
+        MyDestX, MyDestY = 0,0
+        TraceAI ("CHASE_ST -> IDLE_ST : ENEMY_OUTSIGHT_IN") -- Registra la transición de estado
+        return
+    end
+    if (true == IsInAttackSight(MyID,MyEnemy)) then
+        MyState = ATTACK_ST
+        TraceAI ("CHASE_ST -> ATTACK_ST : ENEMY_INATTACKSIGHT_IN") -- Registra la transición de estado
+        return
+    end
+
+    local x, y = GetV (V_POSITION,MyEnemy)
+    if (MyDestX ~= x or MyDestY ~= y) then
+        MyDestX, MyDestY = GetV (V_POSITION,MyEnemy);
+        Move (MyID,MyDestX,MyDestY)
+        TraceAI ("CHASE_ST -> CHASE_ST : DESTCHANGED_IN") -- Registra que el destino ha cambiado
+        return
+    end
+
+    TraceAI (string.format(“OnChase_ST end MyEnemy: %d, EnemyX : %d, EnemyY:%d, MyDestX:%d, MyDestY:%d\n”,MyEnemy,x,y,MyDestX,MyDestY)) -- Registra información de variables
+end
+Use el código con precaución.
+Lua
+Consejo: Estados Unidos . Sin registradorTraceAIde forma estratégicaTraceAI.txt puede volverse muy grande y difícil de analizar. Desactiva cuando no lo estés usando para evitar llenar innecesariamente el archivo.Concéntrate en registrar información en las partes de tu script donde sospechas que puede haber errores.TraceAI
+
+6. Consejos Adicionales y Solución de Problemas
+
+Sitio Web de LUA (Opcional): Si quieres aprender más sobre el lenguaje LUA en detalle, puedes visitar el sitio oficial: . Pero recuerda, ¡no necesitas ser un experto en LUA para empezar a crear scripts de IA de Homunculus!http://www.lua.org
+
+Problemas Comunes y Soluciones:
+
+"Error de LUA al iniciar Ragnarok Online": Si ves un mensaje de error de LUA al iniciar el juego, significa que hay un error gramatical en tu script o . Estados Unidos (cAI.luaUtil.lualua.exe
+
+"El Homúnculo no se comporta como esperaba": Si el Homúnculo hace cosas diferentes a las que querías programar, es probable que haya un error de lógica en tu script. Usa (como se explicó eTraceAI.txt
+
+"No sé cómo hacer que el Homunculus haga X cosa": ¡No te rindas! Empieza con scripts sencillos y ve añadiendo complejidad poco a poco. Consulta los scripts de IA oficiales como referencia. Experimenta con las funciones integradas de Ragnarok Online (sección 3) y los valores constantes (sección 4). Busca ejemplos y tutoriales en línea (foros de Ragnarok Online, comunidades de scripting LUA, etc.). ¡La práctica hace al maestro!
+
+Comunidad de Ragnarok Online: ¡No dudes en buscar ayuda en la comunidad de Ragnarok Online! Muchos jugadores comparten sus scripts de IA, dan consejos, y ayudan a resolver problemas. Busca foros, grupos de Discord, o comunidades en línea dedicadas a Ragnarok Online y la IA de Homunculus.
+
+7. Historial de Actualizaciones del Script de IA
+
+2005.09.27
+
+Se han añadido nuevos tipos de Homunculus. Se han actualizado las definiciones de tipo de Homunculus en el archivo y la función en el archivo 'AI.lConst.luaGetMyEnemyAI.lua. Debes editar los archivos y 'AIConst.luaAI.lua para personalizar la IA de tu Homunculus.
+
+2005-07-19
+
+Ahora puedes encolar comandos de movimiento o ataque mientras el Homunculus está realizando otra acción.
+
+Clic derecho en una celda mientras presionas las teclas Shift y Alt para encolar un destino de movimiento.
+
+Clic derecho en un objetivo mientras presionas las teclas Shift y Alt para encolar ataques.
+
+Se ha corregido el número de comando incorrecto 'NOME_CM en el archivo a .NOME_CMDConst.luaNONE_CMD
+
+Se ha añadido la carpeta .IA de usuario
+
+Se han añadido comandos de tecla de acceso rápido y ventana de chat que permiten a los usuarios cambiar entre la IA básica y la IA personalizada.
+
+Comando para alternar entre la IA básica y la personalizada: /hoai
+
+La IA personalizada en la carpeta no se verá afectada por ningún cambio realizado en la IA básica.IA de usuario
+
+La función 'AI( debe definirse en el archivo en la carpeta IA (myid)AI.luaIA de usuario para activar un script de IA personalizado.
+
+Si deseas utilizar el script de IA de otra persona, copia ese script en la carpeta dentro de la carpeta existente.USER_AIIA
+
+Al presionar las teclas Alt+T o hacer clic en el botón [Standby] en la ventana de información del Homunculus durante el estado Standby, 'FOLL, se cambiará el estado del Homunculus a FOLLOW_CMD_STOCIOSO (IDLE_ST). Para esta actualización, se ha modificado la función utilizada en el archivo OnFOLLOW_CMDAI.lua.
+
+¡Espero que esta guía mejorada te sea de gran utilidad! Si tienes alguna otra pregunta o necesitas algo más, no dudes en decirme. ¡Mucha suerte con la personalización de tu Homunculus!
