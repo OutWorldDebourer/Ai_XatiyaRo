@@ -3,9 +3,9 @@ MyPresets = {
         Name = "Mavka",
         Type = "MONSTER",
         Alliance = "AGGRESSIVE",
-        Priority = 100,
-        ForceTarget = 1,       -- Fuerza que sea objetivo
-        ForcedTargetOnly = 1,  -- SOLO atacará este objetivo
+        Priority = 50,
+        ForceTarget = 0,       -- No fuerza que sea objetivo
+        ForcedTargetOnly = 0,  -- Permite cambiar a otros objetivos
         IgnoreDamage = 0,      -- No ignora daño de Mavka
 
         -- Nuevas opciones de configuración
@@ -26,20 +26,20 @@ MyPresets = {
     [2] = {
         Name = "Baba Yaga",    -- ID: 1882
         Type = "MONSTER",
-        Alliance = "NEUTRAL",
-        Priority = 0,
-        IgnoreDamage = 1,      -- Ignora el daño
-        ForcePassive = 1,      -- Fuerza modo pasivo
+        Alliance = "AGGRESSIVE",
+        Priority = 80,
+        IgnoreDamage = 0,      -- Reacciona al daño recibido
+        ForcePassive = 0,      -- Permite comportamiento agresivo
         StayAway = 5,           -- Mantiene distancia
         LowHP = 100,            -- % de HP para empezar a kitear
     },
     [3] = {
         Name = "Uzhas",        -- ID: 1883
         Type = "MONSTER",
-        Alliance = "NEUTRAL",
-        Priority = 0,
-        IgnoreDamage = 1,
-        ForcePassive = 1,
+        Alliance = "AGGRESSIVE",
+        Priority = 80,
+        IgnoreDamage = 0,
+        ForcePassive = 0,
         StayAway = 5,
         LowHP = 100,            -- % de HP para empezar a kitear
     },
