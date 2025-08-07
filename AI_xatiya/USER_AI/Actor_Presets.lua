@@ -9,8 +9,8 @@ MyPresets = {
         IgnoreDamage = 0,      -- No ignora daño de Mavka
 
         -- Nuevas opciones de configuración
-        AttackDistance = 1,    -- Distancia desde la que atacará (células)
-        ChaseDistance = 14,     -- Distancia máxima que perseguirá
+        AttackDistance = 14,   -- Permite atacar desde rango máximo
+        ChaseDistance = 14,    -- Distancia máxima que perseguirá
         KiteMonster = 0,       -- Si debe mantener distancia mientras ataca (0/1)
         UseSkillOnly = 0,      -- Solo usar habilidades, no ataques normales (0/1)
         ChaseSight = 1,        -- Perseguir solo si está en rango visual (0/1)
