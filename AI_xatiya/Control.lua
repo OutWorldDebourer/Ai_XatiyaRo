@@ -2036,7 +2036,7 @@ function AI(myid)
 	end
 ----------------------------------------------------------------------------------------------------------------------------
 --refreshed every cycle
-	--UsedSkill = 0
+	UsedSkill = 0
 	MyX,MyY = GetV(V_POSITION,myid)
 	MyMotion = GetV(V_MOTION,myid)
 	MyTarget = GetV(V_TARGET,myid)
