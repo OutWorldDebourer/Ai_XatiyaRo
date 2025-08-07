@@ -1,24 +1,3 @@
---[[
-
-This file is part of ThothAI.
-
-    ThothAI is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    ThothAI is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with ThothAI.  If not, see <http://www.gnu.org/licenses/>.
-
-]]--
-
-
-
 ---------------------------------------------------	
 --ActorData Constants
 TARGET_ALLIANCE =1
@@ -328,7 +307,7 @@ function	GetMsg (id) end
 function	GetResMsg (id) end
 function	SkillObject (id,level,skill,target) end
 function	SkillGround (id,level,skill,x,y) end
-function	IsMonster (id) end								-- id�� �����ΰ�? yes -> 1 no -> 0
+function	IsMonster (id) end								-- idｴﾂ ｸｺﾅﾍﾀﾎｰ｡? yes -> 1 no -> 0
 
 --]]
 
@@ -355,17 +334,18 @@ FOLLOW_CMD			= 9
 
 
 --------------------------------
-V_OWNER				=	0		-- ������ ID			
-V_POSITION			=	1		-- ��ü�� ��ġ 
-V_TYPE				=	2		-- �̱�ǁE
-V_MOTION			=	3		-- ���� 
-V_ATTACKRANGE			=	4		-- ���� ���� ��E� 
-V_TARGET			=   	5		-- ����, ��ų �翁E��ǥ�� ID 
-V_SKILLATTACKRANGE		=	6		-- ��ų �翁E��E� 
-V_HOMUNTYPE			=   	7		-- ȣ��Ŭ�罺 ����E
-V_HP				=	8		-- HP (ȣ��Ŭ�罺�� ���ο��Ը� ����E
-V_SP				=	9		-- SP (ȣ��Ŭ�罺�� ���ο��Ը� ����E
-V_MAXHP				=   	10		-- �ִ�EHP (ȣ��Ŭ�罺�� ���ο��Ը� ����E
-V_MAXSP				=  	11		-- �ִ�ESP (ȣ��Ŭ�罺�� ���ο��Ը� ����E
+V_OWNER				=	0		-- ﾁﾖﾀﾎﾀﾇ ID			
+V_POSITION			=	1		-- ｹｰﾃｼﾀﾇ ﾀｧﾄ｡ 
+V_TYPE				=	2		-- ｹﾌｱｸﾇ・
+V_MOTION			=	3		-- ｵｿﾀﾛ 
+V_ATTACKRANGE			=	4		-- ｹｰｸｮ ｰﾝ ｹ・ｧ 
+V_TARGET			=   	5		-- ｰﾝ, ｽｺﾅｳ ｻ鄙・ｸ･ｹｰ ID 
+V_SKILLATTACKRANGE		=	6		-- ｽｺﾅｳ ｻ鄙・ｹ・ｧ 
+V_HOMUNTYPE			=   	7		-- ﾈ｣ｹｮﾅｬｷ鄂ｺ ﾁｾｷ・
+V_HP				=	8		-- HP (ﾈ｣ｹｮﾅｬｷ鄂ｺｿﾍ ﾁﾖﾀﾎｿ｡ｰﾔｸｸ ﾀ釤・
+V_SP				=	9		-- SP (ﾈ｣ｹｮﾅｬｷ鄂ｺｿﾍ ﾁﾖﾀﾎｿ｡ｰﾔｸｸ ﾀ釤・
+V_MAXHP				=   	10		-- ﾃﾖｴ・HP (ﾈ｣ｹｮﾅｬｷ鄂ｺｿﾍ ﾁﾖﾀﾎｿ｡ｰﾔｸｸ ﾀ釤・
+V_MAXSP				=  	11		-- ﾃﾖｴ・SP (ﾈ｣ｹｮﾅｬｷ鄂ｺｿﾍ ﾁﾖﾀﾎｿ｡ｰﾔｸｸ ﾀ釤・
 V_MERTYPE			= 	12
+
 ---------------------------------
