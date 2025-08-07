@@ -1,129 +1,112 @@
 --------------------------------------------------------------------------------------------------------------------------------
+--[[
+ This file is part of ThothAI.
 
---[[ This file is part of ThothAI.
+ ThothAI is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
 
-ThothAI is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or(at your option) any later version.
+ ThothAI is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
 
-ThothAI is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with ThothAI.  If not, see <http://www.gnu.org/licenses/>.
-
+ You should have received a copy of the GNU General Public License
+ along with ThothAI.  If not, see <http://www.gnu.org/licenses/>.
 ]]--
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- CONFIGURACI√ìN B√ÅSICA DEL HOM√öNCULO (/HOAI)
+-- Valores: 1 = S√≠, 0 = No, salvo especificaci√≥n distinta.
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- 1. NIVELES DE HABILIDADES
+--------------------------------------------------------------------------------------------------------------------------------
+
+-- Lif
+LifAvoidLvl    = 5  -- Urgent Escape ‚Äì ID 8002
+LifHealLvl     = 5  -- Touch of Heal / Healing Hands ‚Äì ID 8001
+LifChangeLvl   = 3  -- Mental Change ‚Äì ID 8004
+
+-- Filir
+FilirMoveLvl   = 5  -- Fleet Move / Flitting ‚Äì ID 8010
+FilirMoonLvl   = 5  -- Moonlight ‚Äì ID 8009
+FilirFlightLvl = 5  -- Accelerated Flight / Overspeed ‚Äì ID 8011
+
+-- Amistr
+AmistrDefLvl   = 5  -- Defense / Amistr Bulwark ‚Äì ID 8006
+AmistrCstLvl   = 5  -- Castling ‚Äì ID 8005
+AmistrBloodLvl = 3  -- Blood Lust ‚Äì ID 8008
+
+-- Vanilmirth
+VanCapriceLvl  = 5  -- Caprice ‚Äì ID 8013
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- 2. COMPORTAMIENTO EN COMBATE
+--------------------------------------------------------------------------------------------------------------------------------
+
+UseDefenseSkill = 1  -- Castling (ID 8005), Defense (ID 8006)
+UseQuicken      = 1  -- Urgent Escape (ID 8002), Fleet Move (ID 8010), Blood Lust (ID 8008)
+VanUseChaotic   = 1  -- Chaotic Benediction ‚Äì ID 8014
+LifAlwaysSpeed  = 1  -- Priorizar Urgent Escape ‚Äì ID 8002
+LifAlwaysMental = 1  -- Priorizar Mental Change ‚Äì ID 8004
+UseLimitBreak   = 0  -- SBR44 ‚Äì ID 8012 y Bio Explosion ‚Äì ID 8016
+VanExThreshold  = 5  -- Jugadores hostiles m√≠nimos para Bio Explosion
+UseAtkSkills    = 1  -- Caprice (ID 8013) y Moonlight (ID 8009)
+
+-- Rescate
+UseRescueSkill  = 1  -- Castling (ID 8005) y Touch of Heal (ID 8001)
+RescueHpPercent = 30 -- Porcentaje de HP del due√±o para activar rescate
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- 3. MODOS Y DISTANCIAS
+--------------------------------------------------------------------------------------------------------------------------------
+
+FollowChaseDown = 1  -- Perseguir enemigos en modo Follow
+MoveChaseDown   = 1  -- Perseguir enemigos en modo Move
+SpawnWait       = 0  -- Tiempo de espera tras reaparecer (ms)
+MaxDistance     = 14 -- Distancia m√°xima antes de volver al due√±o
+
+FollowDistance  = 2  -- Distancia al seguir al due√±o
+FollowMax       = 12 -- Distancia m√°xima en modo Follow
+MoveRadius      = 7  -- Radio de movimiento en modo Move
+IdleDistance    = 1  -- Distancia en modo Idle
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- 4. PRIORIDADES DE OBJETIVO
+--------------------------------------------------------------------------------------------------------------------------------
+
+ManAtkAlliance  = ENEMY
+ManAtkType      = PRIORITYTARGET
+ManSkillAlliance= ENEMY
+ManSkillType    = PRIORITYTARGET
+
+OwnerPriority   = 15 -- Due√±o
+MercPriority    = 10 -- Mercenario
+HomunPriority   = 7  -- Hom√∫nculo
+FriendPriority  = 5  -- Aliados atacados
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- 5. AGRESIVIDAD Y REGISTROS
+--------------------------------------------------------------------------------------------------------------------------------
+
+SuperAggro     = 0
+AggroHP        = 0
+AggroSP        = 0
+SuperPassive   = 0
+AtkDLP         = 0
+WriteActorInfo = 0 -- Registrar datos en ActorList.lua
+
+--------------------------------------------------------------------------------------------------------------------------------
+-- 6. OTROS AJUSTES
+--------------------------------------------------------------------------------------------------------------------------------
+
+AFKMaxTime     = 75 -- Tiempo m√°ximo AFK (minutos)
+MoveToSingers  = 1  -- Acercarse a bardos cada 20 s
+KiteHostiles   = 0  -- Kiting contra hostiles
+KiteAllEnemies = 0  -- Kiting contra todo
+KiteDistance   = 4  -- Distancia para kiting
+MiscWait       = 6  -- Pausa entre acciones (s)
+
+PatrolDistance = 0  -- Distancia de patrulla en Idle
+PatrolType     = 1  -- 1=Cuadrado, 2=Diamante
 
 --------------------------------------------------------------------------------------------------------------------------------
 
--- ESTE ARCHIVO SOLO HACE EFECTO EN EL HOM⁄NCULO CUANDO UTILIZAS /HOAI Y APARECE EL SIGUIENTE MENSAJE EN EL JUEGO --
-
--- "El Hom˙nculo ha sido activado con la AI B·sica" --
-
-----Variables de configuraciÛn----
-
---Para la mayorÌa de variables en este archivo, SÕ = 1 y NO = 0. N˙meros diferentes estar·n especificados en la descripciÛn.
---Modifica el nivel de habilidad que utilizar· el hom˙nculo. Si pones 0, o no la tiene, ser· deshabilitada.
-
-LifAvoidLvl	= 5	--Urgent Escape // Emergency Avoid
-LifHealLvl		= 5	--Touch of Heal // Healing Hands.
-LifChangeLvl	= 3	--Mental Change
-FilirMoveLvl	= 5	--Fleet Move // Flitting
-FilirMoonLvl	= 5	--Moonlight
-FilirFlightLvl	= 5	--Accelerated Flight // Overspeed
-AmistrDefLvl	= 5	--Defense // Amistr Bulwark
-AmistrCstLvl	= 5	--Castling
-AmistrBloodLvl	= 3	--Blood Lust
-VanCapriceLvl	= 5	--Caprice
-
---Debido al delay entre Urgent Escape y Mental Change, Lif solo las utilizar· en conjunto si se presenta Poem of Bragi cerca. Asimismo, Mental Change solo ser· utilizado cuando se encuentre un monstruo en su rango. Esto tambiÈn sucede con Blood Lust.
-
-UseDefenseSkill = 1	--Castling, Defense
-UseQuicken		= 1	--Urgent Escape, Fleet Move, Blood Lust	
-VanUseChaotic	= 1	--El nivel de Chaotic Benediction es elegido de forma aleatoria, dependiendo del HP restante del dueÒo/hom˙nculo
-LifAlwaysSpeed 	= 1	--Si se habilita, Lif siempre intentar· utilizar Urgent Escape. Debido a delays entre habilidades, esto har· imposible que utilice Mental Change a menos que estÈ con el efecto de Poem of Bragi
-LifAlwaysMental	= 1	--Si se habilita, Lif siempre intentar· utilizar Mental Change. Urgent Escape tiene prioridad, asÌ que har· conflicto con su delay si se utiliza en conjunto con la opciÛn anterior
-UseLimitBreak 	= 0	--Uso calculado de SBR44 y Bio Explosion vs Players. SBR44 solo ser· utilizado en "EMPBREAKTARGET" que ataque el Emperium (Assassin Cross por defecto)
-
---El contador de Bio Explosion es +1 por cada enemigo confirmado, -2 por cada aliado confirmado. Neutrales y no players son omitidos en el c·lculo.
-
-VanExThreshold 	= 5	--MÌnimo de players hostiles confirmados en rango antes de usar Bio Explosion
-UseAtkSkills	= 1	--Habilidades de ataque: Caprice y Moonlight
-
---Habilidades de rescate basados en el HP restante del dueÒo. Habilidades de rescate son: Castling y Touch of Heal.
-
-UseRescueSkill	= 1	
-RescueHpPercent	= 30	--Porcentaje de HP del dueÒo antes de utilizar la habilidad de rescate
-
---La AI inicia en modo Follow y cambia a ella cuando la tecla Standby (definida por el usuario como 'mover hom˙nculo' en configuraciÛn de teclas) es presionada una vez. Modo Move es iniciado cuando le indicas al hom˙nculo donde moverse.
-
-FollowChaseDown	= 1	--Durante modo Follow, perseguir (Chase) enemigos?
-MoveChaseDown	= 1	--Durante modo Move, perseguir (Chase) enemigos?
-
---øCu·ntos segundos debe esperar la AI antes de que realice cualquier acciÛn durante un cambio de mapa o respawneo (relog, fly wing, teleport)? Nunca dejar esta variable sobre 3000 (3 segundos).
-
-SpawnWait		= 0 	--3000
-MaxDistance	= 14	--Sobre esta distancia, dejar todo, cambiar a modo Follow y volver al dueÒo. Si se establece sobre 14, el hom˙nculo quedar· offscreen (fuera del rango del dueÒo)
-
---Tener en cuenta que las siguientes configuraciones ser·n ignoradas cuando el hom˙nculo haga Kiting (utilizar habilidades de rango y alejarse del enemigo.
-
-FollowDistance 	= 2	--Distancia en Follow cuando se este quieto (Idle) o sin perseguir (Chase)
-FollowMax		= 12	--Distancia m·xima durante Follow. Afecta tambiÈn al perseguir enemigos durante modo Follow.
-MoveRadius		= 7	--Una vez le indiques al hom˙nculo donde moverse, se mover· esta cantidad de celdas.
-IdleDistance	= 1	--Si utilizas la tecla Standby 3 veces, estando sentado, el hom˙nculo entrar· en estado quieto (Idle) y no har· nada excepto maniobras de emergencia. Esta es la distancia que utilizar· durante este estado.
-
---Cualquier valor excepto "NONE" y "NEUTRAL" cambiar· la alianza o tipo. Para una lista de valores, revisar Const.lua
---Tener en cuenta que fijar un valor incorrecto en un target generar· comportamiento err·tico por parte del hom˙nculo.
-
-ManAtkAlliance	= ENEMY
-ManAtkType	= PRIORITYTARGET
-
---Usar una habilidad manualmente en el target lo fijar· en la siguiente alianza y tipo, excepto para "NONE" y "NEUTRAL"
---Habilidades de recuperaciÛn son una excepciÛn, fijar·n la alianza como "ALLYSTATUS"
-
-ManSkillAlliance= ENEMY
-ManSkillType	= PRIORITYTARGET
-
---Prioridad para atacar ciertos targets, basado en la distancia, a quien atacan, o por quien sea atacado. Mayor valor = prioridad relativa m·s alta.
---Valores y tipo de target definidos por alianza tambiÈn tendr·n efecto en la prioridad.
---Los valores por defecto har·n que el hom˙nculo intente proteger al mercenario m·s que a si mismo, ya que el hom˙nculo puede ser resucitado f·cilmente.
---El valor 0 significa distancia en el mercenario, atacando o siendo atacado no tiene efecto en la prioridad para ellos.
-
-OwnerPriority	= 15	--DueÒo
-MercPriority	= 10	--Mercenario
-HomunPriority	= 7	--Hom˙nculo
-FriendPriority	= 5	--Limitado solo para quienes estÈn siendo atacados, como aliados, hom˙nculos, etc
-
---Si no est· especificado, intenta atacar todo lo que pueda. ⁄til en PvM, puede ser malo o bueno en una sala de PvP llena...
-
-SuperAggro		= 0
-AggroHP		= 0	--Porcentaje de HP del hom˙nculo antes de volverse agresivo. Reaccionar· si es atacado. Fijado en 0 el hom˙nculo siempre ser· agresivo.
-AggroSP		= 0	--Porcentaje de SP antes de volverse agresivo
-SuperPassive	= 0	--Anula 'SuperAggro'. Ignora a todos los enemigos.
-AtkDLP		= 0	--Anula 'SuperPassive'. Atacar· al "DLPTARGET" intentando saltarse la animaciÛn de ataque (com˙nmente conocido como 'Dance Attack')
-
---øEscribir datos en el ActorList.lua? Esto es ˙til para guardar la lista de enemigos entre muertes, invocaciones, y compartir datos entre el hom˙nculo y mercenario.
---Tener en cuenta que solo 1 cliente puede utilizar esto a la vez o generar· errores y el contenido del ActorList.lua deber· ser eliminado.
---Para fijar un valor en un enemigo o aliado permanentemente, configurar esta informaciÛn en Actor_Presets.lua
---Para fijar a TODOS los jugadores en la pantalla como aliados (˙til para tu guild o compaÒeros de grupo), utiliza /sit y presiona la tecla Standby 3 veces dentro de 5 segundos.
---Para eliminar el contenido de ActorList.lua, utiliza /sit y presiona la tecla Standby 5 veces dentro de 5 segundos, aparecer· un pop-up.
-
-WriteActorInfo	= 0
-
---Tiempo transcurrido hasta que un pop-up de aviso al estar AFK aparezca. Si no reaccionas a tiempo, el cliente te desconectar·. Para reiniciar el temporizador, el dueÒo debe moverse 1 celda. Esto es ˙til para evitar que tu hom˙nculo muera de hambre (°y pueda dejarte!) si est·s AFK y te olvidas de Èl.
-
-AFKMaxTime		= 75 	--En minutos. 1 de Hambre = 1 Minuto. Nunca fijar sobre 75
-
-MoveToSingers	= 1	--Si el hom˙nculo detecta una canciÛn, se acercar· hacia ella cada 20 segundos para aprovechar su efecto. No detecta que tipo de canciÛn es.
-KiteHostiles 	= 0	--Habilita Kiting. ConfiguraciÛn para monstruos especificos, players o tipos se puede encontrar en el archivo Actor_Presets.lua
-KiteAllEnemies 	= 0	--El hom˙nculo se alejar· de todo
-KiteDistance 	= 4	--Kite a esta distancia antes de realizar cualquier acciÛn.
-MiscWait		= 6	--Segundos
-
-PatrolDistance 	= 0	--Distancia a patrullar alrededor del dueÒo estando quieto (Idle). Si se deja en 0, el patrullaje quedar· deshabilitado
-PatrolType 	= 1	--Especifica que tipo de patrullaje har· el hom˙nculo
-
---1 = Cuadrado
---2 = Diamante
---Cuadrado es m·s pr·ctico
---Diamante es m·s molesto

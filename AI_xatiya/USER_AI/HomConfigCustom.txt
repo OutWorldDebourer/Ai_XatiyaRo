@@ -34,34 +34,34 @@
 --   - **1 - 5:** Nivel de habilidad. A mayor nivel, mayor efectividad y, en algunos casos, mayor frecuencia de uso.
 --   - **5:** Nivel Máximo. La habilidad estará en su nivel más alto.
 
-LifAvoidLvl	 = 5	-- **Lif:** Urgent Escape (Escape Urgente / Evasión de Emergencia).
+LifAvoidLvl	 = 5	-- **Lif:** Urgent Escape – ID 8002 (Escape Urgente / Evasión de Emergencia).
                     -- Define el nivel de la habilidad 'Urgent Escape' de Lif, que le permite escapar rápidamente de situaciones peligrosas.
                     -- **0 = Deshabilitada, 5 = Nivel Máximo.**
-LifHealLvl		 = 5	-- **Lif:** Touch of Heal / Healing Hands (Toque de Curación / Manos Curativas).
+LifHealLvl		 = 5	-- **Lif:** Touch of Heal / Healing Hands – ID 8001 (Toque de Curación / Manos Curativas).
                     -- Define el nivel de las habilidades de curación de Lif.
                     -- **0 = Deshabilitada, 5 = Nivel Máximo.**
-LifChangeLvl	 = 3	-- **Lif:** Mental Change (Cambio Mental).
+LifChangeLvl	 = 3	-- **Lif:** Mental Change – ID 8004 (Cambio Mental).
                     -- Define el nivel de 'Mental Change', habilidad que mejora las capacidades de Lif.
                     -- **0 = Deshabilitada, 5 = Nivel Máximo.**
-FilirMoveLvl	 = 5	-- **Filir:** Fleet Move / Flitting (Movimiento Veloz / Aleteo).
+FilirMoveLvl	 = 5	-- **Filir:** Fleet Move / Flitting – ID 8010 (Movimiento Veloz / Aleteo).
                     -- Define el nivel de 'Fleet Move', habilidad que aumenta la velocidad de movimiento de Filir.
                     -- **0 = Deshabilitada, 5 = Nivel Máximo.**
-FilirMoonLvl	 = 5	-- **Filir:** Moonlight (Luz de Luna).
+FilirMoonLvl	 = 5	-- **Filir:** Moonlight – ID 8009 (Luz de Luna).
                     -- Define el nivel de 'Moonlight', habilidad de ataque mágico de Filir.
                     -- **0 = Deshabilitada, 5 = Nivel Máximo.**
-FilirFlightLvl	 = 5	-- **Filir:** Accelerated Flight / Overspeed (Vuelo Acelerado / Supervelocidad).
+FilirFlightLvl	 = 5	-- **Filir:** Accelerated Flight / Overspeed – ID 8011 (Vuelo Acelerado / Supervelocidad).
                     -- Define el nivel de 'Accelerated Flight', habilidad que permite a Filir moverse aún más rápido.
                     -- **0 = Deshabilitada, 5 = Nivel Máximo.**
-AmistrDefLvl	 = 5	-- **Amistr:** Defense / Amistr Bulwark (Defensa / Baluarte Amistr).
+AmistrDefLvl	 = 5	-- **Amistr:** Defense / Amistr Bulwark – ID 8006 (Defensa / Baluarte Amistr).
                     -- Define el nivel de 'Defense', habilidad defensiva de Amistr que aumenta su defensa.
                     -- **0 = Deshabilitada, 5 = Nivel Máximo.**
-AmistrCstLvl	 = 5	-- **Amistr:** Castling (Enroque).
+AmistrCstLvl	 = 5	-- **Amistr:** Castling – ID 8005 (Enroque).
                     -- Define el nivel de 'Castling', habilidad de rescate de Amistr para proteger al dueño.
                     -- **0 = Deshabilitada, 5 = Nivel Máximo.**
-AmistrBloodLvl	 = 3	-- **Amistr:** Blood Lust (Sed de Sangre).
+AmistrBloodLvl	 = 3	-- **Amistr:** Blood Lust – ID 8008 (Sed de Sangre).
                     -- Define el nivel de 'Blood Lust', habilidad que aumenta el ataque de Amistr.
                     -- **0 = Deshabilitada, 5 = Nivel Máximo.**
-VanCapriceLvl	 = 5	-- **Vanilmirth:** Caprice (Capricho).
+VanCapriceLvl	 = 5	-- **Vanilmirth:** Caprice – ID 8013 (Capricho).
                     -- Define el nivel de 'Caprice', habilidad de ataque mágico de Vanilmirth.
                     -- **0 = Deshabilitada, 5 = Nivel Máximo.**
 RecoveryTimer	 = 0
@@ -70,6 +70,7 @@ RecoveryTimer	 = 0
 -- Debido al tiempo de espera (delay) entre 'Urgent Escape' y 'Mental Change', Lif solo utilizará ambas habilidades en conjunto si detecta el efecto de 'Poem of Bragi' cerca.
 -- 'Mental Change' solo se activará cuando haya un monstruo dentro del rango de detección de Lif.
 -- Lo mismo aplica para 'Blood Lust' de Amistr, solo se activará si hay un monstruo cerca.
+-- Nota: Lif usa Urgent Escape – ID 8002 y Mental Change – ID 8004 juntos solo con Poem of Bragi. Blood Lust – ID 8008 requiere enemigo cercano.
 
 --------------------------------------------------------------------------------------------------------------------------------
 -- **SECCIÓN 2: CONFIGURACIÓN DE COMPORTAMIENTO EN COMBATE**  <a name="seccion-2-configuracion-de-comportamiento-en-combate"></a>
@@ -77,26 +78,26 @@ RecoveryTimer	 = 0
 -- En esta sección, defines cómo quieres que tu homúnculo se comporte durante el combate.
 -- Puedes activar o desactivar el uso de diferentes tipos de habilidades y configurar estrategias de combate.
 
-AttemptDecloak	= 1	-- ¿Intentar revelar enemigos ocultos? 1=sí, 0=no.
+AttemptDecloak       = 1     -- Detección: Sight – ID 8224, Arrow Shower – ID 8208, etc.
 
-UseDefenseSkill = 1    -- **¿Usar habilidades defensivas?**
+UseDefenseSkill = 1    -- Defense – ID 8006 y Castling – ID 8005
                     -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo utilizará habilidades como 'Defense' de Amistr para protegerse y proteger a sus aliados.
-UseQuicken = 1         -- **¿Usar habilidades de velocidad?**
+UseQuicken = 1         -- Urgent Escape – ID 8002, Fleet Move – ID 8010, Blood Lust – ID 8008
                     -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo utilizará habilidades como 'Fleet Move' o 'Accelerated Flight' para moverse más rápido en combate.
-VanUseChaotic	 = 1	-- **Vanilmirth: Uso de Chaotic Benediction.**
+VanUseChaotic    = 1    -- Chaotic Benediction – ID 8014
                     -- **0 = No, 1 = Sí.** Si se habilita, Vanilmirth utilizará 'Chaotic Benediction'. El nivel de la habilidad se determinará aleatoriamente según el HP restante del dueño y del homúnculo.
 
-LifAlwaysSpeed   = 0	-- **Lif: Priorizar Urgent Escape.**
+LifAlwaysSpeed   = 0 -- Priorizar Urgent Escape – ID 8002
                     -- **0 = No, 1 = Sí.**
                     -- Si se habilita, Lif siempre intentará usar 'Urgent Escape' tan pronto como sea posible para priorizar la evasión.
                     -- **ADVERTENCIA:** Debido al delay entre habilidades, habilitar esta opción podría impedir que Lif use 'Mental Change' a menos que esté bajo el efecto de 'Poem of Bragi'.
 
-LifAlwaysMental	 = 1	-- **Lif: Priorizar Mental Change.**
+LifAlwaysMental  = 1 -- Priorizar Mental Change – ID 8004
                     -- **0 = No, 1 = Sí.**
                     -- Si se habilita, Lif siempre intentará usar 'Mental Change' para mejorar sus capacidades de combate.
                     -- **NOTA:** 'Urgent Escape' tiene prioridad sobre 'Mental Change'. Si ambas opciones están habilitadas y son posibles, 'Urgent Escape' se utilizará primero, lo que podría causar conflictos con el delay de 'Mental Change'.
 
-UseLimitBreak 	 = 0	-- **Uso calculado de SBR44 y Bio Explosion (Vanilmirth).**
+UseLimitBreak    = 0 -- SBR44 – ID 8012 y Bio Explosion – ID 8016
                     -- **0 = No, 1 = Sí.**
                     -- Si se habilita, Vanilmirth utilizará 'SBR44' y 'Bio Explosion' de forma inteligente contra jugadores enemigos.
                     -- 'SBR44' solo se usará contra el objetivo definido como "EMPBREAKTARGET" (por defecto, Assassin Cross atacando el Emperium).
@@ -106,20 +107,20 @@ UseLimitBreak 	 = 0	-- **Uso calculado de SBR44 y Bio Explosion (Vanilmirth).**
 -- El contador para usar 'Bio Explosion' se incrementa en +1 por cada enemigo jugador confirmado en rango y disminuye en -2 por cada aliado jugador confirmado.
 -- Los personajes neutrales y monstruos no jugadores se omiten en este cálculo.
 
-VanExThreshold 	 = 10	-- **Vanilmirth: Umbral de jugadores hostiles para Bio Explosion.**
+VanExThreshold   = 10 -- Hostiles mínimos para Bio Explosion
                     -- Define el número mínimo de jugadores hostiles confirmados en rango antes de que Vanilmirth use 'Bio Explosion'.
                     -- Ajusta este valor para controlar la agresividad de Vanilmirth al usar 'Bio Explosion'.
 
-UseAtkSkills	 = 1	-- **¿Usar habilidades de ataque?**
+UseAtkSkills     = 1 -- Caprice – ID 8013 y Moonlight – ID 8009
                     -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo utilizará habilidades de ataque como 'Caprice' (Vanilmirth) y 'Moonlight' (Filir) para atacar a los enemigos.
 
 -- **HABILIDADES DE RESCATE BASADAS EN HP DEL DUEÑO:**
 -- Las siguientes configuraciones controlan el uso de habilidades de rescate como 'Castling' (Amistr) y 'Touch of Heal' (Lif) basadas en el porcentaje de HP restante del dueño.
 -- Estas habilidades se activarán automáticamente cuando el HP del dueño caiga por debajo del porcentaje definido.
 
-UseRescueSkill	 = 1	-- **¿Usar habilidades de rescate?**
+UseRescueSkill   = 1 -- Castling – ID 8005 y Touch of Heal – ID 8001
                     -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo utilizará habilidades de rescate para proteger al dueño cuando su HP sea bajo.
-RescueHpPercent	 = 0	-- **Porcentaje de HP del dueño para activar habilidades de rescate.**
+RescueHpPercent  = 0 -- HP del dueño para rescate
                     -- Define el porcentaje de HP del dueño por debajo del cual el homúnculo utilizará una habilidad de rescate.
                     -- **0 = Siempre intentará usar habilidades de rescate si 'UseRescueSkill' está habilitado.** (Usar con precaución, puede consumir SP innecesariamente)
 

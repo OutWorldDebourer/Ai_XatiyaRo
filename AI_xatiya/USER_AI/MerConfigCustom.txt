@@ -16,10 +16,10 @@
 -- Esta sección controla las habilidades de mejora (buffs) que tu mercenario usará automáticamente.
 -- Activar o desactivar estas opciones permite personalizar el soporte que tu mercenario ofrece.
 
-UseQuicken         = 1     -- [HABILIDAD DE MEJORA] Activa (1) o desactiva (0) el uso de la habilidad 'Quicken' (Acelerar) en el mercenario.
-UseBerserk         = 1     -- [HABILIDAD DE MEJORA] Activa (1) o desactiva (0) el uso automático de 'Berserk' para mercenarios.
+UseQuicken         = 1     -- [HABILIDAD DE MEJORA] Activa (1) o desactiva (0) el uso de la habilidad 'Quicken' – ID 8223 (Acelerar) en el mercenario.
+UseBerserk         = 1     -- [HABILIDAD DE MEJORA] Activa (1) o desactiva (0) el uso automático de 'Berserk' – ID 8206 para mercenarios.
                                 -- NOTA: Para mercenarios Fencer de LVL 10, esta opción utiliza 'Frenzy' en lugar de 'Berserk'.
-UseMagni           = 0     -- [HABILIDAD DE MEJORA] Activa (1) o desactiva (0) el uso de 'Magnificat' para mercenarios.
+UseMagni           = 0     -- [HABILIDAD DE MEJORA] Activa (1) o desactiva (0) el uso de 'Magnificat' – ID 8222 para mercenarios.
                                 -- NOTA: 'Magnificat' solo está disponible para mercenarios Bowman de LVL 4.
 
 --------------------------------------------------------------------------------------------------------------------------------
@@ -32,14 +32,13 @@ UseMagni           = 0     -- [HABILIDAD DE MEJORA] Activa (1) o desactiva (0) e
 -- 2.1. HABILIDADES ANTI-OCULTAMIENTO (DECLOAKING) --
 -- Permite al mercenario usar habilidades para revelar enemigos que se ocultan (Cloaking, Chase Walk, Hide).
 
-AttemptDecloak     = 1     -- [COMBATE - ANTI-OCULTAMIENTO] Activa (1) o desactiva (0) la funcionalidad para que el mercenario intente revelar enemigos ocultos en su rango.
                                 -- NOTA: No funciona si el enemigo se oculta fuera del rango y luego se acerca.
-                                -- Habilidades que activan esta función: Sight, Arrow Shower, Magnum Break, Freezing Trap, Sandman, Landmine.
+                                -- Habilidades que activan esta función: Sight – ID 8224, Arrow Shower – ID 8208, Magnum Break – ID 8202, Freezing Trap – ID 8212, Sandman – ID 8211, Landmine – ID 8210.
 
 -- 2.2. PROVOKE (PROVOCAR) - INTERRUPCIÓN Y DOPADO DE PLANTAS --
--- Configura el uso de 'Provoke' para interrumpir el casteo de hechizos enemigos y mejorar plantas invocadas.
+-- Configura el uso de 'Provoke' – ID 8232 para interrumpir el casteo de hechizos enemigos y mejorar plantas invocadas.
 
-UseProvoke         = 1     -- [COMBATE - INTERRUPCIÓN] Activa (1) o desactiva (0) el uso de 'Provoke' para:
+UseProvoke         = 1     -- [COMBATE - INTERRUPCIÓN] Activa (1) o desactiva (0) el uso de 'Provoke' – ID 8232 para:
                                 -- - Interrumpir el casteo de enemigos en la lista "CASTERTARGETS".
                                 -- - Dopar plantas invocadas con la habilidad "Bio Cannibalize".
                                 -- REQUISITOS: Tener un Homúnculo invocado y 'WriteActorInfo' activado.
@@ -48,7 +47,7 @@ UseProvoke         = 1     -- [COMBATE - INTERRUPCIÓN] Activa (1) o desactiva (
 -- Permite al mercenario usar habilidades de empuje para mantener a los enemigos a distancia.
 
 UsePushback        = 0     -- [COMBATE - CONTROL DE DISTANCIA] Activa (1) o desactiva (0) el uso de habilidades de empuje (Pushback).
-                                -- Habilidades de empuje: Charge Arrow, Skid Trap, Arrow Shower, Brandish Spear, Magnum Break, Bowling Bash.
+                                -- Habilidades de empuje: Charge Arrow – ID 8214, Skid Trap – ID 8209, Arrow Shower – ID 8208, Brandish Spear – ID 8217, Magnum Break – ID 8202, Bowling Bash – ID 8203.
 PushbackDistance   = 4     -- [COMBATE - CONTROL DE DISTANCIA] Distancia en celdas a la que el enemigo debe estar para que el mercenario intente empujarlo.
                                 -- CONSEJO: Reduce 'FollowDistance' en la sección 5 para que el mercenario esté más cerca y pueda empujar desde la posición del dueño.
 
@@ -64,18 +63,18 @@ TrapMoveForm       = 0     -- [COMBATE - TRAMPAS] ID del formulario de trampa a 
 TrapMoveSP         = 30    -- [COMBATE - TRAMPAS] SP mínimo requerido para usar la trampa en modo 'Move'.
 
 -- 2.5. LEX DIVINA (SILENCIO) - INTERRUPCIÓN DE HECHIZOS --
--- Activa el uso de 'Lex Divina' para intentar silenciar a los enemigos y prevenir el casteo de hechizos.
+-- Activa el uso de 'Lex Divina' – ID 8236 para intentar silenciar a los enemigos y prevenir el casteo de hechizos.
 
-UseDivina          = 1     -- [COMBATE - SILENCIO] Activa (1) o desactiva (0) el uso de 'Lex Divina' para silenciar enemigos.
-                                -- IMPORTANTE: No detecta activamente el estado 'Silence', por lo que podría intentar aplicar 'Lex Divina' repetidamente.
+UseDivina          = 1     -- [COMBATE - SILENCIO] Activa (1) o desactiva (0) el uso de 'Lex Divina' – ID 8236 para silenciar enemigos.
+                                -- IMPORTANTE: No detecta activamente el estado 'Silence', por lo que podría intentar aplicar 'Lex Divina' – ID 8236 repetidamente.
                                 -- PRIORIDAD: Enemigos en "CASTERTARGETS" tienen prioridad para ser silenciados.
-                                -- PRECAUCIÓN: Usar 'Lex Divina' en un enemigo ya silenciado por otro jugador/mercenario podría remover el estado.
+                                -- PRECAUCIÓN: Usar 'Lex Divina' – ID 8236 en un enemigo ya silenciado por otro jugador/mercenario podría remover el estado.
 
 -- 2.6. DECREASE AGILITY (DISMINUIR AGILIDAD) - DEBUFF DE VELOCIDAD --
--- Permite al mercenario usar 'Decrease Agility' para reducir la velocidad de movimiento de los enemigos.
+-- Permite al mercenario usar 'Decrease Agility' – ID 8234 para reducir la velocidad de movimiento de los enemigos.
 
-UseDecAgi          = 1     -- [COMBATE - DEBUFF] Activa (1) o desactiva (0) el uso de 'Decrease Agility' para reducir la agilidad de los enemigos.
-                                -- PRIORIDAD: Enemigos en "QUICKENTARGET" o "QUICKEN2TARGET" tendrán prioridad y el mercenario intentará usar 'Decrease Agility' repetidamente en ellos.
+UseDecAgi          = 1     -- [COMBATE - DEBUFF] Activa (1) o desactiva (0) el uso de 'Decrease Agility' – ID 8234 para reducir la agilidad de los enemigos.
+                                -- PRIORIDAD: Enemigos en "QUICKENTARGET" o "QUICKEN2TARGET" tendrán prioridad y el mercenario intentará usar 'Decrease Agility' – ID 8234 repetidamente en ellos.
 
 --------------------------------------------------------------------------------------------------------------------------------
 ---- 3. IA DE COMBATE - HABILIDADES DE RECUPERACIÓN Y SOPORTE ----
@@ -87,21 +86,21 @@ UseDecAgi          = 1     -- [COMBATE - DEBUFF] Activa (1) o desactiva (0) el u
 -- Activa el uso de habilidades de curación y recuperación en aliados y en ti mismo (el dueño).
 
 UseRecovery        = 1     -- [SOPORTE - RECUPERACIÓN] Activa (1) o desactiva (0) el uso general de habilidades de recuperación.
-                                -- Habilidades de recuperación: Benediction, Compress, Recuperate, MentalCure, Lex Divina, Tender, Regain.
+                                -- Habilidades de recuperación: Benediction – ID 8228, Compress – ID 8231, Recuperate – ID 8229, MentalCure – ID 8230, Lex Divina – ID 8236, Tender – ID 8227, Regain – ID 8226.
                                 -- CONDICIÓN DE USO: Se activan cuando un target "ALLYSTATUS" u "OWNERSTATUS" usa el comando '/sit'.
 
--- 3.2. RECUPERACIÓN BASADA EN TEMPORIZADOR (Tender, Regain) --
+-- 3.2. RECUPERACIÓN BASADA EN TEMPORIZADOR (Tender – ID 8227, Regain – ID 8226) --
 -- Controla el uso de habilidades de recuperación que utilizan un temporizador para detectar estados alterados basados en inactividad.
 
-UseTimerRecovery   = 1     -- [SOPORTE - RECUPERACIÓN] Activa (1) o desactiva (0) el uso de habilidades de recuperación basadas en temporizador (Tender, Regain).
+UseTimerRecovery   = 1     -- [SOPORTE - RECUPERACIÓN] Activa (1) o desactiva (0) el uso de habilidades de recuperación basadas en temporizador (Tender – ID 8227, Regain – ID 8226).
 RecoveryTimer      = 0  -- [SOPORTE - RECUPERACIÓN] Tiempo en milisegundos (ms) para calcular si un target tiene un estado alterado basado en inactividad. (1000 ms = 1 segundo).
 
 -- 3.3. RECUPERACIÓN Y PROVOKE EN EL DUEÑO --
 -- Configura si el mercenario usará habilidades de recuperación y 'Provoke' específicamente en el dueño.
 
 SRecoveryOwner       = 1     -- [SOPORTE - RECUPERACIÓN] Activa (1) o desactiva (0) la recuperación del dueño por parte del mercenario.
-ProvokeOwner       = 0     -- [SOPORTE - PROVOKE] Activa (1) o desactiva (0) el uso de 'Provoke' en el dueño.
-                                -- NOTA: 'Provoke' en el dueño NO funciona en servidores privados.
+ProvokeOwner       = 0     -- [SOPORTE - PROVOKE] Activa (1) o desactiva (0) el uso de 'Provoke' – ID 8232 en el dueño.
+                                -- NOTA: 'Provoke' – ID 8232 en el dueño NO funciona en servidores privados.
 
 --------------------------------------------------------------------------------------------------------------------------------
 ---- 4. IA DE COMBATE - HABILIDADES OFENSIVAS Y DEFENSIVAS ----
@@ -109,33 +108,32 @@ ProvokeOwner       = 0     -- [SOPORTE - PROVOKE] Activa (1) o desactiva (0) el 
 
 -- Esta sección configura las habilidades ofensivas y defensivas directas que tu mercenario usará en combate.
 
-AttemptDecloak	= 1	-- ¿Intentar revelar enemigos ocultos? 1=sí, 0=no.
 
 -- 4.1. HABILIDADES AoE (ÁREA DE EFECTO) - ATAQUE MÚLTIPLE --
 -- Activa el uso de habilidades que dañan a varios enemigos en un área.
 
 UseAOESkills       = 1     -- [OFENSIVA - AoE] Activa (1) o desactiva (0) el uso de habilidades de Área de Efecto (AoE).
-                                -- Habilidades AoE: Arrow Shower, Brandish Spear, Bowling Bash, Magnum Break.
+                                -- Habilidades AoE: Arrow Shower – ID 8208, Brandish Spear – ID 8217, Bowling Bash – ID 8203, Magnum Break – ID 8202.
 AOEMinMobCount     = 2     -- [OFENSIVA - AoE] Número mínimo de enemigos dentro del rango para que el mercenario use una habilidad AoE.
 
 -- 4.2. HABILIDADES DE ATAQUE DIRECTO - ATAQUE A UN OBJETIVO --
 -- Activa el uso de habilidades de ataque a un solo objetivo enemigo.
 
 UseAtkSkills       = 1     -- [OFENSIVA - DIRECTA] Activa (1) o desactiva (0) el uso de habilidades de ataque directo a un objetivo.
-                                -- Habilidades de ataque directo: Double Strafe, Pierce, Bash, Spiral Pierce.
+                                -- Habilidades de ataque directo: Double Strafe – ID 8207, Pierce – ID 8216, Bash – ID 8201, Spiral Pierce – ID 8218.
 
 -- 4.3. DEFENDER (DEFENSA) - HABILIDAD DEFENSIVA --
--- Activa el uso de la habilidad 'Defender' para protegerse.
+-- Activa el uso de la habilidad 'Defender' – ID 8219 para protegerse.
 
-UseDefender        = 1     -- [DEFENSIVA] Activa (1) o desactiva (0) el uso de la habilidad 'Defender'.
+UseDefender        = 1     -- [DEFENSIVA] Activa (1) o desactiva (0) el uso de la habilidad 'Defender' – ID 8219.
 
 -- 4.4. HABILIDADES DEFENSIVAS GENERALES - PROTECCIÓN --
 -- Activa el uso de habilidades defensivas generales para proteger al mercenario.
 
 UseDefenseSkill    = 1     -- [DEFENSIVA] Activa (1) o desactiva (0) el uso de habilidades defensivas generales.
-                                -- Habilidades defensivas: Parrying, Auto Guard, Reflect Shield.
-UseCrash           = 1     -- [DEFENSIVA] Activa (1) o desactiva (0) el uso de la habilidad 'Crash'. (La función específica depende de la configuración del juego/script).
-UseDevotion        = 1     -- [DEFENSIVA - SOPORTE] Activa (1) o desactiva (0) el uso de 'Devotion' en el dueño para protegerlo.
+                                -- Habilidades defensivas: Parrying – ID 8204, Auto Guard – ID 8220, Reflect Shield – ID 8205.
+UseCrash           = 1     -- [DEFENSIVA] Activa (1) o desactiva (0) el uso de la habilidad 'Crash' – ID 8225. (La función específica depende de la configuración del juego/script).
+UseDevotion        = 1     -- [DEFENSIVA - SOPORTE] Activa (1) o desactiva (0) el uso de 'Devotion' – ID 8221 en el dueño para protegerlo.
 
 --------------------------------------------------------------------------------------------------------------------------------
 ---- 5. IA DE COMBATE - HABILIDADES DE RESCATE ----
@@ -147,9 +145,9 @@ UseDevotion        = 1     -- [DEFENSIVA - SOPORTE] Activa (1) o desactiva (0) e
 -- Activa el uso de habilidades diseñadas para rescatar al dueño cuando está en peligro.
 
 UseRescueSkill     = 1     -- [RESCATE] Activa (1) o desactiva (0) el uso de habilidades de rescate.
-                                -- Habilidad de rescate: Scapegoat.
+                                -- Habilidad de rescate: Scapegoat – ID 8235.
 RescueHpPercent    = 0     -- [RESCATE] Porcentaje de HP del dueño por debajo del cual el mercenario utilizará la habilidad de rescate.
-                                -- Ejemplo: 99 significa que se usará Scapegoat si el HP del dueño baja al 99% o menos.
+                                -- Ejemplo: 99 significa que se usará Scapegoat – ID 8235 si el HP del dueño baja al 99% o menos.
 
 --------------------------------------------------------------------------------------------------------------------------------
 ---- 6. MODOS DE LA IA, DISTANCIA Y MOVIMIENTO ----
