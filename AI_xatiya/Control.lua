@@ -1951,18 +1951,21 @@ function AI(myid)
 				end
 			--end
 		end
-		if (UseAOESkills == 1) then
-			AOESkill,AOELevel,AOESp,AOEMethod,AOERadius,AOERange = GetAOESkill()
-			--behavior, range, etc varies by skill
-		end
-		if (UsePushback == 1) then
-			PushbackSkill, PushbackLevel, PushbackSp,PushSkillRange = GetPushbackSkill()
-			--behavior varies by skill
-		end
-		if (UseDecAgi == 1) then
-			DecAgiLevel, DecAgiSp = GetDequickenSkill()
-			--skill=MER_DECAGI
-		end
+                 if (UseAOESkills == 1) then
+                         AOESkill,AOELevel,AOESp,AOEMethod,AOERadius,AOERange = GetAOESkill()
+                         --behavior, range, etc varies by skill
+                 end
+                 PushbackSkill = 0
+                 PushbackSp = 0
+                 PushbackDistance = PushbackDistance or 0
+                 if (UsePushback == 1) then
+                         PushbackSkill, PushbackLevel, PushbackSp,PushSkillRange = GetPushbackSkill()
+                         --behavior varies by skill
+                 end
+                 if (UseDecAgi == 1) then
+                         DecAgiLevel, DecAgiSp = GetDequickenSkill()
+                         --skill=MER_DECAGI
+                 end
 		if (UseDivina == 1) then
 			if (MyType~=MLANCER02) then
 				UseDivina = 0
@@ -2767,11 +2770,11 @@ TraceAI(v.. " position is " ..vX.. "," ..vY.. " Target: " ..vTarget.. " Motion: 
 								end
 							end
 --condense this, and add pushback range variable.
-							if (PushbackSkill ~= 0 and vDistance <= PushbackDistance and MySP >= PushbackSp) then
-								if (PushbackSkill == MA_SHOWER) then
-									if (vDistance <= 13) then
-										Icebreaker = 0
-										if (LastFrozenEnemies ~= nil) then
+                                                        if (UsePushback == 1 and PushbackSkill ~= 0 and PushbackDistance ~= nil and PushbackSp ~= nil and vDistance <= PushbackDistance and MySP >= PushbackSp) then
+                                                                if (PushbackSkill == MA_SHOWER) then
+                                                                        if (vDistance <= 13) then
+                                                                                Icebreaker = 0
+                                                                                if (LastFrozenEnemies ~= nil) then
 											for l,p in ipairs(LastFrozenEnemies) do
 												pX, pY = GetV (V_POSITION,p)
 												if(GetDistance(qX, qY, pX, pY) <= 1) then
