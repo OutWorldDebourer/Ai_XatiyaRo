@@ -75,11 +75,25 @@ end
 function OnOwnerHit(attackerId)
 	ChaseTarget = attackerId
 	if Dt[attackerId] ~= nil then
-		Dt[attackerId][TARGET_ALLIANCE] = ENEMY
+	Dt[attackerId][TARGET_ALLIANCE] = ENEMY
 	end
 	if ScreenEnemies then
-		ScreenEnemies[attackerId] = 1000
+	ScreenEnemies[attackerId] = 1000
 	end
+end
+
+function OnMercenaryHit(attackerId)
+	ChaseTarget = attackerId
+	if Dt[attackerId] ~= nil then
+	Dt[attackerId][TARGET_ALLIANCE] = ENEMY
+	end
+	if ScreenEnemies then
+	ScreenEnemies[attackerId] = 1000
+	end
+end
+
+if RegisterMercenaryDamageCallback then
+	RegisterMercenaryDamageCallback(OnMercenaryHit)
 end
 
 ------------- command process  ---------------------
@@ -636,16 +650,26 @@ function	OnFOLLOW_ST ()
 					end
 				end
 
-				if (DmgCheckTarget ~= 0) then
-					Attack(MyID,DmgCheckTarget)
-					DmgCheckList[DmgCheckTarget] = nil
+			if (DmgCheckTarget ~= 0) then
+				Attack(MyID,DmgCheckTarget)
+				DmgCheckList[DmgCheckTarget] = nil
+				local target = GetV(V_TARGET, DmgCheckTarget)
+				if target == MyID then
+					OnMercenaryHit(DmgCheckTarget)
+				else
 					OnOwnerHit(DmgCheckTarget)
 				end
-				if (DmgCheckTarget2 ~= 0 and MySP >= AtkSkillSp) then
-					SkillObject(MyID,DmgCheckLvl,DmgCheckSkill,DmgCheckTarget2)
-					DmgCheckList[DmgCheckTarget2] = nil
+			end
+			if (DmgCheckTarget2 ~= 0 and MySP >= AtkSkillSp) then
+				SkillObject(MyID,DmgCheckLvl,DmgCheckSkill,DmgCheckTarget2)
+				DmgCheckList[DmgCheckTarget2] = nil
+				local target = GetV(V_TARGET, DmgCheckTarget2)
+				if target == MyID then
+					OnMercenaryHit(DmgCheckTarget2)
+				else
 					OnOwnerHit(DmgCheckTarget2)
 				end
+			end
 ---		
 			else
 				DmgCheckList = nil
@@ -1241,16 +1265,26 @@ function	OnMOVE_CMD_ST ()
 						end
 					end
 				end
-				if (DmgCheckTarget ~= 0) then
-					Attack(MyID,DmgCheckTarget)
-					DmgCheckList[DmgCheckTarget] = nil
+			if (DmgCheckTarget ~= 0) then
+				Attack(MyID,DmgCheckTarget)
+				DmgCheckList[DmgCheckTarget] = nil
+				local target = GetV(V_TARGET, DmgCheckTarget)
+				if target == MyID then
+					OnMercenaryHit(DmgCheckTarget)
+				else
 					OnOwnerHit(DmgCheckTarget)
 				end
-				if (DmgCheckTarget2 ~= 0 and MySP >= AtkSkillSp) then
-					SkillObject(MyID,DmgCheckLvl,DmgCheckSkill,DmgCheckTarget2)
-					DmgCheckList[DmgCheckTarget2] = nil
+			end
+			if (DmgCheckTarget2 ~= 0 and MySP >= AtkSkillSp) then
+				SkillObject(MyID,DmgCheckLvl,DmgCheckSkill,DmgCheckTarget2)
+				DmgCheckList[DmgCheckTarget2] = nil
+				local target = GetV(V_TARGET, DmgCheckTarget2)
+				if target == MyID then
+					OnMercenaryHit(DmgCheckTarget2)
+				else
 					OnOwnerHit(DmgCheckTarget2)
 				end
+			end
 			else
 				DmgCheckList = nil
 			end
@@ -3190,4 +3224,5 @@ TraceAI(v.. " position is " ..vX.. "," ..vY.. " Target: " ..vTarget.. " Motion: 
 	end
 	TraceAI("AI cycle end" ..GetTick())
 end
+
 
