@@ -137,7 +137,7 @@ RescueHpPercent	 = 0	-- **Porcentaje de HP del dueño para activar habilidades d
 
 FollowChaseDown	 = 1	-- **¿Perseguir enemigos en modo Follow?**
                     -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo perseguirá enemigos mientras esté en modo 'Follow', atacándolos si están dentro de su rango de ataque.
-MoveChaseDown	 = 1	-- **¿Perseguir enemigos en modo Move?**
+MoveChaseDown	 = 15	-- **¿Perseguir enemigos en modo Move?**
                     -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo perseguirá enemigos mientras esté en modo 'Move', incluso si se le ha dado una ubicación específica a la que moverse.
 AIDecideChase = 1      -- **¿Permitir que la IA decida cuándo perseguir?**
                     -- **0 = No, 1 = Sí.**
@@ -202,9 +202,9 @@ ManSkillType	 = IGNORETARGET -- **Tipo de objetivo de habilidad manual.**
 -- **VALORES POR DEFECTO:** Están configurados para que el homúnculo priorice proteger al mercenario sobre sí mismo, ya que el homúnculo puede ser resucitado más fácilmente.
 -- Un valor de **0** significa que la distancia al objetivo, si está atacando o siendo atacado, **no influye en la prioridad** para ese tipo de objetivo.
 
-OwnerPriority	 = 0 -- **Prioridad de proteger al dueño.**
+OwnerPriority	 = 20 -- **Prioridad de proteger al dueño.**
                     -- Define la prioridad que el homúnculo dará a proteger al dueño de ataques enemigos.
-MercPriority	 = 15 -- **Prioridad de proteger al mercenario.**
+MercPriority	 = 20 -- **Prioridad de proteger al mercenario.**
                     -- Define la prioridad que el homúnculo dará a proteger al mercenario del dueño de ataques enemigos.
 HomunPriority	 = 0  -- **Prioridad de autoprotección (proteger al homúnculo).**
                     -- Define la prioridad que el homúnculo dará a su propia supervivencia y protección contra ataques enemigos.

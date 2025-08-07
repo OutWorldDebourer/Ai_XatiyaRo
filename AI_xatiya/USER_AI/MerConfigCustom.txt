@@ -167,9 +167,9 @@ RescueHpPercent    = 0     -- [RESCATE] Porcentaje de HP del dueño por debajo d
 -- 6.2. CHASE (PERSEGUIR) EN MODOS FOLLOW Y MOVE - PERSECUCIÓN DE ENEMIGOS --
 -- Controla si el mercenario perseguirá enemigos en los modos 'Follow' y 'Move'.
 
-FollowChaseDown    = 1    -- [MODO FOLLOW - PERSECUCIÓN] Activa (1) o desactiva (0) la persecución de enemigos durante el modo 'Follow'.
+FollowChaseDown    = 2    -- [MODO FOLLOW - PERSECUCIÓN] Activa (1) o desactiva (0) la persecución de enemigos durante el modo 'Follow'.
                                 -- (Valores específicos dependen de la configuración del juego/script. Mayor valor podría significar persecución menos agresiva).
-MoveChaseDown      = 1    -- [MODO MOVE - PERSECUCIÓN] Activa (1) o desactiva (0) la persecución de enemigos durante el modo 'Move'.
+MoveChaseDown      = 2    -- [MODO MOVE - PERSECUCIÓN] Activa (1) o desactiva (0) la persecución de enemigos durante el modo 'Move'.
                                 -- (Valores específicos dependen de la configuración del juego/script. Mayor valor podría significar persecución menos agresiva).
 AIDecideChase      = 1    -- [IA - PERSECUCIÓN SELECTIVA] Valor para prevenir que mercenarios más débiles persigan enemigos agresivamente.
                                 -- (Ej: Bowman LVL 1-6, Spear, Fencer. Mayor valor = menos persecución para mercenarios débiles).
@@ -262,7 +262,7 @@ WriteActorInfo     = 0     -- [AVANZADO - REGISTRO] Activa (1) o desactiva (0) l
 ---- 8. CONFIGURACIONES MISCELÁNEAS Y MOVIMIENTO ESPECIAL ----
 --------------------------------------------------------------------------------------------------------------------------------
 
-FollowChaseDown	= 1	-- Perseguir enemigos en modo Follow (importante si quieres que se mueva mientras ataca).
+FollowChaseDown	= 2	-- Perseguir enemigos en modo Follow (importante si quieres que se mueva mientras ataca).
 -- Esta sección incluye configuraciones diversas que no encajan en las categorías anteriores,
 -- y opciones de movimiento especiales como moverse hacia canciones o realizar 'Kiting'.
 
