@@ -14,12 +14,18 @@ if not _G.__HOMUNCULUS_AI_LOOP_STARTED then
     _G.__HOMUNCULUS_AI_LOOP_STARTED = true
     local function homunculus_ai_loop()
         while true do
-            if not MyID and type(GetV) == "function" and type(GetActors) == "function" then
-                local actors = GetActors()
-                for _, id in ipairs(actors) do
-                    if GetV(V_HOMUNTYPE, id) then
-                        MyID = id
-                        break
+            if type(GetV) == "function" and type(GetActors) == "function" then
+                -- Reiniciar MyID si el actor ya no existe o fue invocado de nuevo
+                if MyID and not GetV(V_HOMUNTYPE, MyID) then
+                    MyID = nil
+                end
+                if not MyID then
+                    local actors = GetActors()
+                    for _, id in ipairs(actors) do
+                        if GetV(V_HOMUNTYPE, id) then
+                            MyID = id
+                            break
+                        end
                     end
                 end
             end
