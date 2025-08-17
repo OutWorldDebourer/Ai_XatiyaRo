@@ -350,10 +350,8 @@ end
 
 
 
-function	OnFOLLOW_ST ()
-	TraceAI ("OnFOLLOW_ST")
-
-	-- Retirada automática al recibir daño
+-- Maneja la retirada automática cuando el mercenario recibe daño
+function HandleRetreatOnHit()
 	if RetreatOnHit == 1 and MyMotion == MOTION_DAMAGE then
 		-- Buscar el enemigo que nos ataca
 		local attackerId = 0
@@ -375,12 +373,27 @@ function	OnFOLLOW_ST ()
 				local retreatY = MyY + math.floor((dy / dist) * RetreatDistance)
 				Move(MyID, retreatX, retreatY)
 				TraceAI("Retirada activada: alejándose de atacante " .. attackerId)
-				UsedAttack = 1
-				UsedSkill = 1
-				return
+				if UsedAttack == 0 then
+					UsedAttack = 1
+				end
+				if UsedSkill == 0 then
+					UsedSkill = 1
+				end
+				return true
 			end
 		end
 	end
+	return false
+end
+
+function	OnFOLLOW_ST ()
+	TraceAI ("OnFOLLOW_ST")
+
+	-- Retirada automática al recibir daño
+	if HandleRetreatOnHit() then
+		return
+	end
+
 
 	-- IA completamente autónoma: revisar enemigos y usar skills en cada ciclo, igual que el Homunculus
 	if (SuperAggro == 1 and EnemyCount > 0) then
@@ -424,33 +437,10 @@ function	OnFOLLOW_ST ()
 	end
 
 	-- Retirada automática al recibir daño
-	if RetreatOnHit == 1 and MyMotion == MOTION_DAMAGE then
-		-- Buscar el enemigo que nos ataca
-		local attackerId = 0
-		for v, _ in pairs(ScreenEnemies) do
-			local vTarget = GetV(V_TARGET, v)
-			if vTarget == MyID then
-				attackerId = v
-				break
-			end
-		end
-		if attackerId ~= 0 then
-			local atkX, atkY = GetV(V_POSITION, attackerId)
-			-- Calcular dirección opuesta al atacante
-			local dx = MyX - atkX
-			local dy = MyY - atkY
-			local dist = math.sqrt(dx*dx + dy*dy)
-			if dist > 0 then
-				local retreatX = MyX + math.floor((dx / dist) * RetreatDistance)
-				local retreatY = MyY + math.floor((dy / dist) * RetreatDistance)
-				Move(MyID, retreatX, retreatY)
-				TraceAI("Retirada activada: alejándose de atacante " .. attackerId)
-				UsedAttack = 1
-				UsedSkill = 1
-				return
-			end
-		end
+	if HandleRetreatOnHit() then
+		return
 	end
+
 
         -- Permitir que el mercenario ataque automáticamente enemigos cercanos como el homúnculo
         if (SuperAggro == 1 and EnemyCount > 0 and UsedAttack == 0 and UsedSkill == 0) then
