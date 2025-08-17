@@ -221,6 +221,8 @@ SuperAggro		 = 1	-- **¿Atacar a todo enemigo visible?**
                     -- **0 = No, 1 = Sí.** Si se habilita, el homúnculo atacará automáticamente a cualquier enemigo que entre en su rango de visión, sin necesidad de orden manual.
                     -- **Útil en PvM para un farmeo más eficiente.**
                     -- **Puede ser problemático en PvP o mapas con muchos jugadores**, donde el homúnculo podría atraer enemigos no deseados.
+ReactiveAggro           = 0    -- **¿Responder atacando sin perseguir?**
+                    -- **0 = No, 1 = Sí.** Con 'SuperAggro' desactivado, el homúnculo atacará al enemigo más cercano solo si está dentro de su rango de ataque. No lo perseguirá fuera de ese rango.
 AggroHP		 = 0	 -- **HP mínimo del enemigo para atacar.**
                     -- **0 = Siempre ataca, incluso a enemigos con HP completo.**
                     -- Si se establece un valor mayor a 0, el homúnculo solo atacará enemigos cuyo HP esté por debajo de este valor. (Actualmente no funcional o implementado).
