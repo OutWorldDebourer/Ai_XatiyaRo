@@ -626,16 +626,18 @@ function	OnFOLLOW_ST ()
 					OnOwnerHit(DmgCheckTarget)
 				end
 			end
-			if (DmgCheckTarget2 ~= 0 and MySP >= AtkSkillSp) then
-				SkillObject(MyID,DmgCheckLvl,DmgCheckSkill,DmgCheckTarget2)
-				DmgCheckList[DmgCheckTarget2] = nil
-				local target = GetV(V_TARGET, DmgCheckTarget2)
-				if target == MyID then
-					OnMercenaryHit(DmgCheckTarget2)
-				else
-					OnOwnerHit(DmgCheckTarget2)
-				end
-			end
+                       if (DmgCheckTarget2 ~= 0 and MySP >= AtkSkillSp and CurrentTick > SkillDelayTimer) then
+                               SkillObject(MyID,DmgCheckLvl,DmgCheckSkill,DmgCheckTarget2)
+                               SkillDelayTimer = CurrentTick + (HomAtkDelay or 0)
+                               UsedSkill = 1
+                               DmgCheckList[DmgCheckTarget2] = nil
+                               local target = GetV(V_TARGET, DmgCheckTarget2)
+                               if target == MyID then
+                                       OnMercenaryHit(DmgCheckTarget2)
+                               else
+                                       OnOwnerHit(DmgCheckTarget2)
+                               end
+                       end
 ---		
 			else
 				DmgCheckList = nil
@@ -1241,16 +1243,18 @@ function	OnMOVE_CMD_ST ()
 					OnOwnerHit(DmgCheckTarget)
 				end
 			end
-			if (DmgCheckTarget2 ~= 0 and MySP >= AtkSkillSp) then
-				SkillObject(MyID,DmgCheckLvl,DmgCheckSkill,DmgCheckTarget2)
-				DmgCheckList[DmgCheckTarget2] = nil
-				local target = GetV(V_TARGET, DmgCheckTarget2)
-				if target == MyID then
-					OnMercenaryHit(DmgCheckTarget2)
-				else
-					OnOwnerHit(DmgCheckTarget2)
-				end
-			end
+                       if (DmgCheckTarget2 ~= 0 and MySP >= AtkSkillSp and CurrentTick > SkillDelayTimer) then
+                               SkillObject(MyID,DmgCheckLvl,DmgCheckSkill,DmgCheckTarget2)
+                               SkillDelayTimer = CurrentTick + (HomAtkDelay or 0)
+                               UsedSkill = 1
+                               DmgCheckList[DmgCheckTarget2] = nil
+                               local target = GetV(V_TARGET, DmgCheckTarget2)
+                               if target == MyID then
+                                       OnMercenaryHit(DmgCheckTarget2)
+                               else
+                                       OnOwnerHit(DmgCheckTarget2)
+                               end
+                       end
 			else
 				DmgCheckList = nil
 			end
@@ -2985,17 +2989,19 @@ end
 		else
 			SkillObject(MyID,PushbackLevel,PushbackSkill,PushbackTarget)
 		end
-	elseif (CastBreakPriority ~= 0 and CastBreakSkill ~= 0) then
-		if(CastBreakSkill == MER_PROVOKE) then
-			error("wtf castbreak")
-			SkillObject(MyID,1,MER_PROVOKE,CastBreakTarget)
-		elseif(CastBreakSkill == HVAN_CAPRICE) then
-			SkillObject(MyID,VanCapriceLvl,HVAN_CAPRICE,CastBreakTarget)
-		elseif(CastBreakSkill == MA_SHOWER) then
-			SkillGround(MyID,10,MA_SHOWER,CastBreakX,CastBreakY)
-		end
-	elseif (ProvokeBuffTarget ~= 0) then
-		SkillObject(MyID,ProvLevel,MER_PROVOKE,ProvokeBuffTarget)
+       elseif (CastBreakPriority ~= 0 and CastBreakSkill ~= 0 and CurrentTick > SkillDelayTimer) then
+               if(CastBreakSkill == MER_PROVOKE) then
+                       error("wtf castbreak")
+                       SkillObject(MyID,1,MER_PROVOKE,CastBreakTarget)
+               elseif(CastBreakSkill == HVAN_CAPRICE) then
+                       SkillObject(MyID,VanCapriceLvl,HVAN_CAPRICE,CastBreakTarget)
+                       SkillDelayTimer = CurrentTick + (HomAtkDelay or 0)
+               elseif(CastBreakSkill == MA_SHOWER) then
+                       SkillGround(MyID,10,MA_SHOWER,CastBreakX,CastBreakY)
+               end
+               UsedSkill = 1
+       elseif (ProvokeBuffTarget ~= 0) then
+               SkillObject(MyID,ProvLevel,MER_PROVOKE,ProvokeBuffTarget)
 		Dt[ProvokeBuffTarget][TARGET_TIMER] = CurrentTick + 30000
 		JustSkilled = 1
 	else
