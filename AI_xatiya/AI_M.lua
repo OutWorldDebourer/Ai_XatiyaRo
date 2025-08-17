@@ -14,6 +14,15 @@ if not _G.__MERCENARY_AI_LOOP_STARTED then
     _G.__MERCENARY_AI_LOOP_STARTED = true
     local function mercenary_ai_loop()
         while true do
+            if not MyID and type(GetV) == "function" and type(GetActors) == "function" then
+                local actors = GetActors()
+                for _, id in ipairs(actors) do
+                    if GetV(V_MERTYPE, id) then
+                        MyID = id
+                        break
+                    end
+                end
+            end
             if type(AI) == "function" and MyID then
                 pcall(function() AI(MyID) end)
             end
@@ -24,16 +33,6 @@ if not _G.__MERCENARY_AI_LOOP_STARTED then
                 -- fallback para entornos sin socket
                 local t0 = os.clock()
                 while os.clock() - t0 < 0.2 do end
-            end
-        end
-    end
-    -- Inicializar MyID si es necesario
-    if not MyID and type(GetV) == "function" and type(GetActors) == "function" then
-        local actors = GetActors()
-        for _, id in ipairs(actors) do
-            if GetV(V_MERTYPE, id) then
-                MyID = id
-                break
             end
         end
     end
