@@ -238,6 +238,8 @@ FriendPriority     = 0     -- [AVANZADO - PRIORIDAD] Prioridad para atacar objet
 
 SuperAggro         = 1     -- [AVANZADO - AGRESIVIDAD] Activa (1) o desactiva (0) el modo 'Super Aggro'. El mercenario intentará atacar a todos los enemigos posibles.
                                 -- ÚTIL en PvM (Jugador vs Monstruo). Puede ser problemático en salas PvP concurridas.
+ReactiveAggro       = 0     -- [AVANZADO - AGRESIVIDAD] Ataca solo objetivos en rango, sin perseguirlos.
+                                -- Activo (1): Si 'SuperAggro' está desactivado, el mercenario atacará al enemigo más cercano únicamente dentro de su rango de ataque.
 AggroHP            = 0     -- [AVANZADO - AGRESIVIDAD] Porcentaje de HP del homúnculo por debajo del cual el mercenario se volverá agresivo (si 'SuperAggro' está activado).
                                 -- Si el homúnculo es atacado y su HP está por debajo de este porcentaje, el mercenario reaccionará.
                                 -- Valor 0: El mercenario siempre será agresivo si 'SuperAggro' está activado.

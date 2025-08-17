@@ -444,6 +444,8 @@ Homúnculo "no agresivos" (Lif, Amistr): Solo considerarán como enemigos a los 
 
 Homúnculo "agresivos" (Filir, Vanilmirth): Considerarán como enemigos a , incluso si no les están atacando directamente.todos los monstruos que estén a la vista
 
+Homúnculo "reactivos" (modo opcional): Atacan al enemigo más cercano solo si se encuentra dentro de su rango de ataque, sin perseguirlo fuera de este.
+
 function  GetMyEnemy (myid)  -- Función para buscar enemigos del Homunculus
     local result = 0
     local type = GetV (V_HOMUNTYPE,myid) -- Obtiene el tipo de Homunculus

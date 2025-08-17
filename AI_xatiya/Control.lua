@@ -452,13 +452,22 @@ function	OnFOLLOW_ST ()
 		end
 	end
 
-	-- Permitir que el mercenario ataque automáticamente enemigos cercanos como el homúnculo
-	if (SuperAggro == 1 and EnemyCount > 0 and UsedAttack == 0 and UsedSkill == 0) then
-		if (NormAtkTarget ~= 0) then
-			Attack(MyID, NormAtkTarget)
-			UsedAttack = 1
-		end
-	end
+        -- Permitir que el mercenario ataque automáticamente enemigos cercanos como el homúnculo
+        if (SuperAggro == 1 and EnemyCount > 0 and UsedAttack == 0 and UsedSkill == 0) then
+                if (NormAtkTarget ~= 0) then
+                        Attack(MyID, NormAtkTarget)
+                        UsedAttack = 1
+                end
+        elseif (SuperAggro == 0 and ReactiveAggro == 1 and EnemyCount > 0 and UsedAttack == 0 and UsedSkill == 0) then
+                if (NormAtkTarget ~= 0) then
+                        local tX, tY = GetV(V_POSITION, NormAtkTarget)
+                        local tDistance = GetDistance(MyX, MyY, tX, tY)
+                        if (tDistance <= MyAttackRange) then
+                                Attack(MyID, NormAtkTarget)
+                                UsedAttack = 1
+                        end
+                end
+        end
 
 	--if (MyDistance <= FollowMax) then
 	if (MyDistance <= FollowMax and (MyDistance > 2 or MyMotion ~= MOTION_MOVE or PatrolDistance > 0)) then
