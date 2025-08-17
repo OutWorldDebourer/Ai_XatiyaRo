@@ -8,3 +8,32 @@ dofile("./AI_xatiya/Actor_Presets.txt")
 dofile("./AI_xatiya/RunOnce.lua")
 dofile("./AI_xatiya/ActorList.txt")
 dofile("./AI_xatiya/Control.lua")
+
+-- Forzar ciclo de IA autónomo para Homunculus
+if not _G.__HOMUNCULUS_AI_LOOP_STARTED then
+    _G.__HOMUNCULUS_AI_LOOP_STARTED = true
+    local function homunculus_ai_loop()
+        while true do
+            if not MyID and type(GetV) == "function" and type(GetActors) == "function" then
+                local actors = GetActors()
+                for _, id in ipairs(actors) do
+                    if GetV(V_HOMUNTYPE, id) then
+                        MyID = id
+                        break
+                    end
+                end
+            end
+            if type(AI) == "function" and MyID then
+                pcall(function() AI(MyID) end)
+            end
+            -- Ejecutar cada 200 ms
+            if type(package) == "table" and package.loaded and package.loaded["socket"] then
+                package.loaded["socket"].sleep(0.2)
+            else
+                local t0 = os.clock()
+                while os.clock() - t0 < 0.2 do end
+            end
+        end
+    end
+    homunculus_ai_loop()
+end
