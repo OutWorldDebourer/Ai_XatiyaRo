@@ -74,7 +74,7 @@ FriendPriority  = 5  -- Aliados atacados
 -- 5. AGRESIVIDAD Y REGISTROS
 --------------------------------------------------------------------------------------------------------------------------------
 
-SuperAggro     = 0
+SuperAggro     = 1
 AggroHP        = 0
 AggroSP        = 0
 SuperPassive   = 0

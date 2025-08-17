@@ -192,133 +192,94 @@ end
 
 
 
-function	OnSKILL_AREA_CMD (level,skill,x,y)
-	--TraceAI ("OnSKILL_AREA_CMD")
-	--if (skill == MA_SHOWER) then
-	--	ActionDistance = GetDistance(MyX,MyY,x,y)
-	--	if (ActionDistance > 11) then
-	--		MoveX,MoveY = CloserM(x,y,MyX,MyY,(ActionDistance - 11))
-	--		MoveComplete = 0
-	--		Move (MyID,MoveX,MoveY)
-	--		--MoveX,MoveY = x,y
-	--		MyState = MOVE_CMD_ST
-	--	else
-	--		SkillGround(MyID,level,skill,x,y)
-	--	end
-	--else
-	--	--its a trapskill
-	--	if (GetDistance(MyX,MyY,x,y) > 4) then
-	--		Move (MyID,x,y)
-	--		MyState = MOVE_CMD_ST
-	--	else
-	--		SkillGround(MyID,level,skill,x,y)
-	--	end
-	--end
-	if (skill == MA_SHOWER) then
-		minirange = 11
-	else --trapskills
-		minirange = 4
-	end
-	MoveX,MoveY=CloserM(MyX,MyY,x,y,minirange)
-	if (MyX == MoveX and MyY == MoveY) then
-		SkillGround(MyID,level,skill,x,y)
-		UsedSkill = 1
-		Move(MyID,MoveX,MoveY)
-	else
-		MoveComplete = 3
-		--Move(MyID,MoveX,MoveY)
-		MoveSkill = skill
-		MoveLevel = level
-		MyState = MOVE_CMD_ST
-		AreaX,AreaY = x,y
-	end
+function        OnSKILL_AREA_CMD (level,skill,x,y)
+        -- Determina la distancia mínima según el tipo de skill y acércate si es necesario
+        local minirange = (skill == MA_SHOWER) and 11 or 4
+        MoveX, MoveY = CloserM(MyX, MyY, x, y, minirange)
+        if (MyX == MoveX and MyY == MoveY) then
+                SkillGround(MyID, level, skill, x, y)
+                UsedSkill = 1
+                Move(MyID, MoveX, MoveY)
+        else
+                MoveComplete = 3
+                MoveSkill = skill
+                MoveLevel = level
+                MyState = MOVE_CMD_ST
+                AreaX, AreaY = x, y
+        end
 end
 
 
 
 
-function	OnFOLLOW_CMD ()
-	TraceAI("OnFOLLOW_CMD")
-	--when you push the "merc command" button
-	--TraceAI("Maxdistance is " ..MaxDistance)
-	--MaxDistance = MaxDistanceX
-	--TraceAI("Maxdistance changed to " ..MaxDistance)
-	--error("ok")
-	MyState = FOLLOW_ST
-	--OnFOLLOW_ST ()
-	ChaseCheckList = nil
-	DmgCheckList = nil
+function        OnFOLLOW_CMD ()
+        TraceAI("OnFOLLOW_CMD")
+        MyState = FOLLOW_ST
+        ChaseCheckList = nil
+        DmgCheckList = nil
 
-	--PatrolX= 0
-	--PatrolY = 0
-	if(CurrentTick < StandbyTick and MyState ~= IDLE_ST) then
-		--if (OwnerMotion == MOTION_STAND) then
-			
-		if (OwnerMotion == MOTION_SIT) then
-			if (StandbyCounter == 3) then
-				for i,v in ipairs(actors) do
-					--if (v < NpcActorNumber) then --players only.
-						vAlliance = Dt[v][TARGET_ALLIANCE]
-						if ( vAlliance == ENEMY or vAlliance == NEUTRAL) then
-							--Dt[v][TARGET_ALLIANCE] = ALLY
-							Dt[v][TARGET_ALLIANCE] = ALLYALWAYS
-						end
-					--end
-				end
-				WriteDt()
-				StandbyCounter = StandbyCounter +1
-			elseif (StandbyCounter > 4) then
-				if ( MyMercenary ~= 0) then
-					Buff1 = BuffTimers[MyMercenary][DEFENSETIMER]
-					Buff2 = BuffTimers[MyMercenary][OFFENSETIMER]
-				end
-				if ( MyHomunculus ~= 0) then
-					--error("doh")
-					Buff3 = BuffTimers[MyHomunculus][DEFENSETIMER]
-					Buff4 = BuffTimers[MyHomunculus][OFFENSETIMER]
-				end
-				BuffTimers = {}
-				if ( Buff1 ~= 0) then
-					BuffTimers[MyMercenary] = {Buff1,Buff2}
-				end
-				if (Buff3 ~=0 ) then
-					BuffTimers[MyHomunculus] = {Buff3,Buff4}
-				end
-				WriteBuffTimers()
-				Dt={}
-				WriteDt()
-				error("ActorData Erased!" , 0)
-			else
-				StandbyCounter = StandbyCounter +1
-			end
-		else
-			if (StandbyCounter == 3) then
-				MyState = IDLE_ST
-				HomunculusTargetLast = HomunculusTarget
-				MercenaryTargetLast = MercenaryTarget
-				OwnerTargetLast = OwnerTarget
-				if (Dt[HomunculusTarget] ~= nil) then
-					Dt[HomunculusTarget][TARGET_ALLIANCE]= NEUTRAL
-				end
-				if (Dt[MercenaryTarget] ~= nil) then
-					Dt[MercenaryTarget][TARGET_ALLIANCE]= NEUTRAL
-				end
-				if (Dt[OwnerTarget] ~= nil) then
-					Dt[OwnerTarget][TARGET_ALLIANCE]= NEUTRAL
-				end
-			elseif (StandbyCounter > 4) then
-				MyState = FOLLOW_ST
-			else
-				StandbyCounter = StandbyCounter +1
-			end
-		end
-	else
-		if (MyState == IDLE_ST) then
-			MyState = FOLLOW_ST
-		end
-		StandbyTick = CurrentTick + 5000
-		StandbyCounter = 1
-	end
+        if(CurrentTick < StandbyTick and MyState ~= IDLE_ST) then
+                if (OwnerMotion == MOTION_SIT) then
+                        if (StandbyCounter == 3) then
+                                for i,v in ipairs(actors) do
+                                        vAlliance = Dt[v][TARGET_ALLIANCE]
+                                        if ( vAlliance == ENEMY or vAlliance == NEUTRAL) then
+                                                Dt[v][TARGET_ALLIANCE] = ALLYALWAYS
+                                        end
+                                end
+                                WriteDt()
+                                StandbyCounter = StandbyCounter +1
+                        elseif (StandbyCounter > 4) then
+                                if ( MyMercenary ~= 0) then
+                                        Buff1 = BuffTimers[MyMercenary][DEFENSETIMER]
+                                        Buff2 = BuffTimers[MyMercenary][OFFENSETIMER]
+                                end
+                                if ( MyHomunculus ~= 0) then
+                                        Buff3 = BuffTimers[MyHomunculus][DEFENSETIMER]
+                                        Buff4 = BuffTimers[MyHomunculus][OFFENSETIMER]
+                                end
+                                BuffTimers = {}
+                                if ( Buff1 ~= 0) then
+                                        BuffTimers[MyMercenary] = {Buff1,Buff2}
+                                end
+                                if (Buff3 ~=0 ) then
+                                        BuffTimers[MyHomunculus] = {Buff3,Buff4}
+                                end
+                                WriteBuffTimers()
+                                Dt={}
+                                WriteDt()
+                                error("ActorData Erased!" , 0)
+                        else
+                                StandbyCounter = StandbyCounter +1
+                        end
+                else
+                        if (StandbyCounter == 3) then
+                                MyState = IDLE_ST
+                                HomunculusTargetLast = HomunculusTarget
+                                MercenaryTargetLast = MercenaryTarget
+                                OwnerTargetLast = OwnerTarget
+                                if (Dt[HomunculusTarget] ~= nil) then
+                                        Dt[HomunculusTarget][TARGET_ALLIANCE]= NEUTRAL
+                                end
+                                if (Dt[MercenaryTarget] ~= nil) then
+                                        Dt[MercenaryTarget][TARGET_ALLIANCE]= NEUTRAL
+                                end
+                                if (Dt[OwnerTarget] ~= nil) then
+                                        Dt[OwnerTarget][TARGET_ALLIANCE]= NEUTRAL
+                                end
+                        elseif (StandbyCounter > 4) then
+                                MyState = FOLLOW_ST
+                        else
+                                StandbyCounter = StandbyCounter +1
+                        end
+                end
+        else
+                if (MyState == IDLE_ST) then
+                        MyState = FOLLOW_ST
+                end
+                StandbyTick = CurrentTick + 5000
+                StandbyCounter = 1
+        end
 end
 
 
